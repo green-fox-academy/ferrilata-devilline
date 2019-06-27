@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ferrilata_devilline.Services.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
@@ -8,22 +9,32 @@ namespace ferrilata_devilline.Controllers
     public class ApiController : Controller
     {
         [HttpPost("api/admin/add")]
-        public IActionResult AddAssignee([FromHeader] string Authorization, [FromBody]JObject data)
+        public IActionResult AddAdmin([FromHeader] string Authorization, [FromBody]JObject data)
         {
             if (Authorization != null && Authorization != "")
-            { 
-                var messageObject = new { message = "Created" };
-                List<object> responseList = new List<object>();
-                responseList.Add(messageObject);
+            {
+                if (data == null)
+                {
+                    var missingBodyResult = new ObjectResult(new { error = "Missing body" });
+                    missingBodyResult.StatusCode = 400; 
+                    return missingBodyResult;
+                }
+                else if (data.HasMissingFields() || data.HasNullValues()) // what if it has too many fields?
+                {
+                    var missingFieldResult = new ObjectResult(new { error = "Please provide all fields" });
+                    missingFieldResult.StatusCode = 422; //404 is recommended, but that means that 
+                                                         //we don't have the resource, while it's the client's fault
+                    return missingFieldResult;
+                }
 
+                var createdResult = new { message = "Created" };
+                List<object> responseList = new List<object>() { createdResult };
                 var result = new ObjectResult(responseList);
                 result.StatusCode = 201;
                 return result;
             }
-            else
-            {
-                return Unauthorized( Json( new { error = "Unauthorized" }));
-            }
+
+            return Unauthorized(Json(new { error = "Unauthorized" }));
         }
     }
 }
