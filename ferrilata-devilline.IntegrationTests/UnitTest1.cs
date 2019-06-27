@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace ferillata_devilline.UnitTests
+namespace ferrilata_devilline.IntegrationTests
 {
     public class UnitTest1
     {
