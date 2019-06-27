@@ -26,7 +26,7 @@ namespace ferrilata_devilline
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc()
+            app.UseMvc();
         }
     }
 }
