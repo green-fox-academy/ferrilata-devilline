@@ -7,7 +7,7 @@ namespace ferrilata_devilline.Controllers
     [ApiController]
     public class ApiController : Controller
     {
-        [HttpPost("/api/add-assignee")]
+        [HttpPost("api/admin/add")]
         public IActionResult AddAssignee([FromHeader] string Authorization, [FromBody]JObject data)
         {
             if (Authorization != null && Authorization != "")
