@@ -1,11 +1,8 @@
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -81,7 +78,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             //Assert
             var responseString = await response.Content.ReadAsStringAsync();
             var actual = JsonConvert.DeserializeObject<Pitches>(responseString);
-            Assert.True((actual.GetType() == typeof(Pitches)));
+            Assert.True(actual.GetType() == typeof(Pitches));
         }
     }
 }
