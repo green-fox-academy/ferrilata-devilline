@@ -24,7 +24,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         [Theory]
         [InlineData("api/post/pitch")]
-        //[InlineData("api/anotherPost")]
         public async Task PostPitchCorrect_AuthorizationPresent(string url)
         {
             var newPosting = new Pitch
@@ -57,7 +56,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         [Theory]
         [InlineData("api/post/pitch")]
-        //[InlineData("api/anotherPost")]
         public async Task PostPitchCorrect_AuthorizationMissing(string url)
         {
             var newPosting = new Pitch
@@ -79,7 +77,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            //request.Headers.Add("Authorization", "something");
+
 
 
             var response = await client.SendAsync(request);
@@ -90,7 +88,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         [Theory]
         [InlineData("api/post/pitch")]
-        //[InlineData("api/anotherPost")]
         public async Task PostPitchMissingPropertytAuthorizationOK(string url)
         {
             var newPosting = new Pitch
@@ -99,7 +96,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                //Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
+
             };
 
             var PostingJson = JsonConvert.SerializeObject(newPosting);
@@ -120,7 +117,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
         [Theory]
         [InlineData("api/post/pitch")]
-        //[InlineData("api/anotherPost")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestMessage(string url)
         {
             var newPosting = new Pitch
@@ -175,7 +171,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            //request.Headers.Add("Authorization", "something");
 
             var response = await client.SendAsync(request);
 
@@ -187,7 +182,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         [Theory]
         [InlineData("api/post/pitch")]
-        //[InlineData("api/anotherPost")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestMissingField(string url)
         {
             var newPosting = new Pitch
@@ -196,7 +190,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                //Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
             };
 
             var PostingJson = JsonConvert.SerializeObject(newPosting);

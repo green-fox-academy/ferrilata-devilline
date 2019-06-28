@@ -14,26 +14,6 @@ namespace ferrilata_devilline.Controllers
         {
         }
 
-        //[HttpPost("post/pitch")]
-        //public IActionResult PostFromPostman([FromBody] PostingObject NewObject)
-        //{
-        //    var request = Request;
-        //    var aders = request.Headers;
-
-        //    if (!hders.ContainsKey("Authorization")
-        //        || hders["Authorization"].ToString().Length == 0) return new CustomUnauthorizedResult("Unauthorized");
-
-
-        //    if (NewObjt == null
-        //        || NewObct.BadgeName == null
-        //        || NewObct.Holders == null
-        //        || NewObje.OldLVL == 0
-        //        || NewObjectitchedLVL = 0
-        //        || NObject.PitchMessage == null) return NotFound(new { error = "Please provide all fields" });
-
-        //    return Ok(ne{ message = "Created" });
-        //}
-
         [HttpPost("post/pitch")]
         public IActionResult PostFromPostmanWithoutCustomUnauthorizedError([FromBody] Pitch NewPitch)
         {
