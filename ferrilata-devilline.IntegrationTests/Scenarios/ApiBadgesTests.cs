@@ -1,5 +1,8 @@
 using ferrilata_devilline.IntegrationTests.Fixtures;
+using ferrilata_devilline.Models;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,13 +14,10 @@ namespace ferrilata_devilline.IntegrationTests
     public class ApiAdminTests
     {
         private readonly TestContext testContext;
-        private readonly HttpClient httpClient;
-
 
         public ApiAdminTests(TestContext testContext)
         {
             this.testContext = testContext;
-           
         }
 
         [Fact]
@@ -33,20 +33,28 @@ namespace ferrilata_devilline.IntegrationTests
         public async Task BadgesApi_AuthorizationHeader_IsMissing_ShouldReturnUnathorized()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-            //request.Headers.Add("Authorization", "");
             var response = await testContext.Client.SendAsync(request);
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
 
-        //[Fact]
-        //public async Task BadgesApi_AuthorizationHeader_IsMissing_ShouldReturnUnathorized()
-        //{
-        //    var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-        //    //request.Headers.Add("Authorization", "");
-        //    var response = await testContext.Client.SendAsync(request);
-        //    Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
-        //}
+        [Fact]
+        public async Task BadgesApi_CorrectAuthentication_ShouldReturn_BodyTypeBadgeBase()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
+            request.Headers.Add("Authorization", "test");
+            var response = await testContext.Client.SendAsync(request);
+            var responseString = await response.Content.ReadAsStringAsync();
+            var actual = JsonConvert.DeserializeObject<BadgesBase>(responseString);
+            Assert.True(actual.GetType() == typeof(BadgesBase));
+        }
 
-
+        [Fact]
+        public async Task BadgesApi_IncorrectAuthentication_ShouldMessageequal()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
+            var response = await testContext.Client.SendAsync(request);
+            var responseString = await response.Content.ReadAsStringAsync();   
+            Assert.Equal("Unauthorized", JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
+        }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ferrilata_devilline.Controllers
 {
-    public class ApiController : Controller
+    public class BadgesController : Controller
     {
         [HttpGet]
         [Route("/api/badges")]
@@ -18,7 +18,7 @@ namespace ferrilata_devilline.Controllers
             var request = Request;
             var headers = request.Headers;
 
-            if ((headers.ContainsKey("Authorization")) && (headers["Autharization"].ToString() != null))
+            if ((headers.ContainsKey("Authorization")) && (headers["Authorization"].ToString() != ""))
             
             { 
                 return Ok(new BadgesBase());
