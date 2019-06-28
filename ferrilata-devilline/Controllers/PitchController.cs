@@ -6,11 +6,11 @@ namespace ferrilata_devilline.Controllers
 {
 
     [Route("api")]
-    public class ApiController : Controller
+    public class PitchController : Controller
     {
 
 
-        public ApiController()
+        public PitchController()
         {
         }
 
@@ -18,24 +18,24 @@ namespace ferrilata_devilline.Controllers
         //public IActionResult PostFromPostman([FromBody] PostingObject NewObject)
         //{
         //    var request = Request;
-        //    var headers = request.Headers;
+        //    var aders = request.Headers;
 
-        //    if (!headers.ContainsKey("Authorization")
-        //        || headers["Authorization"].ToString().Length == 0) return new CustomUnauthorizedResult("Unauthorized");
+        //    if (!hders.ContainsKey("Authorization")
+        //        || hders["Authorization"].ToString().Length == 0) return new CustomUnauthorizedResult("Unauthorized");
 
 
-        //    if (NewObject == null
-        //        || NewObject.BadgeName == null
-        //        || NewObject.Holders == null
-        //        || NewObject.OldLVL == 0
-        //        || NewObject.PitchedLVL == 0
-        //        || NewObject.PitchMessage == null) return NotFound(new { error = "Please provide all fields" });
+        //    if (NewObjt == null
+        //        || NewObct.BadgeName == null
+        //        || NewObct.Holders == null
+        //        || NewObje.OldLVL == 0
+        //        || NewObjectitchedLVL = 0
+        //        || NObject.PitchMessage == null) return NotFound(new { error = "Please provide all fields" });
 
-        //    return Ok(new { message = "Created" });
+        //    return Ok(ne{ message = "Created" });
         //}
 
         [HttpPost("post/pitch")]
-        public IActionResult PostFromPostmanWithoutCustomUnauthorizedError([FromBody] PostingObject NewObject)
+        public IActionResult PostFromPostmanWithoutCustomUnauthorizedError([FromBody] Pitch NewPitch)
         {
             var request = Request;
             var headers = request.Headers;
@@ -44,12 +44,12 @@ namespace ferrilata_devilline.Controllers
                 || headers["Authorization"].ToString().Length == 0) return Unauthorized(new { message = "Unauthorized" });
 
 
-            if (NewObject == null
-                || NewObject.BadgeName == null
-                || NewObject.Holders == null
-                || NewObject.OldLVL == 0
-                || NewObject.PitchedLVL == 0
-                || NewObject.PitchMessage == null) return NotFound(new { error = "Please provide all fields" });
+            if (NewPitch == null
+                || NewPitch.BadgeName == null
+                || NewPitch.Holders == null
+                || NewPitch.OldLVL == 0
+                || NewPitch.PitchedLVL == 0
+                || NewPitch.PitchMessage == null) return NotFound(new { error = "Please provide all fields" });
 
             return Ok(new { message = "Created" });
         }
