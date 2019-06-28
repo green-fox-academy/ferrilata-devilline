@@ -9,9 +9,11 @@ namespace ferrilata_devilline.Controllers
     public class ApiAdminController : Controller
     {
         [HttpPost("api/admin/add")]
-        public IActionResult AddAdmin([FromHeader] string Authorization, [FromBody]JObject data)
+        public IActionResult AddAdmin([FromBody]JObject data)
         {
-            if (Authorization != null && Authorization != "")
+            string authorization = Request.Headers.GetEnumerator().GetAuthorization();   
+
+            if (authorization != null && authorization != "")
             {
                 if (data == null || data.HasMissingFieldsAsAdmin() || data.HasNullValuesAsAdmin()) 
                 {

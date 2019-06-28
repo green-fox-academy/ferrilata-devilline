@@ -91,24 +91,26 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
 
         [Fact]
-        public async Task AuthorizationFieldIsEmpty_NotCreated()
+        public async Task AuthorizationFieldIsEmpty_Unauthorized()
         {
             var message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
             message.Headers.TryAddWithoutValidation("Authorization", "");
+            message.Content = this.IncorrectRequestContent;
 
             var response = await this._testContext.Client.SendAsync(message);
 
-            Assert.False(HttpStatusCode.Created.Equals(response.StatusCode));
+            Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
 
         [Fact]
-        public async Task AuthorizationFieldIsMissing_NotCreated()
+        public async Task AuthorizationFieldIsMissing_Unauthorized()
         {
             var message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
+            message.Content = this.IncorrectRequestContent;
 
             var response = await this._testContext.Client.SendAsync(message);
 
-            Assert.False(HttpStatusCode.Created.Equals(response.StatusCode));
+            Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }                    
     }
 }
