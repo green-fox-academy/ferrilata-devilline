@@ -8,7 +8,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
 {
     public class TestContext : IDisposable
     {
-        private TestServer server;
+        private TestServer Server;
         public HttpClient Client { get; set; }
 
 
@@ -18,13 +18,13 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
                 .UseEnvironment("Testing")
                 .UseStartup<Startup>();
 
-            server = new TestServer(builder);
-            Client = server.CreateClient();
+            Server = new TestServer(builder);
+            Client = Server.CreateClient();
         }
 
         public void Dispose()
         {
-            server.Dispose();
+            Server.Dispose();
             Client.Dispose();
         }
     }
