@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ferrilata_devilline.Services.Extensions
 {
-    public static class AuthorizationRequestAnalizer
+    public static class AdminJsonAnalizer
     {
         private class ExpectedFormat
         {
@@ -28,7 +28,7 @@ namespace ferrilata_devilline.Services.Extensions
             }
         }
 
-        public static bool HasMissingFields(this JObject data)
+        public static bool HasMissingFieldsAsAdmin(this JObject data)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace ferrilata_devilline.Services.Extensions
             }
         }
 
-        public static bool HasNullValues(this JObject data)
+        public static bool HasNullValuesAsAdmin(this JObject data)
         {
             var listOfNullValues = ((IEnumerable<KeyValuePair<string, JToken>>)data)
                 .Where(x => x.Value == null)
