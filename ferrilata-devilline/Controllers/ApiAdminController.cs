@@ -11,7 +11,8 @@ namespace ferrilata_devilline.Controllers
         [HttpPost("api/admin/add")]
         public IActionResult AddAdmin([FromBody]JObject data)
         {
-            string authorization = Request.Headers.GetEnumerator().GetAuthorization();   
+            var header = Request.Headers;
+            string authorization = header.ContainsKey("Authorization") ? (string)header["Authorization"] : null;
 
             if (authorization != null && authorization != "")
             {

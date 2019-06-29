@@ -1,11 +1,11 @@
-using ferrilata_devilline.IntegrationTests.Fixtures;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using ferrilata_devilline.IntegrationTests.Fixtures;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
@@ -21,11 +21,11 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             _testContext = testContext;
 
             var CorrectRequestBodyObject = new { version = "2.3", name = "Badge inserter", tag = "general", levels = new List<object>() };
-            string correctRequestBody = Newtonsoft.Json.JsonConvert.SerializeObject(CorrectRequestBodyObject);
+            string correctRequestBody = JsonConvert.SerializeObject(CorrectRequestBodyObject);
             this.CorrectRequestContent = new StringContent(correctRequestBody, Encoding.UTF8, "application/json");
 
             var IncorrectRequestBodyObject = new { version = "2.3", levels = new List<object>() };
-            string IncorrectRequestBody = Newtonsoft.Json.JsonConvert.SerializeObject(IncorrectRequestBodyObject);
+            string IncorrectRequestBody = JsonConvert.SerializeObject(IncorrectRequestBodyObject);
             this.IncorrectRequestContent = new StringContent(IncorrectRequestBody, Encoding.UTF8, "application/json");
         }
 
@@ -34,27 +34,26 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         {
             var message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
             message.Headers.Add("Authorization", "something");
-            message.Content = this.CorrectRequestContent;
+            message.Content = CorrectRequestContent;
 
-            var response = await this._testContext.Client.SendAsync(message);
+            var response = await _testContext.Client.SendAsync(message);
 
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         }
-
 
         [Fact]
         public async Task Authorized_AndHasCorrectBody_ResponseObject()
         {
             var expectedResponseObject = new List<object>() { new { message = "Created" } };
-            string expectedResponseString = Newtonsoft.Json.JsonConvert.SerializeObject(expectedResponseObject);
+            string expectedResponseString = JsonConvert.SerializeObject(expectedResponseObject);
             HttpContent expectedResponse = new StringContent(expectedResponseString, Encoding.UTF8, "application/json");
             string expected = await expectedResponse.ReadAsStringAsync();
 
             var message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
             message.Headers.Add("Authorization", "something");
-            message.Content = this.CorrectRequestContent;
+            message.Content = CorrectRequestContent;
 
-            var response = await this._testContext.Client.SendAsync(message);
+            var response = await _testContext.Client.SendAsync(message);
             string received = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(expected, received);
@@ -65,9 +64,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         {
             var message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
             message.Headers.Add("Authorization", "something");
-            message.Content = this.IncorrectRequestContent;
+            message.Content = IncorrectRequestContent;
 
-            var response = await this._testContext.Client.SendAsync(message);
+            var response = await _testContext.Client.SendAsync(message);
 
             Assert.Equal("BadRequest", response.StatusCode.ToString());
         }
@@ -76,15 +75,15 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task Authorized_AndHasIncorrectBody_ResponseObject()
         {
             var expectedResponseObject = new { error = "Please provide all fields" };
-            string expectedResponseString = Newtonsoft.Json.JsonConvert.SerializeObject(expectedResponseObject);
+            string expectedResponseString = JsonConvert.SerializeObject(expectedResponseObject);
             HttpContent expectedResponse = new StringContent(expectedResponseString, Encoding.UTF8, "application/json");
             string expected = await expectedResponse.ReadAsStringAsync();
 
             var message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
             message.Headers.Add("Authorization", "something");
-            message.Content = this.IncorrectRequestContent;
+            message.Content = IncorrectRequestContent;
 
-            var response = await this._testContext.Client.SendAsync(message);
+            var response = await _testContext.Client.SendAsync(message);
             string received = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(expected, received);
@@ -95,9 +94,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         {
             var message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
             message.Headers.TryAddWithoutValidation("Authorization", "");
-            message.Content = this.IncorrectRequestContent;
+            message.Content = IncorrectRequestContent;
 
-            var response = await this._testContext.Client.SendAsync(message);
+            var response = await _testContext.Client.SendAsync(message);
 
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
@@ -106,9 +105,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task AuthorizationFieldIsMissing_Unauthorized()
         {
             var message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
-            message.Content = this.IncorrectRequestContent;
+            message.Content = IncorrectRequestContent;
 
-            var response = await this._testContext.Client.SendAsync(message);
+            var response = await _testContext.Client.SendAsync(message);
 
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }                    

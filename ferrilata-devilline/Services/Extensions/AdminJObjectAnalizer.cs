@@ -7,29 +7,27 @@ using System.Threading.Tasks;
 
 namespace ferrilata_devilline.Services.Extensions
 {
-    public static class AdminJsonAnalizer
+    public static class AdminJObjectAnalizer
     {
         private class ExpectedFormat
         {
             [JsonProperty(Required = Required.Always)]
-            string version { set; get; }
+            string Version;
 
             [JsonProperty(Required = Required.Always)]
-            string name { set; get; }
+            string Name;
 
             [JsonProperty(Required = Required.Always)]
-            string tag { set; get; }
+            string Tag; 
 
             [JsonProperty(Required = Required.Always)]
-            List<object> levels { set; get; }
-
-            public ExpectedFormat()
-            {
-            }
+            List<object> Levels; 
         }
 
         public static bool HasMissingFieldsAsAdmin(this JObject data)
         {
+            // return !data.GetType().Name.Equals("ExpectedFormat"); 
+            // return !data.GetType().Equals(typeof(ExpectedFormat));
             try
             {
                 data.ToObject<ExpectedFormat>();
@@ -43,11 +41,7 @@ namespace ferrilata_devilline.Services.Extensions
 
         public static bool HasNullValuesAsAdmin(this JObject data)
         {
-            var listOfNullValues = ((IEnumerable<KeyValuePair<string, JToken>>)data)
-                .Where(x => x.Value == null)
-                .ToList();
-
-            return listOfNullValues.Count > 0;
+            return data.Properties().Any(x => x.Value == null);
         }
     }
 }
