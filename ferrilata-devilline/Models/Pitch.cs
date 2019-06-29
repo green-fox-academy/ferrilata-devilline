@@ -5,23 +5,23 @@ namespace ferrilata_devilline.Models
 {
     public class Pitch
     {
-        public DateTime timestamp { get; set; }
-        public string username { get; set; }
-        public string badgeName { get; set; }
-        public int oldLevel { get; set; }
-        public int pitchedLevel { get; set; }
-        public string pitchMessage { get; set; }
-        public List<Holder> holders { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string Username { get; set; }
+        public string BadgeName { get; set; }
+        public int OldLevel { get; set; }
+        public int PitchedLevel { get; set; }
+        public string PitchMessage { get; set; }
+        public List<Holder> Holders { get; set; }
 
         public Pitch(string username, string badgeName, int oldLevel, int pitchedLevel, string pitchMessage)
         {
-            this.username = username;
-            timestamp = DateTime.Now;
-            this.badgeName = badgeName;
-            this.oldLevel = oldLevel;
-            this.pitchedLevel = pitchedLevel;
-            this.pitchMessage = pitchMessage;
-            holders = new List<Holder>
+            Username = username;
+            Timestamp = DateTime.Now;
+            BadgeName = badgeName;
+            OldLevel = oldLevel;
+            PitchedLevel = pitchedLevel;
+            PitchMessage = pitchMessage;
+            Holders = new List<Holder>
             {
                 new Holder("sandor.vass", null, false)
             };

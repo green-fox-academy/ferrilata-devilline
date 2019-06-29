@@ -18,7 +18,7 @@ namespace ferrilata_devilline.Controllers
             }
 
             Response.StatusCode = 401;
-            return Json(new Error("Unauthorizied"));
+            return Json(new Error("Unauthorized"));
         }
     }
 }
