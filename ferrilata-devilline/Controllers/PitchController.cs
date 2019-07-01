@@ -7,7 +7,7 @@ namespace ferrilata_devilline.Controllers
     public class PitchController : Controller
     {
         [Route("api/pitches")]
-        public ActionResult Return_Pitches()
+        public IActionResult Return_Pitches()
         {
             var re = Request;
 
