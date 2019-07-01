@@ -19,11 +19,9 @@ namespace ferrilata_devilline.Controllers
             var headers = request.Headers;
 
             if ((headers.ContainsKey("Authorization")) && (headers["Authorization"].ToString() != ""))
-            
             { 
                 return Ok(new BadgesBase());
             }
-
             return Unauthorized(new { error = "Unauthorized" });
 
         }
