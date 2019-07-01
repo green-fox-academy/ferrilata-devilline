@@ -34,21 +34,17 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
                 Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
             };
-
-            var PostingJson = JsonConvert.SerializeObject(newPosting);
+            string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
-
             var request = new HttpRequestMessage(HttpMethod.Post, url);
-
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
             request.Headers.Add("Authorization", "something");
-
             var response = await client.SendAsync(request);
 
-            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
         }
 
         [Theory]
@@ -63,17 +59,13 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
                 Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
             };
-
             var PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
-
             var request = new HttpRequestMessage(HttpMethod.Post, url);
-
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-
             var response = await client.SendAsync(request);
 
             Assert.Equal(System.Net.HttpStatusCode.Unauthorized, response.StatusCode);
@@ -91,18 +83,14 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
 
             };
-
-            var PostingJson = JsonConvert.SerializeObject(newPosting);
+            string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
-
             var request = new HttpRequestMessage(HttpMethod.Post, url);
-
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
             request.Headers.Add("Authorization", "something");
-
             var response = await client.SendAsync(request);
 
             Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
@@ -120,24 +108,18 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
                 Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
             };
-
-            var PostingJson = JsonConvert.SerializeObject(newPosting);
+            string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
-
             var request = new HttpRequestMessage(HttpMethod.Post, url);
-
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
             request.Headers.Add("Authorization", "something");
-
             var response = await client.SendAsync(request);
-
             string ResponseBody = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal("Created",
-                JsonConvert.DeserializeObject<Dictionary<string, string>>(ResponseBody)["message"]);
+            Assert.Equal(JsonConvert.SerializeObject(new { message = "Created" }), ResponseBody);
         }
 
         [Theory]
@@ -152,23 +134,17 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
                 Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
             };
-
-            var PostingJson = JsonConvert.SerializeObject(newPosting);
+            string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
-
             var request = new HttpRequestMessage(HttpMethod.Post, url);
-
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-
             var response = await client.SendAsync(request);
-
             string ResponseBody = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal("Unauthorized",
-                JsonConvert.DeserializeObject<Dictionary<string, string>>(ResponseBody)["message"]);
+            Assert.Equal(JsonConvert.SerializeObject(new { message = "Unauthorized" }), ResponseBody);
         }
 
         [Theory]
@@ -182,24 +158,19 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
             };
-
-            var PostingJson = JsonConvert.SerializeObject(newPosting);
+            string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
-
             var request = new HttpRequestMessage(HttpMethod.Post, url);
-
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
             request.Headers.Add("Authorization", "something");
-
             var response = await client.SendAsync(request);
-
             string ResponseBody = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal("Please provide all fields",
-                JsonConvert.DeserializeObject<Dictionary<string, string>>(ResponseBody)["error"]);
+            Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields" }),
+              ResponseBody);
         }
     }
 }

@@ -10,10 +10,5 @@ namespace ferrilata_devilline.Models
         public long PitchedLVL { get; set; }
         public string PitchMessage { get; set; }
         public List<string> Holders { get; set; }
-
-
-        public Pitch()
-        {
-        }
     }
 }
