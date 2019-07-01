@@ -16,9 +16,8 @@ namespace ferrilata_devilline.Controllers
         public IActionResult getGadgets()
         {
             var request = Request;
-            var headers = request.Headers;
 
-            if ((headers.ContainsKey("Authorization")) && (headers["Authorization"].ToString() != ""))
+            if ((request.Headers.ContainsKey("Authorization")) && (request.Headers["Authorization"].ToString() != ""))
             { 
                 return Ok(new BadgesBase());
             }

@@ -28,6 +28,7 @@ namespace ferrilata_devilline
             }
 
             app.UseMvc();
+
         }
 
         public void ConfigureTestingServices(IServiceCollection services)
