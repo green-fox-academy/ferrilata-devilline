@@ -7,7 +7,7 @@ namespace ferrilata_devilline.Models
 {
     public class Badge
     {
-            public String Name { get; set; }
-            public int Level { get; set; }
+        public String Name { get; set; }
+        public int Level { get; set; }
     }
 }

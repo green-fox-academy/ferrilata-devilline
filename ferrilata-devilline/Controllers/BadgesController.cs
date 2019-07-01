@@ -17,12 +17,12 @@ namespace ferrilata_devilline.Controllers
         {
             var request = Request;
 
-            if ((request.Headers.ContainsKey("Authorization")) && (request.Headers["Authorization"].ToString() != ""))
+            if ((request.Headers.ContainsKey("Authorization")) &&
+                (request.Headers["Authorization"].ToString() != ""))
             { 
                 return Ok(new BadgesBase());
             }
             return Unauthorized(new { error = "Unauthorized" });
-
         }
     }
 }
