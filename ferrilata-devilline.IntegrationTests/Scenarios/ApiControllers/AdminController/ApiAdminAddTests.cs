@@ -43,7 +43,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             new List<object[]>()
             {
                 new object[] { new StringContent(JsonConvert.SerializeObject(
-                    new AdminDTO { version = null, name = "Badge inserter", tag = "general", levels = new List<object>() }), 
+                    new AdminDTO { Version = null, Name = "Badge inserter", Tag = "general", Levels = new List<object>() }), 
                     Encoding.UTF8, "application/json")},
             };
         #endregion

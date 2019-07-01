@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+
 
 namespace ferrilata_devilline.Models.DTOs
 {
     public class AdminDTO
     {
-        public string version { get; set; }
-        public string name { get; set; }
-        public string tag { get; set; }
-        public List<object> levels { get; set; }
+        [JsonProperty (PropertyName = "version")]
+        public string Version { get; set; }
+
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "tag")]
+        public string Tag { get; set; }
+
+        [JsonProperty(PropertyName = "levels")]
+        public List<object> Levels { get; set; }
     }
 }

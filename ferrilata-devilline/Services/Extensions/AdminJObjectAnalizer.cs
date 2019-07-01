@@ -1,9 +1,5 @@
 ﻿using ferrilata_devilline.Models.DTOs;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ferrilata_devilline.Services.Extensions
 {
@@ -21,10 +17,10 @@ namespace ferrilata_devilline.Services.Extensions
         {
             AdminDTO admin = data.ToObject<AdminDTO>();
 
-            return ((admin.version == null) ||
-                    (admin.name == null) ||
-                    (admin.tag == null) ||
-                    (admin.levels == null));
+            return ((admin.Version == null) ||
+                    (admin.Name == null) ||
+                    (admin.Tag == null) ||
+                    (admin.Levels == null));
         }
     }
 }
