@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using ferrilata_devilline.Models;
+﻿using ferrilata_devilline.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers
@@ -9,16 +8,12 @@ namespace ferrilata_devilline.Controllers
         [Route("api/pitches")]
         public IActionResult Return_Pitches()
         {
-            var re = Request;
-
-            var headers = re.Headers;
-            if (headers.ContainsKey("Authorization") && headers["Authorization"].ToString().Length != 0)
+            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString().Length != 0)
             {
                 return Json(new Pitches());
             }
 
-            Response.StatusCode = 401;
-            return Json(new Error("Unauthorized"));
+            return Unauthorized(new Error("Unauthorized"));
         }
     }
 }
