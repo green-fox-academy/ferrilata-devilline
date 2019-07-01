@@ -12,7 +12,7 @@ namespace ferrilata_devilline.Controllers
         }
 
         [HttpPost("post/pitch")]
-        public IActionResult PostFromPostmanWithoutCustomUnauthorizedError([FromBody] Pitch NewPitch)
+        public IActionResult PostPitch([FromBody] Pitch NewPitch)
         {
             var request = Request;
             var headers = request.Headers;

@@ -37,7 +37,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
             var PostingJson = JsonConvert.SerializeObject(newPosting);
 
-
             var client = _testContext.Client;
 
             var request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -47,11 +46,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                                     "application/json");
             request.Headers.Add("Authorization", "something");
 
-
             var response = await client.SendAsync(request);
 
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-
         }
 
         [Theory]
@@ -69,7 +66,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
             var PostingJson = JsonConvert.SerializeObject(newPosting);
 
-
             var client = _testContext.Client;
 
             var request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -78,12 +74,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                                     Encoding.UTF8,
                                     "application/json");
 
-
-
             var response = await client.SendAsync(request);
 
             Assert.Equal(System.Net.HttpStatusCode.Unauthorized, response.StatusCode);
-
         }
 
         [Theory]
@@ -101,7 +94,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
             var PostingJson = JsonConvert.SerializeObject(newPosting);
 
-
             var client = _testContext.Client;
 
             var request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -115,6 +107,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
             Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
         }
+
         [Theory]
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestMessage(string url)
@@ -129,7 +122,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             };
 
             var PostingJson = JsonConvert.SerializeObject(newPosting);
-
 
             var client = _testContext.Client;
 
@@ -163,7 +155,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
             var PostingJson = JsonConvert.SerializeObject(newPosting);
 
-
             var client = _testContext.Client;
 
             var request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -193,7 +184,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             };
 
             var PostingJson = JsonConvert.SerializeObject(newPosting);
-
 
             var client = _testContext.Client;
 
