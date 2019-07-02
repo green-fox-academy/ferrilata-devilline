@@ -32,7 +32,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
+                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }
             };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
@@ -57,7 +57,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
+                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }
             };
             var PostingJson = JsonConvert.SerializeObject(newPosting);
 
@@ -80,7 +80,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 BadgeName = "English speaker",
                 OldLVL = 2,
                 PitchedLVL = 3,
-                PitchMessage = "Hello World! My English is bloody gorgeous.",
+                PitchMessage = "Hello World! My English is bloody gorgeous."
 
             };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
@@ -106,7 +106,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
+                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }
             };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
@@ -132,7 +132,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
+                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }
             };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
@@ -156,7 +156,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 BadgeName = "English speaker",
                 OldLVL = 2,
                 PitchedLVL = 3,
-                PitchMessage = "Hello World! My English is bloody gorgeous.",
+                PitchMessage = "Hello World! My English is bloody gorgeous."
             };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
