@@ -1,16 +1,17 @@
-﻿using ferrilata_devilline.Models;
-using Microsoft.AspNetCore.Http;
+﻿using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace ferrilata_devilline.Controllers
 {
     public class BadgesController : Controller
     {
+        private readonly IBadgeService _badgeService;
+
+        public BadgesController(IBadgeService badgeService)
+        {
+            _badgeService = badgeService;
+        }
+
         [HttpGet]
         [Route("/api/badges")]
         public IActionResult getGadgets()
@@ -20,7 +21,7 @@ namespace ferrilata_devilline.Controllers
             if ((request.Headers.ContainsKey("Authorization")) &&
                 (request.Headers["Authorization"].ToString() != ""))
             { 
-                return Ok(new BadgesBase());
+                return Ok(_badgeService.GetAll());
             }
             return Unauthorized(new { error = "Unauthorized" });
         }
