@@ -1,8 +1,7 @@
 using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.Models;
+using ferrilata_devilline.Services.Extensions;
 using ferrilata_devilline.Models.DAOs;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -42,9 +41,9 @@ namespace ferrilata_devilline.IntegrationTests
         public async Task GetBadgesApi_CorrectAuthentication_ShouldReturn_BodyTypeBadgeBase()
         {
             _request.Headers.Add("Authorization", "test");
-            var response = await _testContext.Client.SendAsync(_request);
-            var responseString = await response.Content.ReadAsStringAsync();
-            JsonConvert.DeserializeObject<List<Badge>>(responseString);
+            var responseMessage = await _testContext.Client.SendAsync(_request);
+            string response = await responseMessage.Content.ReadAsStringAsync();
+            JsonConvert.DeserializeObject<List<Badge>>(response);
         }
 
         [Fact]
