@@ -20,7 +20,7 @@
         <Folder Include="Repositories\" />
     </ItemGroup>
     <ItemGroup>
-      <Compile Remove="Models\ErrorModels\CustomError.cs" />
-      <Compile Remove="Models\ErrorModels\CustomUnauthorizedResult.cs" />
+        <Compile Remove="Models\ErrorModels\CustomError.cs" />
+        <Compile Remove="Models\ErrorModels\CustomUnauthorizedResult.cs" />
     </ItemGroup>
 </Project>

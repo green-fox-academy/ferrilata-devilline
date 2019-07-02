@@ -9,7 +9,7 @@ namespace ferrilata_devilline.Controllers
     public class PitchController : Controller
     {
         [HttpPost("post/pitch")]
-        public IActionResult PostPitch([FromBody] Pitch NewPitch)
+        public IActionResult PostPitch([FromBody] AuxPitch NewPitch)
         {
             if (!Request.Headers.ContainsKey("Authorization") ||
                 Request.Headers["Authorization"].ToString().Length == 0)
@@ -21,6 +21,18 @@ namespace ferrilata_devilline.Controllers
                 return NotFound(new { error = "Please provide all fields" });
             }
             return Created("", new { message = "Created" });
+
+        }
+
+        [Route("pitches")]
+        public IActionResult Return_Pitches()
+        {
+            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString().Length != 0)
+            {
+                return Json(new Pitches());
+            }
+
+            return Unauthorized(new Error("Unauthorized"));
         }
     }
 }

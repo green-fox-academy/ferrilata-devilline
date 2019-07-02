@@ -5,7 +5,7 @@ namespace ferrilata_devilline.HelperMethods
 {
     public class HelperMethods
     {
-        public static bool checkMissingPostedPitchFields(Pitch NewPitch)
+        public static bool checkMissingPostedPitchFields(AuxPitch NewPitch)
         {
             if (NewPitch == null ||
                 NewPitch.BadgeName == null ||

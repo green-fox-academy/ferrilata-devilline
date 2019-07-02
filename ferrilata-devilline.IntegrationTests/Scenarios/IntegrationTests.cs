@@ -26,7 +26,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchCorrect_AuthorizationPresent(string url)
         {
-            var newPosting = new Pitch
+            var newPosting = new AuxPitch
             {
                 BadgeName = "English speaker",
                 OldLVL = 2,
@@ -51,7 +51,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchCorrect_AuthorizationMissing(string url)
         {
-            var newPosting = new Pitch
+            var newPosting = new AuxPitch
             {
                 BadgeName = "English speaker",
                 OldLVL = 2,
@@ -75,7 +75,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchMissingPropertytAuthorizationOK(string url)
         {
-            var newPosting = new Pitch
+            var newPosting = new AuxPitch
             {
                 BadgeName = "English speaker",
                 OldLVL = 2,
@@ -100,7 +100,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestMessage(string url)
         {
-            var newPosting = new Pitch
+            var newPosting = new AuxPitch
             {
                 BadgeName = "English speaker",
                 OldLVL = 2,
@@ -126,7 +126,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestUnauthorized(string url)
         {
-            var newPosting = new Pitch
+            var newPosting = new AuxPitch
             {
                 BadgeName = "English speaker",
                 OldLVL = 2,
@@ -151,7 +151,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestMissingField(string url)
         {
-            var newPosting = new Pitch
+            var newPosting = new AuxPitch
             {
                 BadgeName = "English speaker",
                 OldLVL = 2,
