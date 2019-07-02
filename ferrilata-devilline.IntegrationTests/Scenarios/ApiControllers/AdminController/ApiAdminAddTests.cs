@@ -22,32 +22,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             _message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
         }
 
-        #region test body setup
-        public static IEnumerable<object[]> MissingFields =>
-            new List<object[]>()
-            {
-                new object[] { new StringContent(JsonConvert.SerializeObject(
-                    new { version = "2.3", levels = new List<object>() }), 
-                    Encoding.UTF8, "application/json") },
-            };
-
-        public static IEnumerable<object[]> Correct =>
-            new List<object[]>()
-            {
-                new object[] { new StringContent(JsonConvert.SerializeObject(
-                    new { version = "2.3", name = "Badge inserter", tag = "general", levels = new List<object>() }),
-                    Encoding.UTF8, "application/json") },
-            };
-
-        public static IEnumerable<object[]> NullValue =>
-            new List<object[]>()
-            {
-                new object[] { new StringContent(JsonConvert.SerializeObject(
-                    new AdminDTO { Version = null, Name = "Badge inserter", Tag = "general", Levels = new List<object>() }), 
-                    Encoding.UTF8, "application/json")},
-            };
-        #endregion
-
         [Theory]
         [MemberData(nameof(Correct))]
         public async Task Authorized_AndHasCorrectBody_Created(HttpContent content)
@@ -65,9 +39,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task Authorized_AndHasCorrectBody_ResponseObject(HttpContent content)
         {
             var expectedResponseObject = new List<object>() { new { message = "Created" } };
-            string expectedResponseString = JsonConvert.SerializeObject(expectedResponseObject);
-            HttpContent expectedResponse = new StringContent(expectedResponseString, Encoding.UTF8, "application/json");
-            string expected = await expectedResponse.ReadAsStringAsync();
+            string expected = JsonConvert.SerializeObject(expectedResponseObject);
 
             _message.Headers.Add("Authorization", "something");
             _message.Content = content;
@@ -120,9 +92,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task Authorized_IncorrectBody_ResponseObject(HttpContent content)
         {
             var expectedResponseObject = new { error = "Please provide all fields" };
-            string expectedResponseString = JsonConvert.SerializeObject(expectedResponseObject);
-            HttpContent expectedResponse = new StringContent(expectedResponseString, Encoding.UTF8, "application/json");
-            string expected = await expectedResponse.ReadAsStringAsync();
+            string expected = JsonConvert.SerializeObject(expectedResponseObject);
 
             _message.Headers.Add("Authorization", "something");
             _message.Content = content;
@@ -132,5 +102,43 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
             Assert.Equal(expected, received);
         }
+
+        public static IEnumerable<object[]> MissingFields =>
+            new List<object[]>()
+            {
+                new object[] 
+                {   new StringContent(JsonConvert.SerializeObject( 
+                        new
+                        {
+                            version = "2.3", levels = new List<object>()
+                        } ), Encoding.UTF8, "application/json")
+                },
+            };
+
+        public static IEnumerable<object[]> Correct =>
+            new List<object[]>()
+            {
+                new object[] 
+                {
+                    new StringContent(JsonConvert.SerializeObject(
+                        new
+                        {
+                            version = "2.3", name = "Badge inserter", tag = "general", levels = new List<object>()
+                        } ), Encoding.UTF8, "application/json")
+                },
+            };
+
+        public static IEnumerable<object[]> NullValue =>
+            new List<object[]>()
+            {
+                new object[] 
+                {
+                    new StringContent(JsonConvert.SerializeObject(
+                        new AdminDTO
+                        {
+                            Version = null, Name = "Badge inserter", Tag = "general", Levels = new List<object>()
+                        } ), Encoding.UTF8, "application/json")
+                },
+            };
     }
 }
