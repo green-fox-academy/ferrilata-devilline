@@ -13,11 +13,11 @@ using Xunit;
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
     [Collection("BaseCollection")]
-    public class IntegrationTests
+    public class ApiPostPitchesTests
     {
         private readonly TestContext _testContext;
 
-        public IntegrationTests(TestContext testContext)
+        public ApiPostPitchesTests(TestContext testContext)
         {
             _testContext = testContext;
         }

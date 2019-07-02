@@ -20,24 +20,24 @@ namespace ferrilata_devilline.Services
             {
                 MyPitches = new List<Pitch>
                 {
-                    new Pitch { Timestamp = DateTime.Now, Username = "balazs.barna",  BadgeName = "Programming", 
+                    new Pitch { Id = 1, Timestamp = DateTime.Now, Username = "balazs.barna",  BadgeName = "Programming", 
                                 OldLevel = 2, PitchedLevel = 3,
                                 PitchMessage = "I improved in React, Redux, basic JS, NodeJS, Express and in LowDB, pls give me more money", 
-                                Holders = new List<Holder>
+                                Reviewers = new List<Reviewer>
                                                           {
-                                                             new Holder {  Name = "sandor.vass", Message = null, PitchStatus = false }
+                                                             new Reviewer {  Name = "sandor.vass", Message = null, PitchStatus = false }
                                                           }
                                 }
                 },
 
                 PitchesToReview = new List<Pitch>
                 {
-                    new Pitch { Timestamp = DateTime.Now, Username = "balazs.barna",  BadgeName = "Programming",
+                    new Pitch { Id = 2, Timestamp = DateTime.Now, Username = "balazs.barna",  BadgeName = "Programming",
                                 OldLevel = 2, PitchedLevel = 3,
                                 PitchMessage = "I improved in React, Redux, basic JS, NodeJS, Express and in LowDB, pls give me more money",
-                                Holders = new List<Holder>
+                                Reviewers = new List<Reviewer>
                                                           {
-                                                             new Holder {  Name = "sandor.vass", Message = null, PitchStatus = false }
+                                                             new Reviewer {  Name = "sandor.vass", Message = null, PitchStatus = false }
                                                           }
                                }
                 }

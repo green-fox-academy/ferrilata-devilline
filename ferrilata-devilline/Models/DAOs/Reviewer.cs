@@ -1,6 +1,6 @@
 namespace ferrilata_devilline.Models
 {
-    public class Holder
+    public class Reviewer
     {
         public string Name { get; set; }
         public string Message { get; set; }
