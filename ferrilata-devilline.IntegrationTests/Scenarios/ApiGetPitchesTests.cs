@@ -9,12 +9,12 @@ using Xunit;
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
     [Collection("BaseCollection")]
-    public class IntegrationTests
+    public class ApiPitchesIntegrationTests
     {
         private const string ApiPitches = "/api/pitches";
         private readonly TestContext _testContext;
 
-        public IntegrationTests(TestContext testContext)
+        public ApiPitchesIntegrationTests(TestContext testContext)
         {
             _testContext = testContext;
         }

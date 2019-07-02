@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 
@@ -28,3 +29,4 @@ namespace ferrilata_devilline.Models
         }
     }
 }
+
