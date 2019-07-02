@@ -12,11 +12,5 @@ namespace ferrilata_devilline.Controllers
         {
             return View(User.Identity.IsAuthenticated ? "Index" : "Error");
         }
-
-//        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-//        public IActionResult ReturnErrorPage()
-//        {
-//            return View("Error", new Error {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
-//        }
     }
 }
