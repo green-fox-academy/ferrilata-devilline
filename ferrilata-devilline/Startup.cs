@@ -50,7 +50,6 @@ namespace ferrilata_devilline
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseAuthentication();
             app.UseMvc();
         }
 
