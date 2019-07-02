@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.12.1" />
+    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="xunit" Version="2.4.0" />
@@ -16,6 +19,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ferrilata-devilline\ferrilata-devilline.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Scenarios\ApiControllers\AdminController\" />
   </ItemGroup>
 
 </Project>

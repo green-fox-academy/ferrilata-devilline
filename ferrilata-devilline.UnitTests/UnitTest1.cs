@@ -8,7 +8,6 @@ namespace ferrilata_devilline.UnitTests
         [Fact]
         public void Test1()
         {
-
         }
     }
 }

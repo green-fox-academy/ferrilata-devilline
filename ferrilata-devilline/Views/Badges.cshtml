@@ -1,0 +1,43 @@
+﻿@using ferrilata_devilline.Models.DAOs;
+@{
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<body>
+    <p>Badges: </p>
+    <ul id="badges">
+        @{foreach (Badge badge in (List<Badge>)ViewData["BadgeList"])
+           {
+                <li class="badge" style="border: 5px gray solid">
+                    <p>Version: @badge.Version</p>
+                    <p>Name: @badge.Name</p>
+                    <p>Tag: @badge.Tag</p>
+                    <p>Levels: </p>
+                    <ul class="levels">
+                        @{foreach (Level level in (List<Level>)badge.Levels)
+                            {
+                                <li class="level" style="border: 5px darkgreen solid">
+                                    <p>Number: @level.LevelNumber</p>
+                                    <p>Weight: @level.Weight</p>
+                                    <p>Description: @level.Description</p>
+                                    <p>Holders: </p>
+                                    <ul class="holders">
+                                        @{foreach (Holder holder in (List<Holder>)level.Holders)
+                                            {
+                                                <li class="holder" style="border: 5px blue solid">
+                                                    <p>Name: @holder.Name</p>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    </ul>
+</body>
+</html>
