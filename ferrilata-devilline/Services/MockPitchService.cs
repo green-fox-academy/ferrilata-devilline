@@ -20,14 +20,26 @@ namespace ferrilata_devilline.Services
             {
                 MyPitches = new List<Pitch>
                 {
-                    new Pitch("balazs.barna", "Programming", 2, 3, "I improved in React, Redux, basic JS, " +
-                                                               "NodeJS, Express and in LowDB, pls give me more money")
+                    new Pitch { Timestamp = DateTime.Now, Username = "balazs.barna",  BadgeName = "Programming", 
+                                OldLevel = 2, PitchedLevel = 3,
+                                PitchMessage = "I improved in React, Redux, basic JS, NodeJS, Express and in LowDB, pls give me more money", 
+                                Holders = new List<Holder>
+                                                          {
+                                                             new Holder {  Name = "sandor.vass", Message = null, PitchStatus = false }
+                                                          }
+                                }
                 },
 
                 PitchesToReview = new List<Pitch>
                 {
-                    new Pitch("berei.daniel", "English speaker", 2, 3, "I was working abroad for six years," +
-                                                                   " so I can speak english very well. Pls improve my badge level to 3.")
+                    new Pitch { Timestamp = DateTime.Now, Username = "balazs.barna",  BadgeName = "Programming",
+                                OldLevel = 2, PitchedLevel = 3,
+                                PitchMessage = "I improved in React, Redux, basic JS, NodeJS, Express and in LowDB, pls give me more money",
+                                Holders = new List<Holder>
+                                                          {
+                                                             new Holder {  Name = "sandor.vass", Message = null, PitchStatus = false }
+                                                          }
+                               }
                 }
             };
         }
