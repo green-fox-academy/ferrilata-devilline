@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace ferrilata_devilline.Controllers
 {
     [ApiController]
-    public class ApiAdminController : Controller
+    public class AdminController : Controller
     {
         [HttpPost("api/admin/add")]
         public IActionResult AddAdmin([FromBody]JObject data)
