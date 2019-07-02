@@ -11,17 +11,17 @@ using Xunit;
 namespace ferrilata_devilline.IntegrationTests
 {
     [Collection("BaseCollection")]
-    public class ApiAdminTests
+    public class ApiBadgesTest
     {
         private readonly TestContext testContext;
 
-        public ApiAdminTests(TestContext testContext)
+        public ApiBadgesTest(TestContext testContext)
         {
             this.testContext = testContext;
         }
 
         [Fact]
-        public async Task BadgesApi_CorrectAuthentication_ShouldReturnOK()
+        public async Task GetBadgesApi_CorrectAuthentication_ShouldReturnOK()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             request.Headers.Add("Authorization", "test");
@@ -30,7 +30,7 @@ namespace ferrilata_devilline.IntegrationTests
         }
 
         [Fact]
-        public async Task BadgesApi_AuthorizationHeader_IsMissing_ShouldReturnUnathorized()
+        public async Task GetBadgesApi_AuthorizationHeader_IsMissing_ShouldReturnUnathorized()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             var response = await testContext.Client.SendAsync(request);
@@ -38,7 +38,7 @@ namespace ferrilata_devilline.IntegrationTests
         }
 
         [Fact]
-        public async Task BadgesApi_CorrectAuthentication_ShouldReturn_BodyTypeBadgeBase()
+        public async Task GetBadgesApi_CorrectAuthentication_ShouldReturn_BodyTypeBadgeBase()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             request.Headers.Add("Authorization", "test");
@@ -49,7 +49,7 @@ namespace ferrilata_devilline.IntegrationTests
         }
 
         [Fact]
-        public async Task BadgesApi_IncorrectAuthentication_ShouldMessageequal()
+        public async Task GetBadgesApi_IncorrectAuthentication_ShouldMessageequal()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             var response = await testContext.Client.SendAsync(request);
