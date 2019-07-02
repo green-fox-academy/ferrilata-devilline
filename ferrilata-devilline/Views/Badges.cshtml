@@ -9,7 +9,7 @@
     <ul id="badges">
         @{foreach (Badge badge in (List<Badge>)ViewData["BadgeList"])
            {
-                <li class="badge" style="border: 5px gray solid">
+                <li class="badge">
                     <p>Version: @badge.Version</p>
                     <p>Name: @badge.Name</p>
                     <p>Tag: @badge.Tag</p>
@@ -17,7 +17,7 @@
                     <ul class="levels">
                         @{foreach (Level level in (List<Level>)badge.Levels)
                             {
-                                <li class="level" style="border: 5px darkgreen solid">
+                                <li class="level">
                                     <p>Number: @level.LevelNumber</p>
                                     <p>Weight: @level.Weight</p>
                                     <p>Description: @level.Description</p>
@@ -25,19 +25,19 @@
                                     <ul class="holders">
                                         @{foreach (Holder holder in (List<Holder>)level.Holders)
                                             {
-                                                <li class="holder" style="border: 5px blue solid">
+                                                <li class="holder">
                                                     <p>Name: @holder.Name</p>
                                                 </li>
                                             }
-                                        }
+                                         }
                                     </ul>
                                 </li>
                             }
-                        }
+                         }
                     </ul>
                 </li>
             }
-        }
+         }
     </ul>
 </body>
 </html>
