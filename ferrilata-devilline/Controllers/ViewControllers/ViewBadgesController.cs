@@ -16,8 +16,8 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpGet("/badgelibrary")]
         public IActionResult GetBadgeLibrary()
         {
-            ViewData["BadgeList"] = _badgeService.GetAll();
-            return View("Views/Badges.cshtml");
+            //ViewData["BadgeList"] = _badgeService.GetAll();
+            return View(_badgeService.GetAll());
         }
     }
 }

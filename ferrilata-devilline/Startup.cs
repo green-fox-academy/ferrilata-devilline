@@ -26,7 +26,9 @@ namespace ferrilata_devilline
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseMvc();
+            
         }
 
         public void ConfigureTestingServices(IServiceCollection services)
