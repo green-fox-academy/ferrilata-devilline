@@ -34,5 +34,36 @@ namespace ferrilata_devilline.Controllers
 
             return Unauthorized(new Error("Unauthorized"));
         }
+
+        [HttpPut]
+        [Route("/api/pitch")]
+        public IActionResult PutPitch([FromBody] Pitch pitchToUpdate)
+        {
+            var request = Request;
+           
+            if ((request.Headers.ContainsKey("Authorization")) && (request.Headers["Authorization"].ToString() != "") && (verifyPitch(pitchToUpdate)))
+            {
+                //update pitch
+                return Ok(new { message = "Success" });
+            }
+            else if (verifyPitch(pitchToUpdate))
+            {
+                return Unauthorized(new { error = "Unauthorized" });
+            }
+            return NotFound(new { error = "Please provide all fields" });
+        }
+
+        public bool verifyPitch(Pitch pitch)
+        {
+            bool result = true;
+            if (pitch.Username == null ||
+                pitch.BadgeName == null ||
+                pitch.Status == null ||
+                pitch.PitchMessage == null)
+            {
+                result = false;
+            }
+            return result;
+        }
     }
 }
