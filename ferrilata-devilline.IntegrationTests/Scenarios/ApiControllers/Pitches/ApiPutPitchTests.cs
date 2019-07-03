@@ -20,13 +20,51 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
 
         [Theory]
-        [InlineData("api/put/pitch")]
-        public async Task PutPitchCorrect_Authorization(string url)
+        [InlineData("api/pitch")]
+        public async Task PutPitchApi_CorrectAuthentication_CorrectBody_ShouldReturnOK(string url)
         {
             //Arrange
             var InputPitch = CreateNewPitch();
             string InputJson = JsonConvert.SerializeObject(InputPitch);
-            var client = _testContext.Client;
+            
+            //Act
+            var request = new HttpRequestMessage(HttpMethod.Put, url);
+            request.Content = new StringContent(InputJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            request.Headers.Add("Authorization", "test");
+            var response = await _testContext.Client.SendAsync(request);
+
+            //Assert
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Theory]
+        [InlineData("api/pitch")]
+        public async Task PutPitchApi_IncorrectAuthentication_CorrectBody_ShouldReturnUnauthorized(string url)
+        {
+            //Arrange
+            var InputPitch = CreateNewPitch();
+            string InputJson = JsonConvert.SerializeObject(InputPitch);
+
+            //Act
+            var request = new HttpRequestMessage(HttpMethod.Put, url);
+            request.Content = new StringContent(InputJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            var response = await _testContext.Client.SendAsync(request);
+
+            //Assert
+            Assert.Equal(System.Net.HttpStatusCode.Unauthorized, response.StatusCode);
+        }
+
+        [Theory]
+        [InlineData("api/pitch")]
+        public async Task PutPitchApi_CorrectAuthentication_InCorrectBody_ShouldReturnNotFound(string url)
+        {
+            //Arrange
+            var InputPitch = new Pitch { BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
+            string InputJson = JsonConvert.SerializeObject(InputPitch);
 
             //Act
             var request = new HttpRequestMessage(HttpMethod.Put, url);
@@ -34,12 +72,75 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                                     Encoding.UTF8,
                                     "application/json");
             request.Headers.Add("Authorization", "test");
-            var response = await client.SendAsync(request);
+            var response = await _testContext.Client.SendAsync(request);
 
             //Assert
-            Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
         }
 
+        //DAOs
+
+        [Theory]
+        [InlineData("api/pitch")]
+        public async Task PutPitchApi_CorrectAuthentication_CorrectBody_ShouldReturnSuccess(string url)
+        {
+            //Arrange
+            var InputPitch = CreateNewPitch();
+            string InputJson = JsonConvert.SerializeObject(InputPitch);
+
+            //Act
+            var request = new HttpRequestMessage(HttpMethod.Put, url);
+            request.Content = new StringContent(InputJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            request.Headers.Add("Authorization", "test");
+            var response = await _testContext.Client.SendAsync(request);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            //Assert
+            Assert.Equal("Success", JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["message"]);
+        }
+
+        [Theory]
+        [InlineData("api/pitch")]
+        public async Task PutPitchApi_IncorrectAuthentication_CorrectBody_ShouldReturnMessage_Unauthorized(string url)
+        {
+            //Arrange
+            var InputPitch = CreateNewPitch();
+            string InputJson = JsonConvert.SerializeObject(InputPitch);
+
+            //Act
+            var request = new HttpRequestMessage(HttpMethod.Put, url);
+            request.Content = new StringContent(InputJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            var response = await _testContext.Client.SendAsync(request);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            //Assert
+            Assert.Equal("Unauthorized", JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
+        }
+
+        [Theory]
+        [InlineData("api/pitch")]
+        public async Task PutPitchApi_CorrectAuthentication_IncorrectBody_ShouldReturn_ErrorMessage(string url)
+        {
+            //Arrange
+            var InputPitch = new Pitch { BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
+            string InputJson = JsonConvert.SerializeObject(InputPitch);
+
+            //Act
+            var request = new HttpRequestMessage(HttpMethod.Put, url);
+            request.Content = new StringContent(InputJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            request.Headers.Add("Authorization", "test");
+            var response = await _testContext.Client.SendAsync(request);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            //Assert
+            Assert.Equal("Please provide all fields", JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
+        }
 
         public Pitch CreateNewPitch()
         {
