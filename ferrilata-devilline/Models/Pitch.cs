@@ -28,6 +28,8 @@ namespace ferrilata_devilline.Models
                 new Holder("sandor.vass", null, false)
             };
         }
+
+        public Pitch() { }
     }
 }
 

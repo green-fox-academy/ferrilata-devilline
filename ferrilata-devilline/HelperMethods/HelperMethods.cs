@@ -18,5 +18,18 @@ namespace ferrilata_devilline.HelperMethods
             }
             return false;
         }
+
+        public static bool checkMissingPutPitchFields(Pitch pitch)
+        {
+            bool result = true;
+            if (pitch.Username == null ||
+                pitch.BadgeName == null ||
+                pitch.Status == null ||
+                pitch.PitchMessage == null)
+            {
+                result = false;
+            }
+            return result;
+        }
     }
 }
