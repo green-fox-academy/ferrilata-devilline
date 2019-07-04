@@ -1,26 +1,18 @@
 ﻿using ferrilata_devilline.Models.DTOs;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Schema.Generation;
 
 namespace ferrilata_devilline.Services.Extensions
 {
     public static class AdminJObjectAnalizer
     {
-        public static bool HasMissingFieldsAsAdmin(this JObject data)
+        public static bool HasMissingFieldsOrValuesAsAdmin(this JObject data)
         {
-            return ((data["version"] == null) ||
-                    (data["name"] == null) ||
-                    (data["tag"] == null) ||
-                    (data["levels"] == null));
-        }
+            JSchemaGenerator generator = new JSchemaGenerator();
+            JSchema adminDTOSchema = generator.Generate(typeof(AdminDTO));
 
-        public static bool HasNullValuesAsAdmin(this JObject data)
-        {
-            AdminDTO admin = data.ToObject<AdminDTO>();
-
-            return ((admin.Version == null) ||
-                    (admin.Name == null) ||
-                    (admin.Tag == null) ||
-                    (admin.Levels == null));
+            return !data.IsValid(adminDTOSchema);
         }
     }
 }

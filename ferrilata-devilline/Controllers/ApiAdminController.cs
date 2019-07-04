@@ -15,7 +15,7 @@ namespace ferrilata_devilline.Controllers
 
             if (authorization != null && authorization != "")
             {
-                if (data == null || data.HasMissingFieldsAsAdmin() || data.HasNullValuesAsAdmin()) 
+                if (data == null || data.HasMissingFieldsOrValuesAsAdmin())
                 {
                    return BadRequest(new { error = "Please provide all fields" });
                 }
