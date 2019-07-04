@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ferrilata_devilline.Repositories;
+using ferrilata_devilline.Services;
+using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +21,7 @@ namespace ferrilata_devilline
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<IBadgeService, MockBadgeService>();
 
             services.AddDbContext<ApplicationContext>(builder => builder
             .UseMySQL("server=localhost;database=EFCoreTodo;user=root;password="));
@@ -62,6 +65,7 @@ namespace ferrilata_devilline
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<IBadgeService, MockBadgeService>();
         }
     }
 }

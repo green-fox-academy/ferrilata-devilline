@@ -1,4 +1,5 @@
 
+using ferrilata_devilline.Models.DAOs;
 using System;
 using System.Collections.Generic;
 
@@ -24,7 +25,7 @@ namespace ferrilata_devilline.Models
             PitchMessage = pitchMessage;
             Holders = new List<Holder>
             {
-                new Holder("sandor.vass", null, false)
+                new Holder { Id = 1, Name = "sandor.vass" }
             };
         }
     }
