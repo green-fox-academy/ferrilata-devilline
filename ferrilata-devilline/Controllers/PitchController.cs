@@ -37,14 +37,12 @@ namespace ferrilata_devilline.Controllers
 
         [HttpPut("pitch")]
         public IActionResult PutPitch([FromBody] Pitch pitchToUpdate)
-        {
-            var request = Request;
-           
-            if ((request.Headers.ContainsKey("Authorization")) && (request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate)))
+        {           
+            if ((Request.Headers.ContainsKey("Authorization")) && (Request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate)))
             {
                 return Ok(new { message = "Success" });
             }
-            else if (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
+            if (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
             {
                 return Unauthorized(new { error = "Unauthorized" });
             }

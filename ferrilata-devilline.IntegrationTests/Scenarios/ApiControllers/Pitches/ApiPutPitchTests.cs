@@ -98,7 +98,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var responseString = await response.Content.ReadAsStringAsync();
 
             //Assert
-            Assert.Equal("Success", JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["message"]);
+            Assert.Equal(JsonConvert.SerializeObject(new { message = "Success" }), responseString);
         }
 
         [Theory]
@@ -118,7 +118,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var responseString = await response.Content.ReadAsStringAsync();
 
             //Assert
-            Assert.Equal("Unauthorized", JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
+            Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }), responseString);
         }
 
         [Theory]
@@ -139,7 +139,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var responseString = await response.Content.ReadAsStringAsync();
 
             //Assert
-            Assert.Equal("Please provide all fields", JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
+            Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields" }), responseString);
         }
 
         public Pitch CreateNewPitch()
