@@ -49,6 +49,7 @@ namespace ferrilata_devilline
             }
 
             app.UseMvc();
+            app.UseAuthentication();
         }
 
         public void ConfigureProductionServices(IServiceCollection services)
