@@ -40,12 +40,11 @@ namespace ferrilata_devilline.Controllers
         {
             var request = Request;
            
-            if ((request.Headers.ContainsKey("Authorization")) && (request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkMissingPutPitchFields(pitchToUpdate)))
+            if ((request.Headers.ContainsKey("Authorization")) && (request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate)))
             {
-                //update pitch
                 return Ok(new { message = "Success" });
             }
-            else if (HelperMethods.HelperMethods.checkMissingPutPitchFields(pitchToUpdate))
+            else if (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
             {
                 return Unauthorized(new { error = "Unauthorized" });
             }
