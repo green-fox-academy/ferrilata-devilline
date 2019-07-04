@@ -25,8 +25,6 @@ namespace ferrilata_devilline
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            string connection = Environment.GetEnvironmentVariable("ConnectionStringsDevillineDB");
-
             services.AddDbContext<ApplicationContext>(builder => builder
             .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")} " +
             $"database={Environment.GetEnvironmentVariable("FDDATABASE")} " +

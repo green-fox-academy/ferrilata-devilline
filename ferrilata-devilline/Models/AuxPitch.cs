@@ -13,7 +13,6 @@ namespace ferrilata_devilline.Models
         public long OldLVL { get; set; }
         public long PitchedLVL { get; set; }
         public string PitchMessage { get; set; }
-
         [NotMapped]
         public IEnumerable<string> Holders { get; set; }
     }
