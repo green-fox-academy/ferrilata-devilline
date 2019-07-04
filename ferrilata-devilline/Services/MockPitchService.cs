@@ -9,11 +9,6 @@ namespace ferrilata_devilline.Services
     {
         public Pitches GetPitches()
         {
-            return GeneratePitches();
-        }
-
-        private Pitches GeneratePitches()
-        {
             return new Pitches
             {
                 MyPitches = new List<Pitch>
