@@ -1,16 +1,13 @@
-namespace ferrilata_devilline.Models
+using Newtonsoft.Json;
+
+namespace ferrilata_devilline.Models.DAOs
 {
     public class Holder
     {
-        public string Name { get; set; }
-        public string Message { get; set; }
-        public bool PitchStatus { get; set; }
+        [JsonProperty(PropertyName = "id")]
+        public long Id { set; get; }
 
-        public Holder(string name, string message, bool pitchStatus)
-        {
-            Message = message;
-            Name = name;
-            PitchStatus = pitchStatus;
-        }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { set; get; }
     }
 }
