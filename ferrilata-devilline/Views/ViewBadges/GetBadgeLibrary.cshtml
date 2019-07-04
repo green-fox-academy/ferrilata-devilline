@@ -4,321 +4,128 @@
     <h1>Badges</h1>
 </div>
 
-<div id="accordion">
-    <div class="card">
-        <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Collapsible Group Item #1
-                </button>
-            </h5>
-        </div>
+<div class="card">
+    <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Collapsible Group Item #1
+            </button>
+        </h5>
+    </div>
 
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
         </div>
     </div>
 </div>
 
 
+<p>Badges: </p>
+
 <div id="accordion">
-    <table class="table table-condensed" style="border-collapse:collapse;">
-        <thead class="table-primary">
-            <tr class="table-active">
-                <th scope="col">Id</th>
-                <th scope="col">Version</th>
-                <th scope="col">Name</th>
-                <th scope="col">Tag</th>
-                <th scope="col">Expand for Levels</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var badge in Model)
+    <div class="card-header" id="headingOne">
+
+        @{foreach (var badge in Model)
             {
-                <tr data-toggle="collapse" data-target="#@badge.Id" class="accordion-toggle" aria-controls="@badge.Id">
-                    <td>@badge.Id</td>
-                    <td>@badge.Version</td>
-                    <td>@badge.Name</td>
-                    <td>@badge.Tag</td>
-                    <td>Levels</td>
-                </tr>
-                <tr>
-                    <td colspan="6" class="hiddenRow">
-                        <div class="accordian-body collapse" id="@badge.Id">
-                            <table class="table table-condensed" style="border-collapse:collapse;">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">LevelNumber</th>
-                                        <th scope="col">Weight</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Holders</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var level in badge.Levels)
-                                    {
-                                        <tr data-toggle="collapse" data-target="#@level.Id" class="accordion-toggle">
-                                            <td>@level.LevelNumber</td>
-                                            <td>@level.Weight</td>
-                                            <td>@level.Description</td>
-                                            <td>@level.Holders</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="6" class="hiddenRow">
-                                                <div class="accordian-body collapse" id="@level.Id">
-                                                    Holders
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                <button class="btn btn-link" data-toggle="collapse" data-target="#@badge.Id" aria-expanded="true" aria-controls="collapseOne">
+                    <ul id="badges">
+                        <li class="badge">
+                            <p>Version: @badge.Version</p>
+                            <p>Name: @badge.Name</p>
+                            <p>Tag: @badge.Tag</p>
+                            <p>Levels: </p>
+                        </li>
+                    </ul>
+                </button>
 
-    @*<div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div>*@
 
-    @*@foreach (var dog in owner.Dogs)
-        {
-            <tr data-toggle="collapse" data-target="#@dog.Name" class="accordion-toggle">
-                <td>@dog.DogID</td>
-                <td>@dog.Name</td>
-            </tr>
-            <tr>
-                <td colspan="6" class="hiddenRow">
-                    <div class="accordian-body collapse" id="@dog.Name">
-                        toys
+                <div id="@badge.Id" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <ul class="levels">
+                            @{foreach (var level in badge.Levels)
+                                {
+                                    <li class="level">
+                                        <p>Number: @level.LevelNumber</p>
+                                        <p>Weight: @level.Weight</p>
+                                        <p>Description: @level.Description</p>
+                                        <p>Holders: </p>
+                                        <ul class="holders">
+                                            @*@{foreach (Holder holder in (List<Holder>)level.Holders)
+                                                {
+                                                    <li class="holder">
+                                                        <p>Name: @holder.Name</p>
+                                                    </li>
+                                                }
+                                            }*@
+                                        </ul>
+                                    </li>
+                                }
+                            }
+                        </ul>
                     </div>
-                </td>
-            </tr>
-        }*@
-
-    @*<script>
-         $('.accordian-body').on('show.bs.collapse', function () {
-         $(this).closest("table")
-             .find(".collapse.in")
-             .not(this)
-             .collapse('toggle')
-         })
-        </script>*@
-
-
-    @*</div>*@
-
-    @*<table class="table table-condensed" style="border-collapse:collapse;">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Credit</th>
-                    <th>Debit</th>
-                    <th>Balance</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
-                    <td>1</td>
-                    <td>05 May 2013</td>
-                    <td>Credit Account</td>
-                    <td class="text-success">$150.00</td>
-                    <td class="text-error"></td>
-                    <td class="text-success">$150.00</td>
-                </tr>
-                <tr>
-                    <td colspan="6" class="hiddenRow"><div class="accordian-body collapse" id="demo1"> Demo Content1 </div> </td>
-                </tr>
-
-                <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
-                    <td>2</td>
-                    <td>05 May 2013</td>
-                    <td>Credit Account</td>
-                    <td class="text-success">$11.00</td>
-                    <td class="text-error"></td>
-                    <td class="text-success">$161.00</td>
-                </tr>
-                <tr>
-                    <td colspan="6" class="hiddenRow"><div id="demo2" class="accordian-body collapse">Demo Content2</div></td>
-                </tr>
-
-                <tr data-toggle="collapse" data-target="#demo3" class="accordion-toggle">
-                    <td>3</td>
-                    <td>05 May 2013</td>
-                    <td>Credit Account</td>
-                    <td class="text-success">$500.00</td>
-                    <td class="text-error"></td>
-                    <td class="text-success">$661.00</td>
-                </tr>
-                <tr>
-                    <td colspan="6" class="hiddenRow"><div id="demo3" class="accordian-body collapse">Demo Content3</div></td>
-                </tr>
-
-                <tr data-toggle="collapse" data-target="#demo4" class="accordion-toggle">
-                    <td>4</td>
-                    <td>05 May 2013</td>
-                    <td>Credit Account</td>
-                    <td class="text-success">$500.00</td>
-                    <td class="text-error"></td>
-                    <td class="text-success">$661.00</td>
-                </tr>
-                <tr>
-                    <td colspan="6" class="hiddenRow"><div id="demo4" class="accordian-body collapse">Demo Content4</div></td>
-                </tr>
-
-                <tr data-toggle="collapse" data-target="#demo5" class="accordion-toggle">
-                    <td>5</td>
-                    <td>05 May 2013</td>
-                    <td>Credit Account</td>
-                    <td class="text-success">$500.00</td>
-                    <td class="text-error"></td>
-                    <td class="text-success">$661.00</td>
-                </tr>
-                <tr>
-                    <td colspan="6" class="hiddenRow"><div id="demo5" class="accordian-body collapse">Demo Content5</div></td>
-                </tr>
-            </tbody>
-        </table>*@
-
-    @*<div class="container">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
+                </div>
+            }
+        }
+    </div>
+</div>
+    @*<div id="accordion">
+            <table class="table table-condensed" style="border-collapse:collapse;">
+                <thead class="table-primary">
+                    <tr class="table-active">
                         <th scope="col">Id</th>
+                        <th scope="col">Version</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Dogs</th>
+                        <th scope="col">Tag</th>
+                        <th scope="col">Expand for Levels</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var owner in Model)
+                    @foreach (var badge in Model)
                     {
+                        <tr data-toggle="collapse" data-target="#@badge.Id" class="accordion-toggle" aria-controls="@badge.Id">
+                            <td>@badge.Id</td>
+                            <td>@badge.Version</td>
+                            <td>@badge.Name</td>
+                            <td>@badge.Tag</td>
+                            <td>Levels</td>
+                        </tr>
                         <tr>
-                            <td>@owner.OwnerID</td>
-                            <td>@owner.Name</td>
-
-                            <div class="accordion">
-                                <div class="card-header">
-                                    <h5 class="m-0">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Dogs
-                                        </button>
-                                    </h5>
+                            <td colspan="6" class="hiddenRow">
+                                <div class="accordian-body collapse" id="@badge.Id">
+                                    <table class="table table-condensed" style="border-collapse:collapse;">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">LevelNumber</th>
+                                                <th scope="col">Weight</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Holders</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var level in badge.Levels)
+                                            {
+                                                <tr data-toggle="collapse" data-target="#@level.Id" class="accordion-toggle">
+                                                    <td>@level.LevelNumber</td>
+                                                    <td>@level.Weight</td>
+                                                    <td>@level.Description</td>
+                                                    <td>@level.Holders</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="6" class="hiddenRow">
+                                                        <div class="accordian-body collapse" id="@level.Id">
+                                                            Holders
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        Anim pariatur
-                                    </div>
-                                </div>
-                            </div>
-
-
+                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>*@
 
-
-
-
-
-    @*<div class="accordion">
-            <div class="card">
-                <div class="card-header"
-                     @foreach (var owner in Model) { <tr>
-                        <td>@owner.Name</td>
-
-                        <td>@owner.Dogs</td>
-
-
-                    </tr>
-                }
-                </div>
-            </div>
-        </div>*@
-
-
-
-
-
-    @*<div class="container">
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0 d-inline">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Collapsible #1
-                            </button>
-                        </h5>
-                        <a href="#" data-target="[data-parent='#child1']" data-toggle="collapse" class="my-2 float-right">toggle all</a>
-                    </div>
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body" id="child1">
-                            <div class="card">
-                                <div class="card-header">
-                                    <a href="#" data-toggle="collapse" data-target="#collapseOneA">Child A</a>
-                                </div>
-                                <div class="card-body collapse" data-parent="#child1" id="collapseOneA">
-                                    Crunch wolf moon tempor, sunt aliqua put a bird.
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <a href="#" data-toggle="collapse" data-target="#collapseOneB">Child B</a>
-                                </div>
-                                <div class="card-body collapse" data-parent="#child1" id="collapseOneB">
-                                    Another flipp runch wolf moon tempor, sunt aliqua put a bird.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Collapsible #2
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                            on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
-                            raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Collapsible #3
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                            on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
-                            raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
