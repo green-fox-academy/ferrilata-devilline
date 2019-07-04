@@ -19,6 +19,11 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
+        "DB": "server=localhost;database=DevillineDB;user=root;password=",
+        "PASSWORD": "",
+        "HOST": "localhost",
+        "USERNAME": "root",
+        "DATABASE": "DevillneDB",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
