@@ -2,11 +2,16 @@ namespace ferrilata_devilline.Models
 {
     public class Error
     {
+        public string RequestId { get; set; }
         public string error { get; set; }
 
         public Error(string error)
         {
             this.error = error;
+        }
+
+        public Error()
+        {
         }
 
         protected bool Equals(Error other)
