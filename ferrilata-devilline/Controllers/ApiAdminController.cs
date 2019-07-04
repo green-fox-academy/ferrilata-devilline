@@ -9,13 +9,13 @@ namespace ferrilata_devilline.Controllers
     public class ApiAdminController : Controller
     {
         [HttpPost("api/admin/add")]
-        public IActionResult AddAdmin([FromBody]JObject data)
+        public IActionResult AddAdmin([FromBody]JToken requestBody)
         {
             string authorization = Request.GetAuthorization();
 
             if (authorization != null && authorization != "")
             {
-                if (data == null || data.HasMissingFieldsOrValuesAsAdmin())
+                if (requestBody == null || requestBody.HasMissingFieldsOrValuesAsAdmin())
                 {
                    return BadRequest(new { error = "Please provide all fields" });
                 }
