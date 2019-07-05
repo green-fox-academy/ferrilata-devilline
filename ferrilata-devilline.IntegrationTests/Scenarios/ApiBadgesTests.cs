@@ -66,8 +66,9 @@ namespace ferrilata_devilline.IntegrationTests
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             var response = await testContext.Client.SendAsync(request);
-            var responseString = await response.Content.ReadAsStringAsync();   
-            Assert.Equal("Unauthorized", JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
+            var responseString = await response.Content.ReadAsStringAsync();
+            Assert.Equal("Unauthorized",
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
         }
     }
 }
