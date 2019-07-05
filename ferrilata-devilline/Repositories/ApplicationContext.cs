@@ -7,7 +7,7 @@ namespace ferrilata_devilline.Repositories
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<Pitch> PitchTable { get; set; }
+        public DbSet<AuxPitch> PitchTable { get; set; }
 
 
         public ApplicationContext(DbContextOptions options) : base(options)

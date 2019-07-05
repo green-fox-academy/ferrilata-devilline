@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.IntegrationTests.Fixtures.Models;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
@@ -134,7 +135,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 new object[] 
                 {
                     new StringContent(JsonConvert.SerializeObject(
-                        new AdminDTO
+                        new AdminDTOWithNullValues
                         {
                             Version = null, Name = "Badge inserter", Tag = "general", Levels = new List<object>()
                         } ), Encoding.UTF8, "application/json")

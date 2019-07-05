@@ -44,8 +44,21 @@ namespace ferrilata_devilline.IntegrationTests
             request.Headers.Add("Authorization", "test");
             var response = await testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
-            var actual = JsonConvert.DeserializeObject<BadgesBase>(responseString);
-            Assert.True(actual.GetType() == typeof(BadgesBase));
+            var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);
+            Assert.True(actual.GetType() == typeof(List<Badge>));
+        }
+
+        [Fact]
+        public async Task GetBadgesApi_CorrectAuthentication_ShouldReturn_CorrectBadges()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
+            request.Headers.Add("Authorization", "test");
+            var response = await testContext.Client.SendAsync(request);
+            var responseString = await response.Content.ReadAsStringAsync();
+            var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);
+            Assert.Equal("another badge", actual[1].Name);
+            Assert.Equal("another level description", actual[1].Levels[0].Description);
+            Assert.Equal("balazs.barna", actual[1].Levels[0].Holders[0].Name);
         }
 
         [Fact]
@@ -53,8 +66,9 @@ namespace ferrilata_devilline.IntegrationTests
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             var response = await testContext.Client.SendAsync(request);
-            var responseString = await response.Content.ReadAsStringAsync();   
-            Assert.Equal("Unauthorized", JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
+            var responseString = await response.Content.ReadAsStringAsync();
+            Assert.Equal("Unauthorized",
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
         }
     }
 }
