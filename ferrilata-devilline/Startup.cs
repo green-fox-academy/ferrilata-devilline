@@ -38,7 +38,10 @@ namespace ferrilata_devilline
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
                 });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<IBadgeService, MockBadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
+
             services.AddDbContext<ApplicationContext>(builder => builder
 
             .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")} " +
@@ -83,6 +86,8 @@ namespace ferrilata_devilline
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<IBadgeService, MockBadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
         }
     }
