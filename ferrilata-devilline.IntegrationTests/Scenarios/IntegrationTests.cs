@@ -32,7 +32,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }
+                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
             };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
@@ -57,7 +57,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }
+                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
             };
             var PostingJson = JsonConvert.SerializeObject(newPosting);
 
@@ -106,7 +106,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }
+                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
             };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
@@ -132,7 +132,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 OldLVL = 2,
                 PitchedLVL = 3,
                 PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }
+                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
             };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
