@@ -1,11 +1,9 @@
 ﻿using ferrilata_devilline.Models;
-using ferrilata_devilline.HelperMethods;
 using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
 
 namespace ferrilata_devilline.Controllers
 {
-
     [Route("api")]
     public class PitchController : Controller
     {
@@ -22,14 +20,15 @@ namespace ferrilata_devilline.Controllers
             if (!Request.Headers.ContainsKey("Authorization") ||
                 Request.Headers["Authorization"].ToString().Length == 0)
             {
-                return Unauthorized(new { message = "Unauthorized" });
+                return Unauthorized(new {message = "Unauthorized"});
             }
+
             if (HelperMethods.HelperMethods.checkMissingPostedPitchFields(NewPitch))
             {
-                return NotFound(new { error = "Please provide all fields" });
+                return NotFound(new {error = "Please provide all fields"});
             }
-            return Created("", new { message = "Created" });
 
+            return Created("", new {message = "Created"});
         }
 
         [Route("pitches")]
