@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using ferrilata_devilline.Repositories;
+using ferrilata_devilline.Services;
+using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +38,9 @@ namespace ferrilata_devilline
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
                 });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<IBadgeService, MockBadgeService>();
+            services.AddScoped<IPitchService, MockPitchService>();
 
             services.AddDbContext<ApplicationContext>(builder => builder
 
@@ -81,6 +86,9 @@ namespace ferrilata_devilline
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<IBadgeService, MockBadgeService>();
+            services.AddScoped<IPitchService, MockPitchService>();
         }
     }
 }
