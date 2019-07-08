@@ -18,7 +18,7 @@
         <tbody>
             @foreach (var badge in Model)
             {
-                <tr data-toggle="collapse" data-target="#@badge.Name" class="accordion-toggle">
+                <tr data-toggle="collapse" data-target="#@badge.Name.Replace(" ", String.Empty)" class="accordion-toggle">
                     <td>@badge.Id</td>
                     <td>@badge.Version</td>
                     <td>@badge.Name</td>
@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <td colspan="6" class="hiddenRow">
-                        <div class="accordian-body collapse" id="@badge.Name">
+                        <div class="accordian-body collapse" id="@badge.Name.Replace(" ", String.Empty)">
                             <table class="table table-condensed" style="border-collapse:collapse;">
                                 <thead class="thead-dark">
                                     <tr>
@@ -40,16 +40,30 @@
                                 <tbody>
                                     @foreach (var level in badge.Levels)
                                     {
-                                        <tr data-toggle="collapse" data-target="#@level.Id" class="accordion-toggle">
+                                        <tr data-toggle="collapse" data-target="#@level.Description.Replace(" ", String.Empty)" class="accordion-toggle">
                                             <td>@level.LevelNumber</td>
                                             <td>@level.Weight</td>
                                             <td>@level.Description</td>
-                                            <td>@level.Holders</td>
+                                            <td>Click for more badges</td>
                                         </tr>
                                         <tr>
                                             <td colspan="6" class="hiddenRow">
-                                                <div class="accordian-body collapse" id="@level.Id">
-                                                    Holders
+                                                <div class="accordian-body collapse" id="@level.Description.Replace(" ", String.Empty)">
+                                                    <table class="table table-condensed" style="border-collapse:collapse;">
+                                                        <thead class="thead-dark">
+                                                            <tr>
+                                                                <th scope="col">Name</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var holder in level.Holders)
+                                                            {
+                                                                <tr>
+                                                                    <td>@holder.Name</td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </td>
                                         </tr>
