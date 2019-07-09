@@ -44,9 +44,9 @@ namespace ferrilata_devilline
 
             services.AddDbContext<ApplicationContext>(builder => builder
 
-            .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")} " +
-            $"database={Environment.GetEnvironmentVariable("FDDATABASE")} " +
-            $"user={Environment.GetEnvironmentVariable("FDUSERNAME")}" +
+            .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")}; " +
+            $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
+            $"user={Environment.GetEnvironmentVariable("FDUSERNAME")};" +
             $" password={Environment.GetEnvironmentVariable("FDPASSWORD")}"));
         }
 
