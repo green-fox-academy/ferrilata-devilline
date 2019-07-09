@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 
@@ -14,6 +15,7 @@ namespace ferrilata_devilline.Controllers
         [HttpGet("/index")]
         public IActionResult Index()
         {
+            string name = User.Identity.Name;
             return View(User.Identity.IsAuthenticated ? "Index" : "Error");
         }
 

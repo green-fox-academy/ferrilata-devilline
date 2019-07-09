@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -12,23 +14,31 @@ namespace ferrilata_devilline.Controllers
 {
     public class TokenController : Controller
     {
+        [Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
         [HttpGet("/token")]
         public String GenerateToken()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return "Error";
+            }
+            string Email = User.FindFirstValue(ClaimTypes.Email);
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("SECRET");
+            var key = Encoding.ASCII.GetBytes("THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email, User.Email)
+                    new Claim(ClaimTypes.Email, Email)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return token.Id.ToString();
+            string stringt = tokenHandler.WriteToken(token);
+
+            return stringt;
         }
     }
 }
