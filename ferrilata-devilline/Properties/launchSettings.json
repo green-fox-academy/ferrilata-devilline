@@ -17,6 +17,7 @@
         "FDHOST": "localhost",
         "SECRET": "ourSecret",
         "FDDATABASE": "devilline",
+        "TOKENSECRET": "ourSecret",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
