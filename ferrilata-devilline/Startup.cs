@@ -44,10 +44,11 @@ namespace ferrilata_devilline
 
             services.AddDbContext<ApplicationContext>(builder => builder
 
-            .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")} " +
-            $"database={Environment.GetEnvironmentVariable("FDDATABASE")} " +
-            $"user={Environment.GetEnvironmentVariable("FDUSERNAME")}" +
-            $" password={Environment.GetEnvironmentVariable("FDPASSWORD")}"));
+
+            .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST", EnvironmentVariableTarget.User)}; " +
+            $"database={Environment.GetEnvironmentVariable("FDDATABASE", EnvironmentVariableTarget.User)}; " +
+            $"user={Environment.GetEnvironmentVariable("FDUSERNAME", EnvironmentVariableTarget.User)};" +
+            $" password={Environment.GetEnvironmentVariable("FDPASSWORD", EnvironmentVariableTarget.User)};"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

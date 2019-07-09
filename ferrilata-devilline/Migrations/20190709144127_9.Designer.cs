@@ -8,8 +8,8 @@ using ferrilata_devilline.Repositories;
 namespace ferrilata_devilline.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190704074203_FDDB")]
-    partial class FDDB
+    [Migration("20190709144127_9")]
+    partial class _9
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

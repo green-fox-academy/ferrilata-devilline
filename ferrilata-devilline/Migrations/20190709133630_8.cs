@@ -2,7 +2,7 @@
 
 namespace ferrilata_devilline.Migrations
 {
-    public partial class EmptyDb6 : Migration
+    public partial class _8 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

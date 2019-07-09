@@ -12,6 +12,10 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "FDPASSWORD": "saby6751",
+        "FDUSERNAME": "root",
+        "FDHOST": "localhost",
+        "FDDATABASE": "devilline",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

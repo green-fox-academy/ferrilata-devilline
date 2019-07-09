@@ -8,8 +8,8 @@ using ferrilata_devilline.Repositories;
 namespace ferrilata_devilline.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190703205719_EmptyDb7")]
-    partial class EmptyDb7
+    [Migration("20190709133630_8")]
+    partial class _8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
