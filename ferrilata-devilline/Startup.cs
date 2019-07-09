@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using ferrilata_devilline.Services.SlackIntegration;
 
 namespace ferrilata_devilline
 {
@@ -41,6 +42,7 @@ namespace ferrilata_devilline
 
             services.AddScoped<IBadgeService, MockBadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
+            services.AddScoped<ISlackMessagingService, SlackMessagingService>();
 
             services.AddDbContext<ApplicationContext>(builder => builder
 
@@ -48,6 +50,8 @@ namespace ferrilata_devilline
             $"database={Environment.GetEnvironmentVariable("FDDATABASE")} " +
             $"user={Environment.GetEnvironmentVariable("FDUSERNAME")}" +
             $" password={Environment.GetEnvironmentVariable("FDPASSWORD")}"));
+            
+            services.Configure<SlackOptions>(Configuration.GetSection("SlackOptions"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
