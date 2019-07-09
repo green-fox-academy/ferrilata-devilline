@@ -19,6 +19,7 @@
     <Folder Include="Controllers\ApiControllers\" />
     <Folder Include="Models\DTOs\" />
     <Folder Include="Services\Extensions\" />
+    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
 </Project>

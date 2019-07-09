@@ -6,26 +6,37 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>@ViewBag.Title</title>
     <meta http-equiv="X-UA-Compatible" content="IE-edge" />
-    <link rel="stylesheet" href="~/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="styles.css" type="text/css" />
 
 </head>
 <body>
     <div class="container">
-        <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-            <ul class="navbar-nav">
-                <li class="nav-intem">
-                    <a asp-action="Index" asp-controller="Home" class="nav-link">Todos</a>
-                </li>
-                <li class="nav-intem">
-                    <a asp-action="Add" asp-controller="Home" class="nav-link">Add Todo</a>
-                </li>
-                <li class="nav-intem">
-                    <a asp-action="Index" asp-controller="Assignee" class="nav-link">Assignees</a>
-                </li>
-                <li class="nav-intem">
-                    <a asp-action="AddAssignee" asp-controller="Assignee" class="nav-link">Add Assignee</a>
-                </li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-intem">
+                        <a asp-action="Index" asp-controller="Home" class="nav-link">Library</a>
+                    </li>
+                    <li class="nav-intem">
+                        <a asp-action="Add" asp-controller="Home" class="nav-link">Pitches</a>
+                    </li>
+                    <li class="nav-intem">
+                        <a asp-action="Index" asp-controller="Assignee" class="nav-link">Username</a>
+                    </li>
+                    <li class="nav-intem">
+                        <a asp-action="Index" asp-controller="Assignee" class="nav-link">My Pitches</a>
+                    </li>
+                    <li class="nav-intem">
+                        <a asp-action="AddAssignee" asp-controller="Assignee" class="nav-link">My Reviews</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="/signout" method="post">
+                    <button class="btn btn-info" type="submit">Sign Out</button>
+                </form>
+            </div>
         </nav>
         <div>
             @RenderBody()

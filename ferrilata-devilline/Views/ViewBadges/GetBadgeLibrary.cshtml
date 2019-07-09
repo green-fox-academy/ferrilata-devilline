@@ -1,13 +1,19 @@
 ﻿@model List<ferrilata_devilline.Models.DAOs.Badge>;
 
+@{
+    ViewData["Title"] = "Badge Library";
+}
+
 <div class="page-header">
     <h1>Badges</h1>
 </div>
 
+
+
 <div>
-    <table class="table table-condensed" style="border-collapse:collapse;">
-        <thead class="table-primary">
-            <tr>
+    <table class="table table-condensed table-hover" style="border-collapse:collapse;">
+        <thead >
+            <tr class="table-info">
                 <th scope="col">Id</th>
                 <th scope="col">Version</th>
                 <th scope="col">Name</th>
@@ -18,7 +24,7 @@
         <tbody>
             @foreach (var badge in Model)
             {
-                <tr data-toggle="collapse" data-target="#@badge.Name.Replace(" ", String.Empty)" class="accordion-toggle">
+                <tr data-toggle="collapse" data-target="#@("a" + badge.Id)"  class="accordion-toggle">
                     <td>@badge.Id</td>
                     <td>@badge.Version</td>
                     <td>@badge.Name</td>
@@ -27,10 +33,10 @@
                 </tr>
                 <tr>
                     <td colspan="6" class="hiddenRow">
-                        <div class="accordian-body collapse" id="@badge.Name.Replace(" ", String.Empty)">
-                            <table class="table table-condensed" style="border-collapse:collapse;">
-                                <thead class="thead-dark">
-                                    <tr>
+                        <div class="accordian-body collapse" id="@("a" + badge.Id)">
+                            <table class="table table-condensed col-9" style="border-collapse:collapse;">
+                                <thead>
+                                    <tr class="table-active">
                                         <th scope="col">LevelNumber</th>
                                         <th scope="col">Weight</th>
                                         <th scope="col">Description</th>
@@ -40,7 +46,7 @@
                                 <tbody>
                                     @foreach (var level in badge.Levels)
                                     {
-                                        <tr data-toggle="collapse" data-target="#@level.Description.Replace(" ", String.Empty)" class="accordion-toggle">
+                                        <tr data-toggle="collapse" data-target="#@("a" + level.Id)" class="accordion-toggle">
                                             <td>@level.LevelNumber</td>
                                             <td>@level.Weight</td>
                                             <td>@level.Description</td>
@@ -48,10 +54,10 @@
                                         </tr>
                                         <tr>
                                             <td colspan="6" class="hiddenRow">
-                                                <div class="accordian-body collapse" id="@level.Description.Replace(" ", String.Empty)">
-                                                    <table class="table table-condensed" style="border-collapse:collapse;">
-                                                        <thead class="thead-dark">
-                                                            <tr>
+                                                <div class="accordian-body collapse" id="@("a" + level.Id)">
+                                                    <table class="table table-condensed col-5" style="border-collapse:collapse;">
+                                                        <thead>
+                                                            <tr class="table-secondary">
                                                                 <th scope="col">Name</th>
                                                             </tr>
                                                         </thead>
