@@ -15,6 +15,7 @@
         "FDPASSWORD": "saby6751",
         "FDUSERNAME": "root",
         "FDHOST": "localhost",
+        "SECRET": "ourSecret",
         "FDDATABASE": "devilline",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

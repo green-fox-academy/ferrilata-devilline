@@ -10,7 +10,7 @@ namespace ferrilata_devilline.Controllers
         [HttpGet("/index")]
         public IActionResult Index()
         {
-            return View(User.Identity.IsAuthenticated ? "Index" : "Error");
+            return View(User.Identity.IsAuthenticated ? "token" : "Error");
         }
     }
 }
