@@ -14,17 +14,19 @@ namespace ferrilata_devilline.Controllers
 {
     public class TokenController : Controller
     {
+
+
         [Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
         [HttpGet("/token")]
-        public String GenerateToken()
+        public IActionResult GenerateToken()
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return "Error";
+                return View("Error");
             }
             string Email = User.FindFirstValue(ClaimTypes.Email);
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING");
+            var key = Encoding.ASCII.GetBytes( Environment.GetEnvironmentVariable("TOKENSECRET"));
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -36,9 +38,11 @@ namespace ferrilata_devilline.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            string stringt = tokenHandler.WriteToken(token);
+            string TokenString = tokenHandler.WriteToken(token);
 
-            return stringt;
+            
+
+            return View(model: TokenString);
         }
     }
 }
