@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ferrilata_devilline.Models.DAOs;
+using System.Collections.Generic;
 
 namespace ferrilata_devilline.Models
 {

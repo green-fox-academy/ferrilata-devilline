@@ -1,5 +1,6 @@
 ﻿using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models;
+using ferrilata_devilline.Models.DAOs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PutPitchApi_CorrectAuthentication_InCorrectBody_ShouldReturnNotFound(string url)
         {
             //Arrange
-            var InputPitch = new Pitch { BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
+            var InputPitch = new Pitch();
             string InputJson = JsonConvert.SerializeObject(InputPitch);
 
             //Act
@@ -126,7 +127,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PutPitchApi_CorrectAuthentication_IncorrectBody_ShouldReturn_ErrorMessage(string url)
         {
             //Arrange
-            var InputPitch = new Pitch { BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
+            var InputPitch = new Pitch();
             string InputJson = JsonConvert.SerializeObject(InputPitch);
 
             //Act
@@ -144,7 +145,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         public Pitch CreateNewPitch()
         {
-            Pitch NewPitch = new Pitch { Username = "UserName", BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
+            Pitch NewPitch = new Pitch();
 
             return NewPitch;
         }
