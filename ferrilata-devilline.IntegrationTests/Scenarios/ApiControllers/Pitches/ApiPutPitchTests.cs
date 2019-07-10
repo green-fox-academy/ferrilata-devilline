@@ -146,7 +146,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public Pitch CreateNewPitch()
         {
             Pitch NewPitch = new Pitch();
-
             return NewPitch;
         }
     }

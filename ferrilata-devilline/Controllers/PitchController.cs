@@ -35,9 +35,11 @@ namespace ferrilata_devilline.Controllers
         [Route("pitches")]
         public IActionResult Return_Pitches()
         {
+            string userEmail = "mockUserEmail";
+
             if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString().Length != 0)
             {
-                return Json(_pitchService.GetPitches());
+                return Json(_pitchService.GetPitches(userEmail));
             }
 
             return Unauthorized(new Error("Unauthorized"));
@@ -48,6 +50,7 @@ namespace ferrilata_devilline.Controllers
         {           
             if ((Request.Headers.ContainsKey("Authorization")) && (Request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate)))
             {
+                _pitchService.Save(pitchToUpdate);
                 return Ok(new { message = "Success" });
             }
             if (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))

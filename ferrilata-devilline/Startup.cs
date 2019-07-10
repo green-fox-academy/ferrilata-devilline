@@ -39,8 +39,8 @@ namespace ferrilata_devilline
                 });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddScoped<IBadgeService, MockBadgeService>();
-            services.AddScoped<IPitchService, MockPitchService>();
+            services.AddScoped<IBadgeService, BadgeService>();
+            services.AddScoped<IPitchService, PitchService>();
 
             services.AddDbContext<ApplicationContext>(builder => builder
                 .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")};" +
@@ -88,8 +88,8 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddScoped<IBadgeService, MockBadgeService>();
-            services.AddScoped<IPitchService, MockPitchService>();
+            services.AddScoped<IBadgeService, BadgeService>();
+            services.AddScoped<IPitchService, PitchService>();
         }
     }
 }

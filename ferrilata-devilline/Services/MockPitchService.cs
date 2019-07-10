@@ -8,13 +8,18 @@ namespace ferrilata_devilline.Services
 {
     public class MockPitchService : IPitchService
     {
-        public Pitches GetPitches()
+        public Pitches GetPitches(string userEmail)
         {
             return new Pitches
             {
                 MyPitches = new List<Pitch> { },
                 PitchesToReview = new List<Pitch> {  }
             };
+        }
+
+        public void Save(Pitch pitch)
+        {
+
         }
     }
 }
