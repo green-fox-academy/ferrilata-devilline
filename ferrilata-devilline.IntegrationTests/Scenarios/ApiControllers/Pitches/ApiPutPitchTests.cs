@@ -145,7 +145,15 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         public Pitch CreateNewPitch()
         {
-            Pitch NewPitch = new Pitch();
+            Pitch NewPitch = new Pitch {
+                Status = false,
+                PitchedLevel = "such pitched level",
+                PitchedMessage  = "such pitched message",
+                Result = "such pitch result",
+                Created = DateTime.Now,
+                User  = new User(),
+                Level  = new Level()
+    };
             return NewPitch;
         }
     }

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using ferrilata_devilline.Services.Extensions;
+using System.Linq;
 
 namespace ferrilata_devilline
 {
@@ -39,9 +41,6 @@ namespace ferrilata_devilline
                 });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddScoped<IBadgeService, BadgeService>();
-            services.AddScoped<IPitchService, PitchService>();
-
             services.AddDbContext<ApplicationContext>(builder => builder
                 .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")};" +
                           $"database={Environment.GetEnvironmentVariable("FDDATABASE")};" +
@@ -49,6 +48,16 @@ namespace ferrilata_devilline
                           $"password={Environment.GetEnvironmentVariable("FDPASSWORD")}"
                           )
                 );
+
+            services.AddScoped<IBadgeService, BadgeService>();
+            services.AddScoped<IPitchService, PitchService>();
+
+            var currentlyUsedContext = (ApplicationContext)services
+                .BuildServiceProvider()
+                .GetServices(typeof(ApplicationContext))
+                .First();
+
+            currentlyUsedContext.SeedWithData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,8 +97,13 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"));
+
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, PitchService>();
+
+            var currentlyUsedContext = (ApplicationContext)services.BuildServiceProvider().GetServices(typeof(DbContext)).GetEnumerator().Current;
+            currentlyUsedContext.SeedWithData();
         }
     }
 }

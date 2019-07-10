@@ -20,5 +20,7 @@ namespace ferrilata_devilline.Models.DAOs
 
         [JsonProperty(PropertyName = "badge")]
         public Badge Badge { get; set; }
+
+        public List<UserLevel> UserLevels { get; set; }
     }
 }

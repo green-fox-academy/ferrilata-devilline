@@ -26,7 +26,7 @@ namespace ferrilata_devilline.HelperMethods
                 pitch.badge.Name == null ||
                 pitch.pitchedMessage == null*/ true)
             {
-                return false;
+                return true;
             }
             return true;
         }

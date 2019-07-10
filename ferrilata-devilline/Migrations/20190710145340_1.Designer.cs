@@ -9,8 +9,8 @@ using ferrilata_devilline.Repositories;
 namespace ferrilata_devilline.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190709155907_2")]
-    partial class _2
+    [Migration("20190710145340_1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,8 +57,7 @@ namespace ferrilata_devilline.Migrations
                     b.Property<long>("PitchId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd();
+                    b.Property<DateTime>("Created");
 
                     b.Property<long?>("LevelId");
 
@@ -68,7 +67,7 @@ namespace ferrilata_devilline.Migrations
 
                     b.Property<string>("Result");
 
-                    b.Property<bool>("Status");
+                    b.Property<short>("Status");
 
                     b.Property<long?>("UserId");
 
@@ -121,18 +120,13 @@ namespace ferrilata_devilline.Migrations
 
             modelBuilder.Entity("ferrilata_devilline.Models.DAOs.UserLevel", b =>
                 {
-                    b.Property<long>("UserLevelId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<long>("UserId");
 
-                    b.Property<long?>("LevelId");
+                    b.Property<long>("LevelId");
 
-                    b.Property<long?>("UserId");
-
-                    b.HasKey("UserLevelId");
+                    b.HasKey("UserId", "LevelId");
 
                     b.HasIndex("LevelId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserLevels");
                 });
@@ -169,12 +163,14 @@ namespace ferrilata_devilline.Migrations
             modelBuilder.Entity("ferrilata_devilline.Models.DAOs.UserLevel", b =>
                 {
                     b.HasOne("ferrilata_devilline.Models.DAOs.Level", "Level")
-                        .WithMany()
-                        .HasForeignKey("LevelId");
+                        .WithMany("UserLevels")
+                        .HasForeignKey("LevelId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ferrilata_devilline.Models.DAOs.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("UserLevels")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

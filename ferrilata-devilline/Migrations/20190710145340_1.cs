@@ -3,13 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ferrilata_devilline.Migrations
 {
-    public partial class _2 : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "PitchTable");
-
             migrationBuilder.CreateTable(
                 name: "Badges",
                 columns: table => new
@@ -96,26 +93,24 @@ namespace ferrilata_devilline.Migrations
                 name: "UserLevels",
                 columns: table => new
                 {
-                    UserLevelId = table.Column<long>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    UserId = table.Column<long>(nullable: true),
-                    LevelId = table.Column<long>(nullable: true)
+                    UserId = table.Column<long>(nullable: false),
+                    LevelId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserLevels", x => x.UserLevelId);
+                    table.PrimaryKey("PK_UserLevels", x => new { x.UserId, x.LevelId });
                     table.ForeignKey(
                         name: "FK_UserLevels_Levels_LevelId",
                         column: x => x.LevelId,
                         principalTable: "Levels",
                         principalColumn: "LevelId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserLevels_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,11 +170,6 @@ namespace ferrilata_devilline.Migrations
                 name: "IX_UserLevels_LevelId",
                 table: "UserLevels",
                 column: "LevelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserLevels_UserId",
-                table: "UserLevels",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -201,22 +191,6 @@ namespace ferrilata_devilline.Migrations
 
             migrationBuilder.DropTable(
                 name: "Badges");
-
-            migrationBuilder.CreateTable(
-                name: "PitchTable",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    BadgeName = table.Column<string>(nullable: true),
-                    OldLVL = table.Column<long>(nullable: false),
-                    PitchMessage = table.Column<string>(nullable: true),
-                    PitchedLVL = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PitchTable", x => x.Id);
-                });
         }
     }
 }

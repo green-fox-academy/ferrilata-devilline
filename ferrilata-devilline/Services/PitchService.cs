@@ -3,7 +3,6 @@ using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Interfaces;
 using System.Linq;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace ferrilata_devilline.Services

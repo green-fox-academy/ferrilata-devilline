@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +13,7 @@ namespace ferrilata_devilline.Models.DAOs
         [JsonProperty(PropertyName = "pitchId")]
         public long PitchId { get; set; }
 
+        [DefaultValue(false)]
         [JsonProperty(PropertyName = "status")]
         public bool Status { get; set; }
 
@@ -24,7 +26,7 @@ namespace ferrilata_devilline.Models.DAOs
         [JsonProperty(PropertyName = "result")]
         public string Result { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+  //      [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonProperty(PropertyName = "created")]
         public DateTime Created { get; set; }
 
@@ -33,5 +35,10 @@ namespace ferrilata_devilline.Models.DAOs
 
         [JsonProperty(PropertyName = "level")]
         public Level Level { get; set; }
+
+        public Pitch()
+        {
+            Created = DateTime.Now;
+        }
     }
 }
