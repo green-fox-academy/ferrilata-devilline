@@ -24,5 +24,6 @@
         <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
         <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.16" />
         <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
     </ItemGroup>
 </Project>

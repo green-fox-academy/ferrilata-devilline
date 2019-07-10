@@ -39,9 +39,6 @@ namespace ferrilata_devilline.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             string TokenString = tokenHandler.WriteToken(token);
-
-            
-
             return View(model: TokenString);
         }
     }

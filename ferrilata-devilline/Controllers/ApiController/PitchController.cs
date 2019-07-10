@@ -1,9 +1,12 @@
 ﻿using ferrilata_devilline.Models;
 using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ferrilata_devilline.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api")]
     public class PitchController : Controller
     {

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ferrilata_devilline
 {
@@ -26,6 +28,8 @@ namespace ferrilata_devilline
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("TOKENSECRET"));
+
             services.AddAuthentication(options =>
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie()
@@ -36,7 +40,21 @@ namespace ferrilata_devilline
 
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateLifetime = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
                 });
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<IBadgeService, MockBadgeService>();
