@@ -54,8 +54,7 @@ namespace ferrilata_devilline
 
             var currentlyUsedContext = (ApplicationContext)services
                 .BuildServiceProvider()
-                .GetServices(typeof(ApplicationContext))
-                .First();
+                .GetService(typeof(ApplicationContext));
 
             currentlyUsedContext.SeedWithData();
         }
@@ -102,7 +101,10 @@ namespace ferrilata_devilline
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, PitchService>();
 
-            var currentlyUsedContext = (ApplicationContext)services.BuildServiceProvider().GetServices(typeof(DbContext)).GetEnumerator().Current;
+            var currentlyUsedContext = (ApplicationContext)services
+                .BuildServiceProvider()
+                .GetService(typeof(ApplicationContext));
+
             currentlyUsedContext.SeedWithData();
         }
     }
