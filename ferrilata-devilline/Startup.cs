@@ -49,7 +49,7 @@ namespace ferrilata_devilline
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("FDTOKENSECRET"))),
                         ValidateIssuer = false,
                         ValidateAudience = false,
-                        ValidateLifetime = true
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
 
