@@ -1,7 +1,8 @@
 namespace ferrilata_devilline.Services.Interfaces
 {
-    public class ISlackMessagingService
+    public interface ISlackMessagingService
     {
-        
+        string BuildMessage(string text, string username);
+        void SendMessage(string postData);
     }
 }
