@@ -1,9 +1,13 @@
 ﻿using ferrilata_devilline.Models;
 using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ferrilata_devilline.Controllers
 {
+    [Authorize(AuthenticationSchemes =
+    JwtBearerDefaults.AuthenticationScheme)]
     [Route("api")]
     public class PitchController : Controller
     {
@@ -20,19 +24,19 @@ namespace ferrilata_devilline.Controllers
             if (!Request.Headers.ContainsKey("Authorization") ||
                 Request.Headers["Authorization"].ToString().Length == 0)
             {
-                return Unauthorized(new {message = "Unauthorized"});
+                return Unauthorized(new { message = "Unauthorized" });
             }
 
             if (HelperMethods.HelperMethods.checkMissingPostedPitchFields(NewPitch))
             {
-                return NotFound(new {error = "Please provide all fields"});
+                return NotFound(new { error = "Please provide all fields" });
             }
 
-            return Created("", new {message = "Created"});
+            return Created("", new { message = "Created" });
         }
 
         [Route("pitches")]
-        public IActionResult Return_Pitches()
+        public IActionResult ReturnPitches()
         {
             if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString().Length != 0)
             {
@@ -44,7 +48,7 @@ namespace ferrilata_devilline.Controllers
 
         [HttpPut("pitch")]
         public IActionResult PutPitch([FromBody] Pitch pitchToUpdate)
-        {           
+        {
             if ((Request.Headers.ContainsKey("Authorization")) && (Request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate)))
             {
                 return Ok(new { message = "Success" });
@@ -56,6 +60,6 @@ namespace ferrilata_devilline.Controllers
             return NotFound(new { error = "Please provide all fields" });
         }
 
-        
+
     }
 }

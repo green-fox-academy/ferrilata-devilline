@@ -39,7 +39,20 @@ namespace ferrilata_devilline
 
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
+                }).AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("FDTOKENSECRET"))),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true
+                    };
                 });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<IBadgeService, MockBadgeService>();
@@ -51,25 +64,6 @@ namespace ferrilata_devilline
             $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
             $"user={Environment.GetEnvironmentVariable("FDUSERNAME")};" +
             $" password={Environment.GetEnvironmentVariable("FDPASSWORD")}"));
-
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("FDTOKENSECRET"));
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
 
             services.AddScoped<ITokenService, TokenService>();
         }
