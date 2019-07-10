@@ -54,13 +54,13 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ViewControllers
         {
             var response = await _testContext.Client.GetAsync(_url);
             var content = await HtmlReader.GetDocumentAsync(response);
-            var firstBadgeVersion = content.QuerySelector(".badge p");
-            var firstLevelNumber = content.QuerySelector(".level p");
-            var firstHolderName = content.QuerySelector(".holder p");
+            var firstBadgeVersion = content.QuerySelector(".badge td");
+            var firstLevelNumber = content.QuerySelector(".level td");
+            var firstHolderName = content.QuerySelector(".holder td");
 
-            Assert.Equal("Version: 2.3", firstBadgeVersion.TextContent);
-            Assert.Equal("Number: 1", firstLevelNumber.TextContent);
-            Assert.Equal("Name: balazs.barna", firstHolderName.TextContent);
+            Assert.Equal("2.3", firstBadgeVersion.TextContent);
+            Assert.Equal("1", firstLevelNumber.TextContent);
+            Assert.Equal("balazs.barna", firstHolderName.TextContent);
         }
     }
 }
