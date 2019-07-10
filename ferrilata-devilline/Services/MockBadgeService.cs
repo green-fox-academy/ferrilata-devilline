@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ferrilata_devilline.Models;
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Services.Interfaces;
 
@@ -54,7 +55,7 @@ namespace ferrilata_devilline.Services
                         {
                             holder1
                         }
-                    } 
+                    }
                 }
             };
 

@@ -1,16 +1,14 @@
-﻿using ferrilata_devilline.Models.DAOs;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace ferrilata_devilline.Models.DAOs
+namespace ferrilata_devilline.IntegrationTests.Fixtures.Models
 {
-    public class Badge
+    class AdminDTOWithNullValues
     {
-        [JsonProperty(PropertyName = "id")]
-        public long Id { get; set; }
-
         [JsonProperty(PropertyName = "version")]
-        public double Version { get; set; }
+        public string Version { get; set; }
 
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
@@ -19,6 +17,6 @@ namespace ferrilata_devilline.Models.DAOs
         public string Tag { get; set; }
 
         [JsonProperty(PropertyName = "levels")]
-        public List<Level> Levels { get; set; }
+        public List<object> Levels { get; set; }
     }
 }
