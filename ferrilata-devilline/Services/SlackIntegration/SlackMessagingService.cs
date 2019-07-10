@@ -44,7 +44,7 @@ namespace ferrilata_devilline.Services.SlackIntegration
                 Encoding.UTF8,
                 "application/x-www-form-urlencoded");
             var response = await client.SendAsync(request);
-            string responseStatus = response.StatusCode.ToString();
+            var responseStatus = response.StatusCode;
         }
     }
 }
