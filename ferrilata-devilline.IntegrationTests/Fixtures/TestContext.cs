@@ -10,7 +10,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
 {
     public class TestContext : IDisposable
     {
-        private TestServer Server;
+        private TestServer server;
         public HttpClient Client { get; set; }
 
         public TestContext()
@@ -19,14 +19,14 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
                 .UseEnvironment("Testing")
                 .UseStartup<Startup>();
 
-            Server = new TestServer(builder);
-            IBadgeService badgeService = Server.Host.Services.GetService(typeof(IBadgeService)) as MockBadgeService;
-            Client = Server.CreateClient();
+            server = new TestServer(builder);
+            IBadgeService badgeService = server.Host.Services.GetService(typeof(IBadgeService)) as MockBadgeService;
+            Client = server.CreateClient();
         }
 
         public void Dispose()
         {
-            Server.Dispose();
+            server.Dispose();
             Client.Dispose();
         }
     }
