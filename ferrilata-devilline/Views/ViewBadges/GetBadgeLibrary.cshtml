@@ -20,7 +20,7 @@
         <tbody>
             @foreach (var badge in Model)
             {
-                <tr data-toggle="collapse" data-target="#@("a" + badge.Id)"  class="accordion-toggle badge">
+                <tr data-toggle="collapse" data-target="#@("a" + badge.Id)"  class="accordion-toggle badgeObject">
                     <td>@badge.Version</td>
                     <td>@badge.Name</td>
                     <td>@badge.Tag</td>
