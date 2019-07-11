@@ -101,11 +101,11 @@ namespace ferrilata_devilline
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, PitchService>();
 
-            var currentlyUsedContext = (ApplicationContext)services
-                .BuildServiceProvider()
-                .GetService(typeof(ApplicationContext));
+         /*            var currentlyUsedContext = (ApplicationContext)services
+                         .BuildServiceProvider()
+                         .GetService(typeof(ApplicationContext));
 
-            currentlyUsedContext.SeedWithData();
-        }
+                     currentlyUsedContext.SeedWithData(); */
+        }  
     }
 }

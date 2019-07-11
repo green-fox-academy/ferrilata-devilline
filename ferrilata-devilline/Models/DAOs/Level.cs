@@ -12,6 +12,9 @@ namespace ferrilata_devilline.Models.DAOs
         [JsonProperty(PropertyName = "levelId")]
         public long LevelId { get; set; }
 
+        [JsonProperty(PropertyName = "level")]
+        public long LevelNumber { get; set; }
+
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 

@@ -15,7 +15,7 @@ namespace ferrilata_devilline.HelperMethods
                 NewPitch.PitchedLVL == 0 ||
                 NewPitch.PitchMessage == null)
             {
-                return true;
+                return false;
             }
             return false;
         }

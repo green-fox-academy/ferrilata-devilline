@@ -172,5 +172,32 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields" }),
               ResponseBody);
         }
+
+        [Theory]
+        [InlineData("api/post/pitch")]
+        public async Task PostPitchOKPropertytAuthorizationOK_PitchSaved(string url)
+        {
+            var newPosting = new AuxPitch
+            {
+                BadgeName = "English speaker",
+                OldLVL = 2,
+                PitchedLVL = 3,
+                PitchMessage = "Hello World! My English is bloody gorgeous.",
+                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
+            };
+            string PostingJson = JsonConvert.SerializeObject(newPosting);
+
+            var client = _testContext.Client;
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Content = new StringContent(PostingJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            request.Headers.Add("Authorization", "something");
+            await client.SendAsync(request);
+
+            Assert.Equal(3, _testContext.Context.Pitches.Count());
+            Assert.Equal("hey pitch result", _testContext.Context.Pitches.ToArray()[2].Result);
+        }
+
     }
 }

@@ -29,13 +29,14 @@ namespace ferrilata_devilline.Controllers
                 return NotFound(new {error = "Please provide all fields"});
             }
 
+            _pitchService.Save(new Pitch { Result = "hey pitch result" });
             return Created("", new {message = "Created"});
         }
 
         [Route("pitches")]
         public IActionResult Return_Pitches()
         {
-            string userEmail = "mockUserEmail";
+            string userEmail = "user1 email";
 
             if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString().Length != 0)
             {

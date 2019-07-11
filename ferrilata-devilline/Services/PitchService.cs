@@ -31,6 +31,8 @@ namespace ferrilata_devilline.Services
                                 .Include("Pitch")
                                 .Where(u => u.User.Email.Equals(userEmail))
                                 .Select(r => r.Pitch)
+                                .Include("User")
+                                .Include("Level")
                                 .ToList(),
             };
         }
