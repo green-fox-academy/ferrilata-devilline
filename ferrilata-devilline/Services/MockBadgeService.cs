@@ -8,7 +8,7 @@ namespace ferrilata_devilline.Services
 {
     public class MockBadgeService : IBadgeService
     {
-        public List<BadgeDTO> GetAndTranslateAll()
+        public List<BadgeDTO> GetAndTranslateToBadgeDTOAll()
         {
             return new List<BadgeDTO> { };
         }

@@ -6,6 +6,6 @@ namespace ferrilata_devilline.Services.Interfaces
 {
     public interface IBadgeService
     {
-        List<BadgeDTO> GetAndTranslateAll();
+        List<BadgeDTO> GetAndTranslateToBadgeDTOAll();
     }
 }
