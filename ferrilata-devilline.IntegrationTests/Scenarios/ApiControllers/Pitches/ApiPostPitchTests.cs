@@ -21,9 +21,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         private readonly PitchInDTO _correctPitch;
         private readonly PitchInDTOWithNullValue _inCorrectPitch;
 
-        public ApiPostPitchTests(TestContext testContext)
+        public ApiPostPitchTests()
         {
-            _testContext = testContext;
+            _testContext = new TestContext();
             _correctPitch = PitchInputMaker.MakeCorrectPitchInDTO();
             _inCorrectPitch = PitchInputMaker.MakeInCorrectPitchInDTO();
         }

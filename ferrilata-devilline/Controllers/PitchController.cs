@@ -4,16 +4,20 @@ using ferrilata_devilline.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using ferrilata_devilline.Services.Extensions;
 using System;
+using ferrilata_devilline.Services;
+using ferrilata_devilline.Models.DTOs.Input;
 
 namespace ferrilata_devilline.Controllers
 {
     [Route("api")]
     public class PitchController : Controller
     {
+        private readonly JTokenAnalyzer _jTokenAnalyzer;
         private readonly IPitchService _pitchService;
 
-        public PitchController(IPitchService pitchService)
+        public PitchController(IPitchService pitchService, JsonSchemaService service)
         {
+            _jTokenAnalyzer = new JTokenAnalyzer(service);
             _pitchService = pitchService;
         }
 
@@ -26,7 +30,7 @@ namespace ferrilata_devilline.Controllers
                 return Unauthorized(new {message = "Unauthorized"});
             }
 
-            if (requestBody.HasMissingFieldsOrValuesAsPitchInDTO())
+            if (_jTokenAnalyzer.FindsMissingFieldsOrValuesIn(requestBody, typeof (PitchInDTO).ToString()))
             {
                 return NotFound(new {error = "Please provide all fields"});
             }
@@ -56,8 +60,8 @@ namespace ferrilata_devilline.Controllers
             {
                 return Unauthorized(new { error = "Unauthorized" });
             }
-        
-            if (requestBody.HasMissingFieldsOrValuesAsPitchDTO())
+
+            if (_jTokenAnalyzer.FindsMissingFieldsOrValuesIn(requestBody, typeof(PitchDTO).ToString()))
             {
                 return NotFound(new { error = "Please provide all fields" });
             }

@@ -4,33 +4,25 @@ using ferrilata_devilline.Models.DTOs.Input;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
+using System;
 
 namespace ferrilata_devilline.Services.Extensions
 {
-    public static class JTokenAnalyzer
+    public class JTokenAnalyzer
     {
-        public static bool HasMissingFieldsOrValuesAsAdmin(this JToken requestBody)
-        {
-            JSchemaGenerator generator = new JSchemaGenerator();
-            JSchema adminDTOSchema = generator.Generate(typeof(AdminDTO));
+        private readonly JsonSchemaService _service;
 
-            return !requestBody.IsValid(adminDTOSchema);
+        public JTokenAnalyzer(JsonSchemaService service)
+        {
+            _service = service;
         }
 
-        public static bool HasMissingFieldsOrValuesAsPitchInDTO(this JToken requestBody)
+        public bool FindsMissingFieldsOrValuesIn(JToken requestBody, string className)
         {
-            JSchemaGenerator generator = new JSchemaGenerator();
-            JSchema pitchInDTOSchema = generator.Generate(typeof(PitchInDTO));
+            string schemaString = _service.GetSchemaFor(className); 
+            JSchema schema = JSchema.Parse(schemaString);
 
-            return !requestBody.IsValid(pitchInDTOSchema);
-        }
-
-        public static bool HasMissingFieldsOrValuesAsPitchDTO(this JToken requestBody)
-        {
-            JSchemaGenerator generator = new JSchemaGenerator();
-            JSchema pitchInToUpdateDTOSchema = generator.Generate(typeof(PitchDTO));
-
-            return !requestBody.IsValid(pitchInToUpdateDTOSchema);
+            return !requestBody.IsValid(schema);
         }
     }
 }

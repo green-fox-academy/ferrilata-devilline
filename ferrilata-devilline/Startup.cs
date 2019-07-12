@@ -100,6 +100,7 @@ namespace ferrilata_devilline
 
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, PitchService>();
+            services.AddScoped<JsonSchemaService>();
         }
     }
 }

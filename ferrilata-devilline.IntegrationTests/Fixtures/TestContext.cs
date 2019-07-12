@@ -30,6 +30,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
         {
             server.Dispose();
             Client.Dispose();
+            Context.Dispose();
         }
     }
 }

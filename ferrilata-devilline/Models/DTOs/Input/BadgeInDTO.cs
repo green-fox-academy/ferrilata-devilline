@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ferrilata_devilline.Models.DTOs
 {
-    public class BadgeInputDTO
+    public class BadgeInDTO
     {
             [JsonProperty(PropertyName = "version")]
             public double Version { get; set; }

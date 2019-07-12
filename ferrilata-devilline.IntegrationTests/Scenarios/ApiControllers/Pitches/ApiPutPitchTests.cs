@@ -17,9 +17,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         private readonly string _correctPitchString;
         private readonly string _inCorrectPitchString;
 
-        public ApiPutPitchTests(TestContext testContext)
+        public ApiPutPitchTests()
         {
-            _testContext = testContext;
+            _testContext = new TestContext(); // TO BE EXPLAINED???
             _correctPitchString = JsonConvert.SerializeObject(PitchInputMaker.MakeCorrectPitchDTO());
             _inCorrectPitchString = JsonConvert.SerializeObject(PitchInputMaker.MakeCorrectPitchInDTO());
         }
@@ -151,10 +151,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             //Assert
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields" }), responseString);
         }
-
-
-
-
 
         [Fact]
         public async Task temporaryTest()
