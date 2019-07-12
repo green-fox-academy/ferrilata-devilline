@@ -53,6 +53,19 @@ namespace ferrilata_devilline
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
+                    //Events = new JwtBearerEvents()
+                    //{
+                    //    OnAuthenticationFailed = context =>
+                    //    {
+                    //        context.Response.OnStarting(async () =>
+                    //        {
+                    //            context.Response.ContentType = "text/plain";
+                    //            await context.Response.WriteAsync(context.Exception.Message);
+                    //        });
+
+                    //        return Task.CompletedTask;
+                    //    }
+                    //};
                 });
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -79,6 +92,8 @@ namespace ferrilata_devilline
 
             app.UseMvc();
             app.UseAuthentication();
+            app.UseStatusCodePages(
+    "text/plain", "Status code page, status code: {0}");
         }
 
         public void ConfigureProductionServices(IServiceCollection services)

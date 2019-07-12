@@ -1,5 +1,6 @@
 ﻿using ferrilata_devilline.Models;
 using ferrilata_devilline.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,9 +27,9 @@ namespace ferrilata_devilline.Controllers
         [Route("/api/badges")]
         public IActionResult getGadgets()
         {
+           
             return Ok(_badgeService.GetAll());
+            
         }
-
-        
     }
 }
