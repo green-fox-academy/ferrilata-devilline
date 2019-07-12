@@ -1,9 +1,13 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace ferrilata_devilline.Models.DTOs.Out
+namespace ferrilata_devilline.Models.DTOs
 {
-    public class LevelInDTO
+    public class LevelOutDTO
     {
+        [JsonProperty(PropertyName = "id")]
+        public long LevelId { get; set; }
+
         [JsonProperty(PropertyName = "level")]
         public long LevelNumber { get; set; }
 
@@ -12,5 +16,8 @@ namespace ferrilata_devilline.Models.DTOs.Out
 
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
+
+        [JsonProperty(PropertyName = "holders")]
+        public List<PersonDTO> Holders { get; set; }
     }
 }

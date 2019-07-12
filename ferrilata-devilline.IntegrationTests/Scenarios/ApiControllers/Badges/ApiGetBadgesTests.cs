@@ -1,5 +1,5 @@
 using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.Models;
+using ferrilata_devilline.Models.DTOs.Out;
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Repositories;
 using Newtonsoft.Json;
@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
+using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.IntegrationTests
 {
@@ -41,14 +42,14 @@ namespace ferrilata_devilline.IntegrationTests
         }
 
         [Fact]
-        public async Task GetBadgesApi_CorrectAuthentication_ShouldReturn_BodyTypeBadgeBase()
+        public async Task GetBadgesApi_CorrectAuthentication_ShouldReturn_BodyTypeBadgeOutDTO()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             request.Headers.Add("Authorization", "test");
             var response = await testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
-            var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);
-            Assert.True(actual.GetType() == typeof(List<Badge>));
+            var actual = JsonConvert.DeserializeObject<List<BadgeOutDTO>>(responseString);
+            Assert.True(actual.GetType() == typeof(List<BadgeOutDTO>));
         }
 
         [Fact]
@@ -58,9 +59,14 @@ namespace ferrilata_devilline.IntegrationTests
             request.Headers.Add("Authorization", "test");
             var response = await testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
-            var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);
+            var actual = JsonConvert.DeserializeObject<List<BadgeOutDTO>>(responseString);
+
             Assert.Equal("badge1 name", actual[0].Name);
+            Assert.Equal("user1 name", actual[0].Levels[0].Holders[0].Name);
+
             Assert.Equal("badge2 tag", actual[1].Tag);
+            Assert.Equal("level2 description", actual[1].Levels[0].Description);
+            Assert.Equal(2, actual[1].Levels[0].Holders[0].PersonId);
         }
 
         [Fact]
@@ -76,34 +82,12 @@ namespace ferrilata_devilline.IntegrationTests
         [Fact]
         public async Task temporaryTest()
         {
-            var expected = new List<Badge>
-            {
-                new Badge
-                    {
-                        BadgeId = 1,
-                        Name = "badge1 name",
-                        Tag = "badge1 tag",
-                        Version = 1
-                },
-                new Badge
-                {
-                        BadgeId = 2,
-                        Name = "badge2 name",
-                        Tag = "badge2 tag",
-                        Version = 2
-                }
-            };
-
-            var expectedString = JsonConvert.SerializeObject(expected);
-
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             request.Headers.Add("Authorization", "test");
 
             var response = await testContext.Client.SendAsync(request);
-            var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Equal("Microsoft.EntityFrameworkCore.InMemory", testContext.Context.Database.ProviderName);
-            Assert.Equal(expectedString, responseString);
         }
     }
 }

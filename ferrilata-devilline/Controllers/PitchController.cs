@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
 using ferrilata_devilline.Models.DAOs;
+using Newtonsoft.Json.Linq;
+using ferrilata_devilline.Services.Extensions;
 
 namespace ferrilata_devilline.Controllers
 {
@@ -16,7 +18,7 @@ namespace ferrilata_devilline.Controllers
         }
 
         [HttpPost("post/pitch")]
-        public IActionResult PostPitch([FromBody] AuxPitch NewPitch)
+        public IActionResult PostPitch([FromBody] JToken requestBody)
         {
             if (!Request.Headers.ContainsKey("Authorization") ||
                 Request.Headers["Authorization"].ToString().Length == 0)
@@ -24,7 +26,7 @@ namespace ferrilata_devilline.Controllers
                 return Unauthorized(new {message = "Unauthorized"});
             }
 
-            if (HelperMethods.HelperMethods.checkMissingPostedPitchFields(NewPitch))
+            if (requestBody.HasMissingFieldsOrValuesAsPitch())
             {
                 return NotFound(new {error = "Please provide all fields"});
             }
@@ -47,14 +49,14 @@ namespace ferrilata_devilline.Controllers
         }
 
         [HttpPut("pitch")]
-        public IActionResult PutPitch([FromBody] Pitch pitchToUpdate)
+        public IActionResult PutPitch([FromBody] JToken requestBody)
         {           
-            if ((Request.Headers.ContainsKey("Authorization")) && (Request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate)))
+            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString() != "")
             {
-                _pitchService.Save(pitchToUpdate);
+               // _pitchService.Save(pitchToUpdate);
                 return Ok(new { message = "Success" });
             }
-            if (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
+            if (requestBody.HasMissingFieldsOrValuesAsPitch())
             {
                 return Unauthorized(new { error = "Unauthorized" });
             }

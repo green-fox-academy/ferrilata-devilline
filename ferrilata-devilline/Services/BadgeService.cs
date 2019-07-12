@@ -18,7 +18,7 @@ namespace ferrilata_devilline.Services
             _context = context;
         }
 
-        public List<BadgeDTO> GetAndTranslateToBadgeDTOAll()
+        public List<BadgeOutDTO> GetAndTranslateToBadgeDTOAll()
         {
             var Translator = new BadgeOutDTOTranslator(_context);
             var badges = _context.Badges.ToList();
