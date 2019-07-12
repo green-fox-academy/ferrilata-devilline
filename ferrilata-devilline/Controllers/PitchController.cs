@@ -26,7 +26,7 @@ namespace ferrilata_devilline.Controllers
                 return Unauthorized(new {message = "Unauthorized"});
             }
 
-            if (requestBody.HasMissingFieldsOrValuesAsPitch())
+            if (requestBody.HasMissingFieldsOrValuesAsPitchInDTO())
             {
                 return NotFound(new {error = "Please provide all fields"});
             }
@@ -57,7 +57,7 @@ namespace ferrilata_devilline.Controllers
                 return Unauthorized(new { error = "Unauthorized" });
             }
         
-            if (requestBody.HasMissingFieldsOrValuesAsPitchToUpdate())
+            if (requestBody.HasMissingFieldsOrValuesAsPitchDTO())
             {
                 return NotFound(new { error = "Please provide all fields" });
             }

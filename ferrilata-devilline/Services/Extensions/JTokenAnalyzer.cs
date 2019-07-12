@@ -17,7 +17,7 @@ namespace ferrilata_devilline.Services.Extensions
             return !requestBody.IsValid(adminDTOSchema);
         }
 
-        public static bool HasMissingFieldsOrValuesAsPitch(this JToken requestBody)
+        public static bool HasMissingFieldsOrValuesAsPitchInDTO(this JToken requestBody)
         {
             JSchemaGenerator generator = new JSchemaGenerator();
             JSchema pitchInDTOSchema = generator.Generate(typeof(PitchInDTO));
@@ -25,7 +25,7 @@ namespace ferrilata_devilline.Services.Extensions
             return !requestBody.IsValid(pitchInDTOSchema);
         }
 
-        public static bool HasMissingFieldsOrValuesAsPitchToUpdate(this JToken requestBody)
+        public static bool HasMissingFieldsOrValuesAsPitchDTO(this JToken requestBody)
         {
             JSchemaGenerator generator = new JSchemaGenerator();
             JSchema pitchInToUpdateDTOSchema = generator.Generate(typeof(PitchDTO));

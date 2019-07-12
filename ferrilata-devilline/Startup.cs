@@ -96,10 +96,10 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"));
+            services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"), ServiceLifetime.Singleton); /// WHAT IS THIS AND IS IT A PROBLEM????
 
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, PitchService>();
-        }  
+        }
     }
 }

@@ -62,8 +62,8 @@ namespace ferrilata_devilline.Services
         {
             var oldPitch = _context.Pitches.Where(p => p.PitchId == newPitch.PitchId).FirstOrDefault();
             _context.Pitches.Remove(oldPitch);
+            _context.Pitches.Add(newPitch);
             _context.SaveChanges();
-            Save(newPitch);
         }
 
         public void TranslateAndSave(JToken requestBody)

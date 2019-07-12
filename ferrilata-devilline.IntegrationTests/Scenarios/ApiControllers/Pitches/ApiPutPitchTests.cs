@@ -75,10 +75,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             //Act
             await _testContext.Client.SendAsync(request);
 
-            var fortest = _testContext.Context.Pitches
-                .Where(p => p.Result == "result updated")
-                .FirstOrDefault();
-
             string updatedResult = _testContext.Context.Pitches
                 .Where(p => p.PitchId == 1)
                 .FirstOrDefault()
