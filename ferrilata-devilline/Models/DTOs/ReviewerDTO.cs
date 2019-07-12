@@ -8,7 +8,7 @@ namespace ferrilata_devilline.Models.DTOs.In
 {
     public class ReviewerDTO
     {
-        [JsonProperty(PropertyName = "reviewerID", Required = Required.Always)]
+        [JsonProperty(PropertyName = "reviewerId", Required = Required.Always)]
         public long ReviewerId { get; set; }
 
         [JsonProperty(PropertyName = "name", Required = Required.Always)]

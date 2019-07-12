@@ -9,7 +9,7 @@ using ferrilata_devilline.Repositories;
 namespace ferrilata_devilline.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190710145340_1")]
+    [Migration("20190712132655_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,8 @@ namespace ferrilata_devilline.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("LevelNumber");
+
                     b.Property<string>("Weight");
 
                     b.HasKey("LevelId");
@@ -57,7 +59,7 @@ namespace ferrilata_devilline.Migrations
                     b.Property<long>("PitchId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Created");
+                    b.Property<long>("Created");
 
                     b.Property<long?>("LevelId");
 
@@ -67,7 +69,7 @@ namespace ferrilata_devilline.Migrations
 
                     b.Property<string>("Result");
 
-                    b.Property<short>("Status");
+                    b.Property<string>("Status");
 
                     b.Property<long?>("UserId");
 

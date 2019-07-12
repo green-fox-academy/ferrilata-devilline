@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ferrilata_devilline.Migrations
 {
@@ -43,6 +42,7 @@ namespace ferrilata_devilline.Migrations
                 {
                     LevelId = table.Column<long>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    LevelNumber = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Weight = table.Column<string>(nullable: true),
                     BadgeId = table.Column<long>(nullable: true)
@@ -64,11 +64,11 @@ namespace ferrilata_devilline.Migrations
                 {
                     PitchId = table.Column<long>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    Status = table.Column<short>(nullable: false),
+                    Status = table.Column<string>(nullable: true),
                     PitchedLevel = table.Column<string>(nullable: true),
                     PitchedMessage = table.Column<string>(nullable: true),
                     Result = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
+                    Created = table.Column<long>(nullable: false),
                     UserId = table.Column<long>(nullable: true),
                     LevelId = table.Column<long>(nullable: true)
                 },

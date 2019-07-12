@@ -1,5 +1,6 @@
 ﻿using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Models.DTOs.In;
+using ferrilata_devilline.Models.DTOs.Out;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,13 +23,13 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures.Models
         public string Result;
 
         [JsonProperty(PropertyName = "created")]
-        public DateTime Created;
+        public long Created;
 
         [JsonProperty(PropertyName = "user")]
-        public PersonDTO User;
+        public UserDTO User;
 
         [JsonProperty(PropertyName = "level")]
-        public LevelInMiniDTO Level;
+        public LevelMiniDTO Level;
 
         [JsonProperty(PropertyName = "reviews")]
         public List<ReviewDTO> Reviews;

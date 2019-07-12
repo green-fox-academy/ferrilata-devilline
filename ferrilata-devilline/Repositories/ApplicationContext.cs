@@ -1,6 +1,7 @@
 ﻿using ferrilata_devilline.Models.DAOs;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace ferrilata_devilline.Repositories
 {
     public class ApplicationContext : DbContext
@@ -19,14 +20,6 @@ namespace ferrilata_devilline.Repositories
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            base.OnModelCreating(modelBuilder);
-
-   //         modelBuilder.Entity<Pitch>()
-  //             .Property(c => c.Created)
-  //             .HasDefaultValueSql("getdate()");
-
-            modelBuilder.Entity<Pitch>()
-                .Property(r => r.Status)
-                .HasConversion<short>();
 
            modelBuilder.Entity<UserLevel>()
                 .HasKey(e => new { e.UserId, e.LevelId });

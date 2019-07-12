@@ -119,6 +119,7 @@ namespace ferrilata_devilline.Services.Extensions
         {
             Pitch pitch1 = new Pitch
             {
+                Status = "open",
                 PitchedLevel = "pitch1 pitchedLevel",
                 PitchedMessage = "pitch1 pitchedMessage",
                 Result = "pitch1 result",
@@ -127,6 +128,7 @@ namespace ferrilata_devilline.Services.Extensions
             };
             Pitch pitch2 = new Pitch
             {
+                Status = "open",
                 PitchedLevel = "pitch2 pitchedLevel",
                 PitchedMessage = "pitch2 pitchedMessage",
                 Result = "pitch2 result",

@@ -1,9 +1,9 @@
 ﻿using ferrilata_devilline.Models;
 using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
-using ferrilata_devilline.Models.DAOs;
 using Newtonsoft.Json.Linq;
 using ferrilata_devilline.Services.Extensions;
+using System;
 
 namespace ferrilata_devilline.Controllers
 {
@@ -31,7 +31,7 @@ namespace ferrilata_devilline.Controllers
                 return NotFound(new {error = "Please provide all fields"});
             }
 
-            _pitchService.Save(new Pitch { Result = "hey pitch result" });
+            _pitchService.TranslateAndSave(requestBody);
             return Created("", new {message = "Created"});
         }
 
@@ -50,19 +50,21 @@ namespace ferrilata_devilline.Controllers
 
         [HttpPut("pitch")]
         public IActionResult PutPitch([FromBody] JToken requestBody)
-        {           
-            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString() != "")
-            {
-               // _pitchService.Save(pitchToUpdate);
-                return Ok(new { message = "Success" });
-            }
-            if (requestBody.HasMissingFieldsOrValuesAsPitch())
+        {
+            if (!Request.Headers.ContainsKey("Authorization") ||
+                 Request.Headers["Authorization"].ToString() == "")
             {
                 return Unauthorized(new { error = "Unauthorized" });
             }
-            return NotFound(new { error = "Please provide all fields" });
-        }
-
         
+            if (requestBody.HasMissingFieldsOrValuesAsPitchToUpdate())
+            {
+                return NotFound(new { error = "Please provide all fields" });
+            }
+
+            _pitchService.TranslateAndUpdate(requestBody);
+
+            return Ok(new { message = "Success" });
+        } 
     }
 }

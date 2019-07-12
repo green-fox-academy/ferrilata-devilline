@@ -1,4 +1,3 @@
-
 namespace ferrilata_devilline.Models.DAOs
 {
     public class UserLevel

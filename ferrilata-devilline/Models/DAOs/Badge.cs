@@ -9,16 +9,12 @@ namespace ferrilata_devilline.Models.DAOs
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [JsonProperty(PropertyName = "badgeId")]
         public long BadgeId { get; set; }
 
-        [JsonProperty(PropertyName = "version")]
         public double Version { get; set; }
 
-        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
-        [JsonProperty(PropertyName = "tag")]
         public string Tag { get; set; }
     }
 }

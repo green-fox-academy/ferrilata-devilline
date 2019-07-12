@@ -1,32 +1,33 @@
-<<<<<<< HEAD
 ﻿using ferrilata_devilline.IntegrationTests.Fixtures.Models;
 using ferrilata_devilline.Models;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Models.DTOs.In;
+using ferrilata_devilline.Models.DTOs.Input;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
 {
     public static class PitchInputMaker
     {
-        public static PitchInDTO MakeCorrect()
+        public static PitchInDTO MakeCorrectPitchInDTO()
         {
             return new PitchInDTO
             {
                 Status = "status",
-                PitchMessage = "message",
-                PitchedLevel = 3,
+                PitchedMessage = "message",
+                PitchedLevel = "3",
                 Result = "result",
-                Created = DateTime.Now,
+                Created = 21212,
                 User = MakeNewUser(),
                 Level = MakeNewLevel(),
                 Reviews = MakeNewReviews()
             };
         }
 
-        public static PitchInDTOWithNullValue MakeInCorrect()
+        public static PitchInDTOWithNullValue MakeInCorrectPitchInDTO()
         {
             return new PitchInDTOWithNullValue
             {
@@ -34,27 +35,43 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
                 PitchMessage = null,
                 PitchedLevel = 3,
                 Result = "result",
-                Created = DateTime.Now,
+                Created = 121212,
                 User = MakeNewUser(),
                 Level = MakeNewLevel(),
                 Reviews = MakeNewReviews()
             };
         }
 
-        private static PersonDTO MakeNewUser()
+        public static PitchDTO MakeCorrectPitchDTO()
         {
-            return new PersonDTO
+            return  new PitchDTO
             {
-                PersonId = 1,
+                PitchId = 1,
+                Status = "status",
+                PitchedMessage = "message",
+                PitchedLevel = "3",
+                Result = "result updated",
+                Created = 5,
+                User = MakeNewUser(),
+                Level = MakeNewLevel(),
+                Reviews = MakeNewReviews()
+            }; 
+        }
+
+        private static UserDTO MakeNewUser()
+        {
+            return new UserDTO
+            {
+                UserId = 1,
                 Name = "name"
             };
         }
 
-        private static LevelInMiniDTO MakeNewLevel()
+        private static LevelMiniDTO MakeNewLevel()
         {
-            return new LevelInMiniDTO
+            return new LevelMiniDTO
             {
-                LevelId = 2,
+                LevelId = 1,
                 LevelNumber = 8
             };
         }
@@ -63,7 +80,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
         {
             var newReviewer = new ReviewerDTO
             {
-                ReviewerId = 22,
+                ReviewerId = 1,
                 Name = "reviewerName"
             };
 
@@ -71,7 +88,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
             {
                 new ReviewDTO
                 {
-                    ReviewId = 3,
+                    ReviewId = 1,
                     Message = "message",
                     Result = "result",
                     Reviewer = newReviewer
@@ -80,15 +97,3 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
         }
     }
 }
-=======
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputGenerators
-{
-    class PitchInputMaker
-    {
-    }
-}
->>>>>>> 15a46b195d4725ec2449b5f62ca5b99946ccd408

@@ -41,6 +41,8 @@ namespace ferrilata_devilline.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("LevelNumber");
+
                     b.Property<string>("Weight");
 
                     b.HasKey("LevelId");
@@ -55,7 +57,7 @@ namespace ferrilata_devilline.Migrations
                     b.Property<long>("PitchId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Created");
+                    b.Property<long>("Created");
 
                     b.Property<long?>("LevelId");
 
@@ -65,7 +67,7 @@ namespace ferrilata_devilline.Migrations
 
                     b.Property<string>("Result");
 
-                    b.Property<short>("Status");
+                    b.Property<string>("Status");
 
                     b.Property<long?>("UserId");
 

@@ -15,7 +15,7 @@ namespace ferrilata_devilline.Models.DAOs
 
         [DefaultValue(false)]
         [JsonProperty(PropertyName = "status")]
-        public bool Status { get; set; }
+        public string Status { get; set; }
 
         [JsonProperty(PropertyName = "pitchedLevel")]
         public string PitchedLevel { get; set; }
@@ -28,7 +28,7 @@ namespace ferrilata_devilline.Models.DAOs
 
   //      [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonProperty(PropertyName = "created")]
-        public DateTime Created { get; set; }
+        public long Created { get; set; }
 
         [JsonProperty(PropertyName = "user")]
         public User User { get; set; }
@@ -38,7 +38,7 @@ namespace ferrilata_devilline.Models.DAOs
 
         public Pitch()
         {
-            Created = DateTime.Now;
+            Created = (long)DateTime.Now.Millisecond;
         }
     }
 }

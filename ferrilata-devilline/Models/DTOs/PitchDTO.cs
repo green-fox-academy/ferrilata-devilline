@@ -1,13 +1,17 @@
-﻿using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Models.DTOs.In;
+﻿using ferrilata_devilline.Models.DTOs.In;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ferrilata_devilline.Models
+namespace ferrilata_devilline.Models.DTOs.Input
 {
-    public class PitchInDTO
+    public class PitchDTO
     {
+        [JsonProperty(PropertyName = "id", Required = Required.Always)]
+        public long PitchId { get; set; }
+
         [JsonProperty(PropertyName = "status", Required = Required.Always)]
         public string Status { get; set; }
 
@@ -33,6 +37,3 @@ namespace ferrilata_devilline.Models
         public List<ReviewDTO> Reviews;
     }
 }
-
-
-

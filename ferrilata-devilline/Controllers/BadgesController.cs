@@ -21,7 +21,7 @@ namespace ferrilata_devilline.Controllers
 
         [HttpGet]
         [Route("/api/badges")]
-        public IActionResult getGadgets()
+        public IActionResult getBadges()
         {
             var request = Request;
 

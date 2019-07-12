@@ -54,7 +54,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
 
         [Fact]
-        public async Task PitchesApi_Should_ReturnJSONPitchers_WhenRequestHeaderAuthorizationIsNotEmpty()
+        public async Task PitchesApi_Should_ReturnJSONPitches_WhenRequestHeaderAuthorizationIsNotEmpty()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, ApiPitches);
             request.Headers.Add("Authorization", "something");

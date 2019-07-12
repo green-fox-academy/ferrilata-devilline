@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ferrilata_devilline.Models.DTOs.Out
+namespace ferrilata_devilline.Models.DTOs.In
 {
-    public class LevelInMiniDTO
+    public class LevelMiniDTO
     {
         [JsonProperty(PropertyName = "levelId", Required = Required.Always)]
         public long LevelId { get; set; }

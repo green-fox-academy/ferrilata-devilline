@@ -37,7 +37,7 @@ namespace ferrilata_devilline.Services.Translators
                           .Include("UserLevels")
                           .Where(u => u.UserLevels
                                        .Select(l => l.LevelId)
-                                       .Contains(level.LevelId))
+                                                .Contains(level.LevelId))
                           .ToList();
 
                     foreach (User user in users)

@@ -8,7 +8,7 @@ namespace ferrilata_devilline.Controllers
     [ApiController]
     public class ApiAdminController : Controller
     {
-        [HttpPost("api/admin/add")]
+        [HttpPost("api/admin/add")] // POST api badges
         public IActionResult AddAdmin([FromBody]JToken requestBody)
         {
             string authorization = Request.GetAuthorization();

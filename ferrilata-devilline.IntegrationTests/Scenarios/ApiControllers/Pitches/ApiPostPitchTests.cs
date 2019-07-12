@@ -24,21 +24,15 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public ApiPostPitchTests(TestContext testContext)
         {
             _testContext = testContext;
-            _correctPitch = PitchInputMaker.MakeCorrect();
-            _inCorrectPitch = PitchInputMaker.MakeInCorrect();
+            _correctPitch = PitchInputMaker.MakeCorrectPitchInDTO();
+            _inCorrectPitch = PitchInputMaker.MakeInCorrectPitchInDTO();
         }
 
         [Theory]
         [InlineData("api/post/pitch")]
         public async Task PostPitchCorrect_AuthorizationPresent(string url)
         {
-<<<<<<< HEAD
             string PostingJson = JsonConvert.SerializeObject(_correctPitch);
-=======
-            var newPosting = new PitchInDTO
-            { };
-            string PostingJson = JsonConvert.SerializeObject(newPosting);
->>>>>>> 15a46b195d4725ec2449b5f62ca5b99946ccd408
 
             var client = _testContext.Client;
             var request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -49,45 +43,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var response = await client.SendAsync(request);
 
             Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
-        }
-
-        [Theory]
-        [InlineData("api/post/pitch")]
-        public async Task PostPitchCorrect_AuthorizationMissing(string url)
-        {
-<<<<<<< HEAD
-            var PostingJson = JsonConvert.SerializeObject(_correctPitch);
-=======
-            var newPosting = new PitchInDTO
-            { };
-            var PostingJson = JsonConvert.SerializeObject(newPosting);
->>>>>>> 15a46b195d4725ec2449b5f62ca5b99946ccd408
-
-            var client = _testContext.Client;
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Content = new StringContent(PostingJson,
-                                    Encoding.UTF8,
-                                    "application/json");
-            var response = await client.SendAsync(request);
-
-            Assert.Equal(System.Net.HttpStatusCode.Unauthorized, response.StatusCode);
-        }
-
-        [Theory]
-        [InlineData("api/post/pitch")]
-        public async Task PostPitchMissingProperty_AuthorizationOK(string url)
-        {
-            string PostingJson = JsonConvert.SerializeObject(_inCorrectPitch);
-
-            var client = _testContext.Client;
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Content = new StringContent(PostingJson,
-                                    Encoding.UTF8,
-                                    "application/json");
-            request.Headers.Add("Authorization", "something");
-            var response = await client.SendAsync(request);
-
-            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Theory]
@@ -111,9 +66,8 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         [Theory]
         [InlineData("api/post/pitch")]
-        public async Task PostPitchOKProperty_AuthorizationOK_TestUnauthorized(string url)
+        public async Task PostPitchOKPropertytAuthorizationOK_PitchSaved(string url)
         {
-
             string PostingJson = JsonConvert.SerializeObject(_correctPitch);
 
             var client = _testContext.Client;
@@ -121,10 +75,44 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await client.SendAsync(request);
-            string ResponseBody = await response.Content.ReadAsStringAsync();
+            request.Headers.Add("Authorization", "something");
+            await client.SendAsync(request);
 
-            Assert.Equal(JsonConvert.SerializeObject(new { message = "Unauthorized" }), ResponseBody);
+            Assert.Equal(3, _testContext.Context.Pitches.Count());
+            Assert.Equal("result", _testContext.Context.Pitches.ToArray()[2].Result);
+        }
+
+        [Theory]
+        [InlineData("api/post/pitch")]
+        public async Task PostPitchCorrect_AuthorizationMissing(string url)
+        {
+            var PostingJson = JsonConvert.SerializeObject(_correctPitch);
+
+            var client = _testContext.Client;
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Content = new StringContent(PostingJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            var response = await client.SendAsync(request);
+
+            Assert.Equal(System.Net.HttpStatusCode.Unauthorized, response.StatusCode);
+        }
+
+        [Theory]
+        [InlineData("api/post/pitch")]
+        public async Task PostPitchMissingProperty_AuthorizationOK_NotFound(string url)
+        {
+            string PostingJson = JsonConvert.SerializeObject(_inCorrectPitch);
+
+            var client = _testContext.Client;
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Content = new StringContent(PostingJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            request.Headers.Add("Authorization", "something");
+            var response = await client.SendAsync(request);
+
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Theory]
@@ -149,8 +137,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         [Theory]
         [InlineData("api/post/pitch")]
-        public async Task PostPitchOKPropertytAuthorizationOK_PitchSaved(string url)
+        public async Task PostPitchOKProperty_AuthorizationMissing_TestUnauthorized(string url)
         {
+
             string PostingJson = JsonConvert.SerializeObject(_correctPitch);
 
             var client = _testContext.Client;
@@ -158,12 +147,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "something");
-            await client.SendAsync(request);
+            var response = await client.SendAsync(request);
+            string ResponseBody = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(3, _testContext.Context.Pitches.Count());
-            Assert.Equal("hey pitch result", _testContext.Context.Pitches.ToArray()[2].Result);
+            Assert.Equal(JsonConvert.SerializeObject(new { message = "Unauthorized" }), ResponseBody);
         }
-
     }
 }

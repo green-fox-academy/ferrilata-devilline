@@ -1,5 +1,6 @@
 ﻿using ferrilata_devilline.Models;
 using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Models.DTOs.Input;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
@@ -22,6 +23,14 @@ namespace ferrilata_devilline.Services.Extensions
             JSchema pitchInDTOSchema = generator.Generate(typeof(PitchInDTO));
 
             return !requestBody.IsValid(pitchInDTOSchema);
+        }
+
+        public static bool HasMissingFieldsOrValuesAsPitchToUpdate(this JToken requestBody)
+        {
+            JSchemaGenerator generator = new JSchemaGenerator();
+            JSchema pitchInToUpdateDTOSchema = generator.Generate(typeof(PitchDTO));
+
+            return !requestBody.IsValid(pitchInToUpdateDTOSchema);
         }
     }
 }
