@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace ferrilata_devilline.Models
+namespace ferrilata_devilline.Models.DAOs
 {
     public class Badge
     {

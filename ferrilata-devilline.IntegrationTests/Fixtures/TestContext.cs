@@ -1,5 +1,7 @@
 using System;
 using System.Net.Http;
+using ferrilata_devilline.Services;
+using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 
@@ -11,7 +13,6 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
         private TestServer server;
         public HttpClient Client { get; set; }
 
-
         public TestContext()
         {
             var builder = new WebHostBuilder()
@@ -19,6 +20,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
                 .UseStartup<Startup>();
 
             server = new TestServer(builder);
+            IBadgeService badgeService = server.Host.Services.GetService(typeof(IBadgeService)) as MockBadgeService;
             Client = server.CreateClient();
         }
 

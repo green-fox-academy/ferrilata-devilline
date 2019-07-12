@@ -45,6 +45,7 @@ namespace ferrilata_devilline
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
 
             services.AddDbContext<ApplicationContext>(builder => builder
+<<<<<<< HEAD
 
             .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")}; " +
             $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
@@ -52,6 +53,12 @@ namespace ferrilata_devilline
             $" password={Environment.GetEnvironmentVariable("FDPASSWORD")};"));
             
             services.Configure<SlackOptions>(Configuration.GetSection("SlackOptions"));
+=======
+                .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")}; " +
+                          $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
+                          $"user={Environment.GetEnvironmentVariable("FDUSERNAME")};" +
+                          $" password={Environment.GetEnvironmentVariable("FDPASSWORD")}"));
+>>>>>>> ebd133d8a1856128af49d75c4b0ede2dd4d277b8
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +69,7 @@ namespace ferrilata_devilline
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseMvc();
             app.UseAuthentication();
         }
