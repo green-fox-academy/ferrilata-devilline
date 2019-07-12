@@ -18,9 +18,9 @@ namespace ferrilata_devilline.Services.Translators
             _context = context;
         }
 
-        public List<BadgeDTO> Translate(List<Badge> badges)
+        public List<BadgeOutDTO> Translate(List<Badge> badges)
         {
-            List<BadgeDTO> resultBadges = new List<BadgeDTO>();
+            List<BadgeOutDTO> resultBadges = new List<BadgeOutDTO>();
             foreach (Badge badge in badges)
             {
                 List<LevelOutDTO> resultLevels = new List<LevelOutDTO>();
@@ -31,7 +31,7 @@ namespace ferrilata_devilline.Services.Translators
 
                 foreach (Level level in levels)
                 {
-                    List<HolderOutDTO> resultHolders = new List<HolderOutDTO>();
+                    List<PersonDTO> resultHolders = new List<PersonDTO>();
 
                     List<User> users = _context.Users
                           .Include("UserLevels")
@@ -54,16 +54,16 @@ namespace ferrilata_devilline.Services.Translators
             return resultBadges;
         }
 
-        private HolderOutDTO TranslateToHolder(User user)
+        private PersonDTO TranslateToHolder(User user)
         {
-            return new HolderOutDTO
+            return new PersonDTO
             {
-                HolderId = user.UserId,
+                PersonId = user.UserId,
                 Name = user.Name
             };
         }
 
-        private LevelOutDTO TranslateToLevelDTO(Level level, List<HolderOutDTO> resultHolders)
+        private LevelOutDTO TranslateToLevelDTO(Level level, List<PersonDTO> resultHolders)
         {
             return new LevelOutDTO
             {
@@ -75,9 +75,9 @@ namespace ferrilata_devilline.Services.Translators
             };
         }
 
-        private BadgeDTO TranslateToBadgeDTO(Badge badge, List<LevelOutDTO> resultLevels)
+        private BadgeOutDTO TranslateToBadgeDTO(Badge badge, List<LevelOutDTO> resultLevels)
         {
-            return new BadgeDTO
+            return new BadgeOutDTO
             {
                 BadgeId = badge.BadgeId,
                 Version = badge.Version,
