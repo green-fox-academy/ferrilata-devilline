@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ferrilata_devilline
 {
@@ -53,6 +54,8 @@ namespace ferrilata_devilline
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
+
+                    //options.Events.AuthenticationFailed(context: )
                     //Events = new JwtBearerEvents()
                     //{
                     //    OnAuthenticationFailed = context =>
@@ -66,9 +69,22 @@ namespace ferrilata_devilline
                     //        return Task.CompletedTask;
                     //    }
                     //};
+                })
+                .AddCustomAuth(options =>
+                {
+                    // Configure single or multiple passwords for authentication
+                    options.AuthKey = "custom auth key";
                 });
+            ;
+
             
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
+
+            services.AddMvc(options =>
+            {
+                // All endpoints need authorization using our custom authorization filter
+                options.Filters.Add(new CustomAuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build())).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<IBadgeService, MockBadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
@@ -92,8 +108,9 @@ namespace ferrilata_devilline
 
             app.UseMvc();
             app.UseAuthentication();
-            app.UseStatusCodePages(
-    "text/plain", "Status code page, status code: {0}");
+
+    //        app.UseStatusCodePages(
+    //"text/plain", "Status code page, status code: {0}");
         }
 
         public void ConfigureProductionServices(IServiceCollection services)
