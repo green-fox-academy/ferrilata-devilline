@@ -9,6 +9,11 @@ namespace ferrilata_devilline.Controllers
     {
         private readonly IPitchService _pitchService;
 
+        public PitchController(IPitchService pitchService)
+        {
+            _pitchService = pitchService;
+        }
+
         [HttpPost("post/pitch")]
         public IActionResult PostPitch([FromBody] AuxPitch NewPitch)
         {
