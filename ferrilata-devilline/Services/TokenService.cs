@@ -18,11 +18,12 @@ namespace ferrilata_devilline.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
-            {
+                 {
                     new Claim(ClaimTypes.Email, UserEmail)
-            }),
+                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key)
+                , SecurityAlgorithms.HmacSha256Signature)
             };
 
             string token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
