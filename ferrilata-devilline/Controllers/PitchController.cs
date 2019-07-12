@@ -9,11 +9,6 @@ namespace ferrilata_devilline.Controllers
     {
         private readonly IPitchService _pitchService;
 
-        public PitchController(IPitchService pitchService)
-        {
-            _pitchService = pitchService;
-        }
-
         [HttpPost("post/pitch")]
         public IActionResult PostPitch([FromBody] AuxPitch NewPitch)
         {
@@ -44,18 +39,19 @@ namespace ferrilata_devilline.Controllers
 
         [HttpPut("pitch")]
         public IActionResult PutPitch([FromBody] Pitch pitchToUpdate)
-        {           
-            if ((Request.Headers.ContainsKey("Authorization")) && (Request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate)))
+        {
+            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString() != "" &&
+                HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
             {
-                return Ok(new { message = "Success" });
+                return Ok(new {message = "Success"});
             }
+
             if (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
             {
-                return Unauthorized(new { error = "Unauthorized" });
+                return Unauthorized(new {error = "Unauthorized"});
             }
-            return NotFound(new { error = "Please provide all fields" });
-        }
 
-        
+            return NotFound(new {error = "Please provide all fields"});
+        }
     }
 }
