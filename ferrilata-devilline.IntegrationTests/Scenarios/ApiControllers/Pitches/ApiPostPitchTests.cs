@@ -32,7 +32,13 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchCorrect_AuthorizationPresent(string url)
         {
+<<<<<<< HEAD
             string PostingJson = JsonConvert.SerializeObject(_correctPitch);
+=======
+            var newPosting = new PitchInDTO
+            { };
+            string PostingJson = JsonConvert.SerializeObject(newPosting);
+>>>>>>> 15a46b195d4725ec2449b5f62ca5b99946ccd408
 
             var client = _testContext.Client;
             var request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -49,7 +55,13 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchCorrect_AuthorizationMissing(string url)
         {
+<<<<<<< HEAD
             var PostingJson = JsonConvert.SerializeObject(_correctPitch);
+=======
+            var newPosting = new PitchInDTO
+            { };
+            var PostingJson = JsonConvert.SerializeObject(newPosting);
+>>>>>>> 15a46b195d4725ec2449b5f62ca5b99946ccd408
 
             var client = _testContext.Client;
             var request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -82,6 +94,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKProperty_AuthorizationOK_TestMessage(string url)
         {
+
             string PostingJson = JsonConvert.SerializeObject(_correctPitch);
 
             var client = _testContext.Client;
@@ -100,6 +113,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKProperty_AuthorizationOK_TestUnauthorized(string url)
         {
+
             string PostingJson = JsonConvert.SerializeObject(_correctPitch);
 
             var client = _testContext.Client;
@@ -117,6 +131,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchMissingProperty_AuthorizationOK_Message(string url)
         {
+
             string PostingJson = JsonConvert.SerializeObject(_inCorrectPitch);
 
             var client = _testContext.Client;

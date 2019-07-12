@@ -1,5 +1,5 @@
 ﻿using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Models.DTOs.In;
+using ferrilata_devilline.Models.DTOs.Out;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace ferrilata_devilline.Models
         public string PitchMessage { get; set; }
 
         [JsonProperty(PropertyName = "pitchedLevel", Required = Required.Always)]
-        public int PitchedLevel { get; set; }
+        public long PitchedLevel { get; set; }
 
         [JsonProperty(PropertyName = "result", Required = Required.Always)]
         public string Result;

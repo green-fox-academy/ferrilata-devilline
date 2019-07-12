@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using ferrilata_devilline.IntegrationTests.Fixtures.Models;
 using ferrilata_devilline.Models;
 using ferrilata_devilline.Models.DTOs;
@@ -79,3 +80,15 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
         }
     }
 }
+=======
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputGenerators
+{
+    class PitchInputMaker
+    {
+    }
+}
+>>>>>>> 15a46b195d4725ec2449b5f62ca5b99946ccd408

@@ -66,7 +66,11 @@ namespace ferrilata_devilline.IntegrationTests
 
             Assert.Equal("badge2 tag", actual[1].Tag);
             Assert.Equal("level2 description", actual[1].Levels[0].Description);
+<<<<<<< HEAD
             Assert.Equal(2, actual[1].Levels[0].Holders[0].PersonId);
+=======
+            Assert.Equal("2", actual[1].Levels[1].Holders[0].PersonId);
+>>>>>>> 15a46b195d4725ec2449b5f62ca5b99946ccd408
         }
 
         [Fact]
