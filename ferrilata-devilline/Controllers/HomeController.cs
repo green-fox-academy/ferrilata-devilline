@@ -10,18 +10,19 @@ namespace ferrilata_devilline.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IPitchService _pitchService;
+        private readonly ISlackMessagingService _slackMessagingService;
 
-        public HomeController(IPitchService pitchService)
+        public HomeController(ISlackMessagingService slackMessagingService)
         {
-            _pitchService = pitchService;
+            _slackMessagingService = slackMessagingService;
         }
 
         [Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
         [HttpGet("/index")]
         public IActionResult Index()
         {
-            _pitchService.SendMessageToSlack("New pitch has been created by ", User.Identity.Name);
+            string testMessage = _slackMessagingService.BuildMessage();
+            _slackMessagingService.SendMessage(testMessage);
             return View(User.Identity.IsAuthenticated ? "Index" : "Error");
         }
 

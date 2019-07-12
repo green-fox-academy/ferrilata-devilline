@@ -9,15 +9,19 @@ namespace ferrilata_devilline.Services.SlackIntegration
     public class SlackMessagingService : ISlackMessagingService
     {
         private readonly IOptions<SlackOptions> _settings;
+        private readonly string _tempText;
+        private readonly string _tempUser;
 
         public SlackMessagingService(IOptions<SlackOptions> settings)
         {
             _settings = settings;
+            _tempText = "Placeholder text sent from";
+            _tempUser = "placeholder user";
         }
 
-        public string BuildMessage(string text, string username)
+        public string BuildMessage()
         {
-            string textMessage = $"{text} {username}";
+            string textMessage = $"{_tempText} {_tempUser}";
 
             StringBuilder postData = new StringBuilder();
             postData.Append("payload={");
@@ -43,8 +47,7 @@ namespace ferrilata_devilline.Services.SlackIntegration
             request.Content = new StringContent(postData,
                 Encoding.UTF8,
                 "application/x-www-form-urlencoded");
-            var response = await client.SendAsync(request);
-            var responseStatus = response.StatusCode;
+            await client.SendAsync(request);
         }
     }
 }

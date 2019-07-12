@@ -7,13 +7,6 @@ namespace ferrilata_devilline.Services
 {
     public class MockPitchService : IPitchService
     {
-        private readonly ISlackMessagingService _slackMessagingService;
-
-        public MockPitchService(ISlackMessagingService slackMessagingService)
-        {
-            _slackMessagingService = slackMessagingService;
-        }
-
         public Pitches GetPitches()
         {
             Reviewer reviewer1 = new Reviewer
@@ -60,12 +53,6 @@ namespace ferrilata_devilline.Services
                 MyPitches = new List<Pitch> {myPitch1},
                 PitchesToReview = new List<Pitch> {pitchToReview1}
             };
-        }
-
-        public void SendMessageToSlack(string text, string username)
-        {
-            string message = _slackMessagingService.BuildMessage(text, username);
-            _slackMessagingService.SendMessage(message);
         }
     }
 }
