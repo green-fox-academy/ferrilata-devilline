@@ -13,6 +13,11 @@ using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace ferrilata_devilline
 {
@@ -50,6 +55,21 @@ namespace ferrilata_devilline
                         ValidateIssuer = false,
                         ValidateAudience = false,
                         ClockSkew = TimeSpan.Zero
+                    };
+
+                    x.Events = new JwtBearerEvents();
+                    x.Events.OnChallenge = context =>
+                    {
+                        // Skip the default logic.
+                        context.HandleResponse();
+                        context.Response.StatusCode = 401;
+
+                        var payload = new JObject
+                        {
+                            ["error"] = "I double dare you motherfucker",
+                        };
+
+                        return context.Response.WriteAsync(payload.ToString());
                     };
                 });
 

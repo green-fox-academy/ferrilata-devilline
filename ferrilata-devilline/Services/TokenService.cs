@@ -21,7 +21,7 @@ namespace ferrilata_devilline.Services
                  {
                     new Claim(ClaimTypes.Email, UserEmail)
                  }),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key)
                 , SecurityAlgorithms.HmacSha256Signature)
             };
