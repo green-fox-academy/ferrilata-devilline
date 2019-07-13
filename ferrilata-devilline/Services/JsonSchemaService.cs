@@ -24,7 +24,10 @@ namespace ferrilata_devilline.Services
 
         public string GetSchemaFor(string className)
         {
-            return _context.JsonSchemas.Where(s => s.Class.Equals(className)).FirstOrDefault().Schema;
+            return _context.JsonSchemas
+                .Where(s => s.Class.Equals(className))
+                .FirstOrDefault()
+                .Schema;
         }
     }
 }

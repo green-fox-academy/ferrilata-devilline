@@ -1,12 +1,10 @@
-﻿using ferrilata_devilline.Models;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Interfaces;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Collections.Generic;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Translators;
 
@@ -59,7 +57,10 @@ namespace ferrilata_devilline.Services
 
         public void Update(Pitch newPitch)
         {
-            var oldPitch = _context.Pitches.Where(p => p.PitchId == newPitch.PitchId).FirstOrDefault();
+            var oldPitch = _context.Pitches
+                .Where(p => p.PitchId == newPitch.PitchId)
+                .FirstOrDefault();
+
             _context.Pitches.Remove(oldPitch);
             _context.Pitches.Add(newPitch);
             _context.SaveChanges();

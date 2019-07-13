@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Models.DTOs.In;
 using ferrilata_devilline.Repositories;
 
 namespace ferrilata_devilline.Services.Translators
@@ -29,7 +28,12 @@ namespace ferrilata_devilline.Services.Translators
                 Created = originalPitch.Created,
                 User = TranslateToUserDTO(originalPitch.User),
                 Level = TranslateToLevelMiniDTO(originalPitch.Level),
-                Reviews = TranslateToReviewDTOList(_context.Reviews.Where(r => r.Pitch.PitchId == originalPitch.PitchId).Include("User").ToList())
+                Reviews = TranslateToReviewDTOList(
+                    _context.Reviews
+                        .Where(r => r.Pitch.PitchId == originalPitch.PitchId)
+                        .Include("User")
+                        .ToList()
+                    )
             };
         }
 

@@ -1,12 +1,11 @@
-﻿using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using ferrilata_devilline.IntegrationTests.Fixtures;
+using ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
@@ -19,7 +18,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         public ApiPutPitchTests()
         {
-            _testContext = new TestContext(); // TO BE EXPLAINED???
+            _testContext = new TestContext(); 
             _correctPitchString = JsonConvert.SerializeObject(PitchInputMaker.MakeCorrectPitchDTO());
             _inCorrectPitchString = JsonConvert.SerializeObject(PitchInputMaker.MakeCorrectPitchInDTO());
         }

@@ -66,5 +66,23 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var actual = JsonConvert.DeserializeObject<Pitches>(responseString);
             Assert.Equal(typeof(Pitches), actual.GetType());
         }
+
+        [Fact]
+        public async Task PitchesApi_Should_ReturnCorrectPitches_WhenRequestHeaderAuthorizationIsNotEmpty()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, ApiPitches);
+            request.Headers.Add("Authorization", "something");
+
+            var response = await _testContext.Client.SendAsync(request);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            var actual = JsonConvert.DeserializeObject<Pitches>(responseString);
+
+            Assert.Equal("pitch1 result", actual.MyPitches[0].Result);
+            Assert.Equal("user1 name", actual.MyPitches[0].User.Name);
+
+            Assert.Equal("pitch2 pitchedLevel", actual.PitchesToReview[0].PitchedLevel);
+            Assert.Equal("user1 name", actual.PitchesToReview[0].Reviews[0].Reviewer.Name);
+        }
     }
 }

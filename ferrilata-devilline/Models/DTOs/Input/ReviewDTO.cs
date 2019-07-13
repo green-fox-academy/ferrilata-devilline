@@ -1,5 +1,4 @@
-﻿using ferrilata_devilline.Models.DTOs.In;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace ferrilata_devilline.Models.DTOs
 {

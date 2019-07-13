@@ -1,9 +1,9 @@
 using System;
 using System.Net.Http;
-using ferrilata_devilline.Repositories;
-using ferrilata_devilline.Services.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using ferrilata_devilline.Repositories;
+using ferrilata_devilline.Services.Extensions;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures
 {

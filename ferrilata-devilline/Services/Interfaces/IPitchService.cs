@@ -1,5 +1,4 @@
-﻿using ferrilata_devilline.Models;
-using ferrilata_devilline.Models.DAOs;
+﻿using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using Newtonsoft.Json.Linq;
 

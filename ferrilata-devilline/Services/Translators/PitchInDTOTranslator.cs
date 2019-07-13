@@ -23,8 +23,12 @@ namespace ferrilata_devilline.Services.Translators
                 PitchedMessage = incomingPitch.PitchedMessage,
                 Result = incomingPitch.Result,
                 Created = incomingPitch.Created,
-                User = _context.Users.Where(u => u.UserId == incomingPitch.User.UserId).FirstOrDefault(),
-                Level = _context.Levels.Where(l => l.LevelId == incomingPitch.Level.LevelId).FirstOrDefault()
+                User = _context.Users
+                    .Where(u => u.UserId == incomingPitch.User.UserId)
+                    .FirstOrDefault(),
+                Level = _context.Levels
+                    .Where(l => l.LevelId == incomingPitch.Level.LevelId)
+                    .FirstOrDefault()
             };
         }
 
@@ -38,8 +42,12 @@ namespace ferrilata_devilline.Services.Translators
                 PitchedMessage = incomingPitch.PitchedMessage,
                 Result = incomingPitch.Result,
                 Created = incomingPitch.Created,
-                User = _context.Users.Where(u => u.UserId == incomingPitch.User.UserId).FirstOrDefault(),
-                Level = _context.Levels.Where(l => l.LevelId == incomingPitch.Level.LevelId).FirstOrDefault()
+                User = _context.Users
+                    .Where(u => u.UserId == incomingPitch.User.UserId)
+                    .FirstOrDefault(),
+                Level = _context.Levels
+                    .Where(l => l.LevelId == incomingPitch.Level.LevelId)
+                    .FirstOrDefault()
             };
         }
     }

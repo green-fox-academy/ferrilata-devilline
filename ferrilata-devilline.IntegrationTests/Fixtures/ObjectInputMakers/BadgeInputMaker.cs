@@ -1,8 +1,6 @@
-﻿using ferrilata_devilline.IntegrationTests.Fixtures.Models;
+﻿using System.Collections.Generic;
+using ferrilata_devilline.IntegrationTests.Fixtures.Models;
 using ferrilata_devilline.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
 {

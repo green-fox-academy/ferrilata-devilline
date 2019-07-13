@@ -13,12 +13,12 @@ using ferrilata_devilline.Models.DAOs;
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
     [Collection("BaseCollection")]
-    public class ApiAddBadgesTests
+    public class ApiPostBadgesTests
     {
         private readonly TestContext _testContext;
         private readonly HttpRequestMessage _message;
 
-        public ApiAddBadgesTests()
+        public ApiPostBadgesTests()
         {
             _testContext =  new TestContext();
             _message = new HttpRequestMessage(HttpMethod.Post, "/api/badges");

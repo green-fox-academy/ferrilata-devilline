@@ -1,7 +1,5 @@
-﻿using ferrilata_devilline.Models.DTOs;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
-using Newtonsoft.Json.Schema.Generation;
 
 namespace ferrilata_devilline.Services.Extensions
 {

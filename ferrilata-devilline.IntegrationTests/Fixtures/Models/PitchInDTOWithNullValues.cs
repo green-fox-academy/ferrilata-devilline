@@ -1,6 +1,6 @@
-﻿using ferrilata_devilline.Models.DTOs;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures.Models
 {
