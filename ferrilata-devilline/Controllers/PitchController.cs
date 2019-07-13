@@ -54,20 +54,19 @@ namespace ferrilata_devilline.Controllers
         [HttpPut("pitch")]
         public IActionResult PutPitch([FromBody] JToken requestBody)
         {
-            if (!Request.Headers.ContainsKey("Authorization") ||
-                 Request.Headers["Authorization"].ToString() == "")
+            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString() != "" &&
+                _jTokenAnalyzer.ConsidersValid(requestBody, typeof(PitchDTO).ToString()))
             {
-                return Unauthorized(new { error = "Unauthorized" });
+                _pitchService.TranslateAndUpdate(requestBody);
+                return Ok(new {message = "Success"});
             }
 
-            if (_jTokenAnalyzer.FindsMissingFieldsOrValuesIn(requestBody, typeof(PitchDTO).ToString()))
+            if (_jTokenAnalyzer.ConsidersValid(requestBody, typeof(PitchDTO).ToString()))
             {
-                return NotFound(new { error = "Please provide all fields" });
+                return Unauthorized(new {error = "Unauthorized"});
             }
 
-            _pitchService.TranslateAndUpdate(requestBody);
-
-            return Ok(new { message = "Success" });
-        } 
+            return NotFound(new {error = "Please provide all fields"});
+        }
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Net.Http;
+using ferrilata_devilline.Services;
+using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ferrilata_devilline.Repositories;
@@ -20,6 +22,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
                 .UseStartup<Startup>();
 
             server = new TestServer(builder);
+            IBadgeAndLevelService badgeService = server.Host.Services.GetService(typeof(IBadgeAndLevelService)) as BadgeAndLevelService;
             Client = server.CreateClient();
 
             Context = (ApplicationContext)server.Host.Services.GetService(typeof(ApplicationContext));

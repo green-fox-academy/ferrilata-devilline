@@ -19,5 +19,13 @@ namespace ferrilata_devilline.Services.Extensions
 
             return !requestBody.IsValid(schema);
         }
+
+        public bool ConsidersValid(JToken requestBody, string className)
+        {
+            string schemaString = _service.GetSchemaFor(className);
+            JSchema schema = JSchema.Parse(schemaString);
+
+            return requestBody.IsValid(schema);
+        }
     }
 }

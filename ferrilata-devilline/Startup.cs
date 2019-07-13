@@ -10,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using ferrilata_devilline.Services.Extensions;
 using System.Linq;
+using ferrilata_devilline.Services.Extensions;
+using ferrilata_devilline.Services.SlackIntegration;
 
 namespace ferrilata_devilline
 {
@@ -42,15 +43,16 @@ namespace ferrilata_devilline
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ApplicationContext>(builder => builder
-                .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")};" +
-                          $"database={Environment.GetEnvironmentVariable("FDDATABASE")};" +
+                .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")}; " +
+                          $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
                           $"user={Environment.GetEnvironmentVariable("FDUSERNAME")};" +
-                          $"password={Environment.GetEnvironmentVariable("FDPASSWORD")}"
-                          )
-                );
+                          $" password={Environment.GetEnvironmentVariable("FDPASSWORD")};"));
+
+            services.Configure<SlackOptions>(Configuration.GetSection("SlackOptions"));
 
             services.AddScoped<IBadgeAndLevelService, BadgeAndLevelService>();
             services.AddScoped<IPitchService, PitchService>();
+            services.AddScoped<ISlackMessagingService, SlackMessagingService>();
 
             var currentlyUsedContext = (ApplicationContext)services
                 .BuildServiceProvider()
@@ -67,6 +69,7 @@ namespace ferrilata_devilline
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseMvc();
             app.UseAuthentication();
         }

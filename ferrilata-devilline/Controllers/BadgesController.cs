@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using ferrilata_devilline.Models.DTOs;
@@ -25,8 +25,8 @@ namespace ferrilata_devilline.Controllers
         {
             var request = Request;
 
-            if ((request.Headers.ContainsKey("Authorization")) &&
-                (request.Headers["Authorization"].ToString() != ""))
+            if (request.Headers.ContainsKey("Authorization") &&
+                request.Headers["Authorization"].ToString() != "")
             { 
                 return Ok(_badgeService.GetAndTranslateToBadgeDTOAll());
             }
