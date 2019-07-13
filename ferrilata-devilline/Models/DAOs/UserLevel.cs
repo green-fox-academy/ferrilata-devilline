@@ -15,7 +15,7 @@ namespace ferrilata_devilline.Models.DAOs
             User = user;
             Level = level;
             UserId = user.UserId;
-            LevelId = Level.LevelId;
+            LevelId = level.LevelId;
         }
 
         public UserLevel()

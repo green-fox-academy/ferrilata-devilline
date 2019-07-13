@@ -1,51 +1,20 @@
-﻿using ferrilata_devilline.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Models.DTOs.In;
-using ferrilata_devilline.Models.DTOs.Input;
 using ferrilata_devilline.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ferrilata_devilline.Services.Translators
 {
-    public class PitchTranslator
+    public class PitchOutDTOTranslator
     {
         readonly ApplicationContext _context;
 
-        public PitchTranslator(ApplicationContext context)
+        public PitchOutDTOTranslator(ApplicationContext context)
         {
             _context = context;
-        }
-
-        public Pitch TranslateToPitch(PitchInDTO incomingPitch)
-        {
-            return new Pitch
-            {
-                Status = incomingPitch.Status,
-                PitchedLevel = incomingPitch.PitchedLevel,
-                PitchedMessage = incomingPitch.PitchedMessage,
-                Result = incomingPitch.Result,
-                Created = incomingPitch.Created,
-                User = _context.Users.Where(u => u.UserId == incomingPitch.User.UserId).FirstOrDefault(),
-                Level = _context.Levels.Where(l => l.LevelId == incomingPitch.Level.LevelId).FirstOrDefault()
-            };
-        }
-
-        public Pitch TranslateToPitch(PitchDTO incomingPitch)
-        {
-            return new Pitch
-            {
-                PitchId = incomingPitch.PitchId,
-                Status = incomingPitch.Status,
-                PitchedLevel = incomingPitch.PitchedLevel,
-                PitchedMessage = incomingPitch.PitchedMessage,
-                Result = incomingPitch.Result,
-                Created = incomingPitch.Created,
-                User = _context.Users.Where(u => u.UserId == incomingPitch.User.UserId).FirstOrDefault(),
-                Level = _context.Levels.Where(l => l.LevelId == incomingPitch.Level.LevelId).FirstOrDefault()
-            };
         }
 
         public PitchDTO TranslateToPitchDTO(Pitch originalPitch)
@@ -85,7 +54,7 @@ namespace ferrilata_devilline.Services.Translators
         private List<ReviewDTO> TranslateToReviewDTOList(List<Review> reviews)
         {
             List<ReviewDTO> result = new List<ReviewDTO> { };
-            
+
             foreach (Review review in reviews)
             {
                 ReviewDTO translated = new ReviewDTO

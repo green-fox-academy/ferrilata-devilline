@@ -1,14 +1,10 @@
 ﻿using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Models.DTOs.In;
-using ferrilata_devilline.Models.DTOs.Out;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures.Models
 {
-    public class PitchInDTOWithNullValue
+    public class PitchInDTOWithNullValues
     {
         [JsonProperty(PropertyName = "status")]
         public string Status { get; set; }
@@ -20,18 +16,18 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures.Models
         public int PitchedLevel { get; set; }
 
         [JsonProperty(PropertyName = "result")]
-        public string Result;
+        public string Result { get; set; }
 
         [JsonProperty(PropertyName = "created")]
-        public long Created;
+        public long Created { get; set; }
 
         [JsonProperty(PropertyName = "user")]
-        public UserDTO User;
+        public UserDTO User { get; set; }
 
         [JsonProperty(PropertyName = "level")]
-        public LevelMiniDTO Level;
+        public LevelMiniDTO Level { get; set; }
 
         [JsonProperty(PropertyName = "reviews")]
-        public List<ReviewDTO> Reviews;
+        public List<ReviewDTO> Reviews { get; set; }
     }
 }

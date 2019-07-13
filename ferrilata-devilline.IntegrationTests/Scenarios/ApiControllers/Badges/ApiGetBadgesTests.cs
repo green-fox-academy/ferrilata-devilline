@@ -1,15 +1,11 @@
-using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.Models.DTOs.Out;
-using ferrilata_devilline.Models.DAOs;
-using ferrilata_devilline.Repositories;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.IntegrationTests.Fixtures;
 
 namespace ferrilata_devilline.IntegrationTests
 {
@@ -69,24 +65,13 @@ namespace ferrilata_devilline.IntegrationTests
         }
 
         [Fact]
-        public async Task GetBadgesApi_IncorrectAuthentication_ShouldMessageequal()
+        public async Task GetBadgesApi_IncorrectAuthentication_ShouldMessageEqual()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             var response = await testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
             Assert.Equal("Unauthorized",
                 JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
-        }
-
-        [Fact]
-        public async Task temporaryTest()
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-            request.Headers.Add("Authorization", "test");
-
-            var response = await testContext.Client.SendAsync(request);
-
-            Assert.Equal("Microsoft.EntityFrameworkCore.InMemory", testContext.Context.Database.ProviderName);
         }
     }
 }

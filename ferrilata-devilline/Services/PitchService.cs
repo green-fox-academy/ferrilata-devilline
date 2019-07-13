@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Translators;
-using ferrilata_devilline.Models.DTOs.Input;
 
 namespace ferrilata_devilline.Services
 {
@@ -24,7 +23,7 @@ namespace ferrilata_devilline.Services
 
         public Pitches GetPitches(string userEmail)
         {
-            var Translator = new PitchTranslator(_context);
+            var Translator = new PitchOutDTOTranslator(_context);
 
             var myPitches = new List<PitchDTO> {  };
             _context.Pitches
@@ -68,7 +67,7 @@ namespace ferrilata_devilline.Services
 
         public void TranslateAndSave(JToken requestBody)
         {
-            var Translator = new PitchTranslator(_context);
+            var Translator = new PitchInDTOTranslator(_context);
             var incomingPitch = requestBody.ToObject<PitchInDTO>();
 
             var newPitch = Translator.TranslateToPitch(incomingPitch);
@@ -78,7 +77,7 @@ namespace ferrilata_devilline.Services
 
         public void TranslateAndUpdate(JToken requestBody)
         {
-            var Translator = new PitchTranslator(_context);
+            var Translator = new PitchInDTOTranslator(_context);
             var incomingPitch = requestBody.ToObject<PitchDTO>();
 
             var updatablePitch = Translator.TranslateToPitch(incomingPitch);

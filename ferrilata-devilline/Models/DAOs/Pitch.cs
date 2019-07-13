@@ -26,7 +26,6 @@ namespace ferrilata_devilline.Models.DAOs
         [JsonProperty(PropertyName = "result")]
         public string Result { get; set; }
 
-  //      [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonProperty(PropertyName = "created")]
         public long Created { get; set; }
 
@@ -38,7 +37,7 @@ namespace ferrilata_devilline.Models.DAOs
 
         public Pitch()
         {
-            Created = (long)DateTime.Now.Millisecond;
+            Created = DateTime.Now.Millisecond;
         }
     }
 }

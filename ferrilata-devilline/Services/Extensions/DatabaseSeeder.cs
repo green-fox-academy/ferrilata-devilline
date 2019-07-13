@@ -1,8 +1,6 @@
-﻿using ferrilata_devilline.Models;
-using ferrilata_devilline.Models.DAOs;
+﻿using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DAOs.JsonHelper;
 using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Models.DTOs.Input;
 using ferrilata_devilline.Repositories;
 using System.Collections.Generic;
 using System.Linq;
@@ -172,10 +170,14 @@ namespace ferrilata_devilline.Services.Extensions
             var badgeInDTOSchema = new JsonSchema
             {
                 Class = typeof(BadgeInDTO).ToString(),
-                Schema = "{\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"version\": {\r\n      \"type\": \"string\"\r\n    },\r\n    " +
-                "\"name\": {\r\n      \"type\": \"string\"\r\n    },\r\n    \"tag\": {\r\n      \"type\": \"string\"\r\n    },\r\n    \"levels\": {" +
-                "\r\n      \"type\": \"array\",\r\n      \"items\": {}\r\n    }\r\n  },\r\n  \"required\": [\r\n    \"version\",\r\n    \"name\",\r" +
-                "\n    \"tag\",\r\n    \"levels\"\r\n  ]\r\n}"
+                Schema = "{\r\n  \"definitions\": {\r\n    \"LevelInDTO\": {\r\n      \"type\": [\r\n        \"object\",\r\n        \"null\"\r\n      ]" +
+                ",\r\n      \"properties\": {\r\n        \"level\": {\r\n          \"type\": \"integer\"\r\n        },\r\n        \"weight\": {\r\n    " +
+                "      \"type\": \"string\"\r\n        },\r\n        \"description\": {\r\n          \"type\": \"string\"\r\n        }\r\n      },\r\n " +
+                "     \"required\": [\r\n        \"level\",\r\n        \"weight\",\r\n        \"description\"\r\n      ]\r\n    }\r\n  },\r\n  \"type\"" +
+                ": \"object\",\r\n  \"properties\": {\r\n    \"version\": {\r\n      \"type\": \"number\"\r\n    },\r\n    \"name\": {\r\n      \"type\"" +
+                ": \"string\"\r\n    },\r\n    \"tag\": {\r\n      \"type\": \"string\"\r\n    },\r\n    \"levels\": {\r\n      \"type\": \"array\",\r\n " +
+                "     \"items\": {\r\n        \"$ref\": \"#/definitions/LevelInDTO\"\r\n      }\r\n    }\r\n  },\r\n  \"required\": [\r\n    \"version\"" +
+                ",\r\n    \"name\",\r\n    \"tag\",\r\n    \"levels\"\r\n  ]\r\n}"
             };
 
             var pitchInDTOSchema = new JsonSchema

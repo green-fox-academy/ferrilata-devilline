@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Xunit;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.IntegrationTests.Fixtures.Models;
 using ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers;
-using ferrilata_devilline.Models;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Xunit;
+using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
@@ -19,7 +16,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
     {
         private readonly TestContext _testContext;
         private readonly PitchInDTO _correctPitch;
-        private readonly PitchInDTOWithNullValue _inCorrectPitch;
+        private readonly PitchInDTOWithNullValues _inCorrectPitch;
 
         public ApiPostPitchTests()
         {
@@ -97,6 +94,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
             Assert.Equal(System.Net.HttpStatusCode.Unauthorized, response.StatusCode);
         }
+        
 
         [Theory]
         [InlineData("api/post/pitch")]

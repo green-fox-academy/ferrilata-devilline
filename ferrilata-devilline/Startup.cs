@@ -49,7 +49,7 @@ namespace ferrilata_devilline
                           )
                 );
 
-            services.AddScoped<IBadgeService, BadgeService>();
+            services.AddScoped<IBadgeAndLevelService, BadgeAndLevelService>();
             services.AddScoped<IPitchService, PitchService>();
 
             var currentlyUsedContext = (ApplicationContext)services
@@ -98,7 +98,7 @@ namespace ferrilata_devilline
 
             services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"), ServiceLifetime.Singleton); /// WHAT IS THIS AND IS IT A PROBLEM????
 
-            services.AddScoped<IBadgeService, BadgeService>();
+            services.AddScoped<IBadgeAndLevelService, BadgeAndLevelService>();
             services.AddScoped<IPitchService, PitchService>();
             services.AddScoped<JsonSchemaService>();
         }

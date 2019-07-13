@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using ferrilata_devilline.Services.Extensions;
-using System;
 using ferrilata_devilline.Services;
-using ferrilata_devilline.Models.DTOs.Input;
+using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.Controllers
 {

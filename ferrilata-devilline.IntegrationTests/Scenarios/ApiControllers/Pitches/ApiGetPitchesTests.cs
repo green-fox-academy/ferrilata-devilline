@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models;
+using ferrilata_devilline.Models.DTOs;
 using Newtonsoft.Json;
 using Xunit;
 

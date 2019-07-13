@@ -1,11 +1,7 @@
-﻿using ferrilata_devilline.Models.DTOs.In;
-using Newtonsoft.Json;
-using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace ferrilata_devilline.Models.DTOs.Input
+namespace ferrilata_devilline.Models.DTOs
 {
     public class PitchDTO
     {
@@ -22,18 +18,18 @@ namespace ferrilata_devilline.Models.DTOs.Input
         public string PitchedLevel { get; set; }
 
         [JsonProperty(PropertyName = "result", Required = Required.Always)]
-        public string Result;
+        public string Result { get; set; }
 
         [JsonProperty(PropertyName = "created", Required = Required.Always)]
-        public long Created;
+        public long Created { get; set; }
 
         [JsonProperty(PropertyName = "user", Required = Required.Always)]
-        public UserDTO User;
+        public UserDTO User { get; set; }
 
         [JsonProperty(PropertyName = "level", Required = Required.Always)]
-        public LevelMiniDTO Level;
+        public LevelMiniDTO Level { get; set; }
 
         [JsonProperty(PropertyName = "reviews", Required = Required.Always)]
-        public List<ReviewDTO> Reviews;
+        public List<ReviewDTO> Reviews { get; set; }
     }
 }

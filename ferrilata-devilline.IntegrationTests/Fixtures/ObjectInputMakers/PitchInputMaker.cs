@@ -1,11 +1,6 @@
 ﻿using ferrilata_devilline.IntegrationTests.Fixtures.Models;
-using ferrilata_devilline.Models;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Models.DTOs.In;
-using ferrilata_devilline.Models.DTOs.Input;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
@@ -27,9 +22,9 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
             };
         }
 
-        public static PitchInDTOWithNullValue MakeInCorrectPitchInDTO()
+        public static PitchInDTOWithNullValues MakeInCorrectPitchInDTO()
         {
-            return new PitchInDTOWithNullValue
+            return new PitchInDTOWithNullValues
             {
                 Status = "status",
                 PitchMessage = null,

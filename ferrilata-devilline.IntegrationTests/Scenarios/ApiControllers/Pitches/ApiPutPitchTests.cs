@@ -151,16 +151,5 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             //Assert
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields" }), responseString);
         }
-
-        [Fact]
-        public async Task temporaryTest()
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-            request.Headers.Add("Authorization", "test");
-
-            var response = await _testContext.Client.SendAsync(request);
-
-            Assert.Equal("Microsoft.EntityFrameworkCore.InMemory", _testContext.Context.Database.ProviderName);
-        }
     }
 }

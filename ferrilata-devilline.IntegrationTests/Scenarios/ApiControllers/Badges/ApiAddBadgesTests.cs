@@ -5,22 +5,23 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using System.Linq;
 using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.IntegrationTests.Fixtures.Models;
+using ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers;
+using ferrilata_devilline.Models.DAOs;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
     [Collection("BaseCollection")]
-    public class ApiAdminAddTests
+    public class ApiAddBadgesTests
     {
         private readonly TestContext _testContext;
         private readonly HttpRequestMessage _message;
 
-        public ApiAdminAddTests(TestContext testContext)
+        public ApiAddBadgesTests()
         {
-            _testContext = testContext;
-            _message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
+            _testContext =  new TestContext();
+            _message = new HttpRequestMessage(HttpMethod.Post, "/api/badges");
         }
 
         [Theory]
@@ -49,6 +50,62 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             string received = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(expected, received);
+        }
+
+        [Theory]
+        [MemberData(nameof(Correct))]
+        public async Task Authorized_AndHasCorrectBody_BadgeSaved(HttpContent content)
+        {
+            var expectedResponseObject = new List<object>() { new { message = "Created" } };
+            string expected = JsonConvert.SerializeObject(expectedResponseObject);
+
+            _message.Headers.Add("Authorization", "something");
+            _message.Content = content;
+
+            await _testContext.Client.SendAsync(_message);
+
+            int badgesInDatabase = _testContext.Context.Badges.Count();
+            Badge newBadge = _testContext.Context.Badges.Where(b => b.Tag.Equals("such tag")).FirstOrDefault();
+
+            Assert.Equal(3, badgesInDatabase);
+            Assert.Equal("such name", newBadge.Name);
+        }
+
+        [Theory]
+        [MemberData(nameof(Correct))]
+        public async Task Authorized_AndHasCorrectBody_LevelSaved(HttpContent content)
+        {
+            var expectedResponseObject = new List<object>() { new { message = "Created" } };
+            string expected = JsonConvert.SerializeObject(expectedResponseObject);
+
+            _message.Headers.Add("Authorization", "something");
+            _message.Content = content;
+
+            await _testContext.Client.SendAsync(_message);
+
+            int levelsInDatabase = _testContext.Context.Levels.Count();
+            Level newLevel = _testContext.Context.Levels.Where(b => b.Weight.Equals("heavy")).FirstOrDefault();
+
+            Assert.Equal(3, levelsInDatabase);
+            Assert.Equal("to be described", newLevel.Description);
+        }
+
+        [Theory]
+        [MemberData(nameof(Correct))]
+        public async Task Authorized_AndHasCorrectBody_BadgeAndLevelAreSaved_AndConnected(HttpContent content)
+        {
+            var expectedResponseObject = new List<object>() { new { message = "Created" } };
+            string expected = JsonConvert.SerializeObject(expectedResponseObject);
+
+            _message.Headers.Add("Authorization", "something");
+            _message.Content = content;
+
+            await _testContext.Client.SendAsync(_message);
+
+            Badge newBadge = _testContext.Context.Badges.Where(b => b.Tag.Equals("such tag")).FirstOrDefault();
+            Level newLevel = _testContext.Context.Levels.Where(b => b.Weight.Equals("heavy")).FirstOrDefault();
+
+            Assert.Equal(newBadge.BadgeId, newLevel.Badge.BadgeId);
         }
 
         [Theory]
@@ -107,39 +164,40 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public static IEnumerable<object[]> MissingFields =>
             new List<object[]>()
             {
-                new object[] 
-                {   new StringContent(JsonConvert.SerializeObject( 
-                        new
-                        {
-                            version = "2.3", levels = new List<object>()
-                        } ), Encoding.UTF8, "application/json")
+                new object[]
+                {   new StringContent(
+                        JsonConvert.SerializeObject(
+                            new { } 
+                        ), Encoding.UTF8, "application/json"
+                    )
                 },
+            };
+
+
+        public static IEnumerable<object[]> NullValue =>
+            new List<object[]>()
+            {
+                new object[]
+                {
+                    new StringContent(
+                        JsonConvert.SerializeObject(
+                            BadgeInputMaker.MakeWithNullValue()
+                        ), Encoding.UTF8, "application/json"
+                    )
+                }
             };
 
         public static IEnumerable<object[]> Correct =>
             new List<object[]>()
             {
-                new object[] 
+                new object[]
                 {
-                    new StringContent(JsonConvert.SerializeObject(
-                        new
-                        {
-                            version = "2.3", name = "Badge inserter", tag = "general", levels = new List<object>()
-                        } ), Encoding.UTF8, "application/json")
-                },
-            };
-
-        public static IEnumerable<object[]> NullValue =>
-            new List<object[]>()
-            {
-                new object[] 
-                {
-                    new StringContent(JsonConvert.SerializeObject(
-                        new AdminDTOWithNullValues
-                        {
-                            Version = null, Name = "Badge inserter", Tag = "general", Levels = new List<object>()
-                        } ), Encoding.UTF8, "application/json")
-                },
+                    new StringContent(
+                        JsonConvert.SerializeObject(
+                            BadgeInputMaker.MakeCorrect()
+                        ), Encoding.UTF8, "application/json"
+                    )
+                }
             };
     }
 }
