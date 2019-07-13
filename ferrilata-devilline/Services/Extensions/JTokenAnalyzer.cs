@@ -22,10 +22,7 @@ namespace ferrilata_devilline.Services.Extensions
 
         public bool ConsidersValid(JToken requestBody, string className)
         {
-            string schemaString = _service.GetSchemaFor(className);
-            JSchema schema = JSchema.Parse(schemaString);
-
-            return requestBody.IsValid(schema);
+            return !FindsMissingFieldsOrValuesIn(requestBody, className);
         }
     }
 }
