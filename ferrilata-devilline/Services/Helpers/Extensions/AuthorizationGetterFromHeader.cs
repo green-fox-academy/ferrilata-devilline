@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace ferrilata_devilline.Services.Extensions
+namespace ferrilata_devilline.Services.Helpers
 {
     public static class AuthorizationGetterFromHeader
     {

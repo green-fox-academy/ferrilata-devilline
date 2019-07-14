@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ferrilata_devilline.Models.DAOs;
 using Xunit;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.IntegrationTests.Fixtures;

@@ -5,7 +5,7 @@ using ferrilata_devilline.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ferrilata_devilline.Services.Extensions
+namespace ferrilata_devilline.Services.Helpers
 {
     public static class DatabaseSeeder
     {

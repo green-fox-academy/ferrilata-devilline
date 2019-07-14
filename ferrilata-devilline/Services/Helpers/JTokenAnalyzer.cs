@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace ferrilata_devilline.Services.Extensions
+namespace ferrilata_devilline.Services.Helpers
 {
     public class JTokenAnalyzer
     {
