@@ -66,7 +66,7 @@ namespace ferrilata_devilline
 
                         var payload = new JObject
                         {
-                            ["error"] = "I double dare you motherfucker",
+                            ["error"] = "Unauthorized",
                         };
 
                         return context.Response.WriteAsync(payload.ToString());
