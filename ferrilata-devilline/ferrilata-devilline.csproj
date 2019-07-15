@@ -25,4 +25,8 @@
         <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.16" />
         <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
 </Project>

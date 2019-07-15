@@ -54,7 +54,8 @@ namespace ferrilata_devilline.Controllers
         [HttpPut("pitch")]
         public IActionResult PutPitch([FromBody] JToken requestBody)
         {
-            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString() != "" &&
+            if (Request.Headers.ContainsKey("Authorization") && 
+                Request.Headers["Authorization"].ToString() != "" &&
                 _jTokenAnalyzer.ConsidersValid(requestBody, typeof(PitchDTO).ToString()))
             {
                 _pitchService.TranslateAndUpdate(requestBody);

@@ -12,10 +12,6 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "FDPASSWORD": "greenfox",
-        "FDUSERNAME": "root",
-        "FDHOST": "localhost",
-        "FDDATABASE": "lvlup",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
