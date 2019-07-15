@@ -167,7 +167,7 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static void CreateJsonSchemas(ApplicationContext context)
         {
-            var badgeInDTOSchema = new JsonSchema
+            var badgeInDTOSchema = new JsonSchemaForDevilline
             {
                 Class = typeof(BadgeInDTO).ToString(),
                 Schema = "{\r\n  \"definitions\": {\r\n    \"LevelInDTO\": {\r\n      \"type\": [\r\n        \"object\",\r\n        \"null\"\r\n      ]" +
@@ -180,7 +180,7 @@ namespace ferrilata_devilline.Services.Helpers
                 ",\r\n    \"name\",\r\n    \"tag\",\r\n    \"levels\"\r\n  ]\r\n}"
             };
 
-            var pitchInDTOSchema = new JsonSchema
+            var pitchInDTOSchema = new JsonSchemaForDevilline
             {
                 Class = typeof(PitchInDTO).ToString(),
                 Schema = "{\r\n  \"definitions\": {\r\n    \"LevelMiniDTO\": {\r\n      \"type\": \"object\",\r\n      \"properties\": {\r\n        " +
@@ -205,7 +205,7 @@ namespace ferrilata_devilline.Services.Helpers
                 ",\r\n    \"pitchedMessage\",\r\n    \"pitchedLevel\"\r\n  ]\r\n}"
             };
 
-            var pitchDTOSchema = new JsonSchema
+            var pitchDTOSchema = new JsonSchemaForDevilline
             {
                 Class = typeof(PitchDTO).ToString(),
                 Schema = "{\r\n  \"definitions\": {\r\n    \"LevelMiniDTO\": {\r\n      \"type\": \"object\",\r\n      \"properties\": {\r\n        \"le" +
