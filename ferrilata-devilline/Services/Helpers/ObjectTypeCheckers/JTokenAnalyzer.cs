@@ -18,9 +18,9 @@ namespace ferrilata_devilline.Services.Helpers.ObjectTypeCheckers
         public JTokenAnalyzer(JsonSchemaService service)
         {
             _service = service;
-            _badgeInDTOName = (typeof(BadgeInDTO)).ToString();
-            _pitchInDTOName = (typeof(PitchInDTO)).ToString();
-            _pitchDTOName = (typeof(PitchDTO)).ToString();
+            _badgeInDTOName = typeof(BadgeInDTO).ToString();
+            _pitchInDTOName = typeof(PitchInDTO).ToString();
+            _pitchDTOName = typeof(PitchDTO).ToString();
         }
 
         public bool FindsMissingFieldsOrValuesIn(JToken requestBody, string className)
@@ -51,8 +51,13 @@ namespace ferrilata_devilline.Services.Helpers.ObjectTypeCheckers
                 return JToken.FromObject(correctPitchInDTO);
             }
 
-            var correctPitchDTO = PitchInputMaker.MakeCorrectPitchDTO();
-            return JToken.FromObject(correctPitchDTO);
+            if (classname.Equals(_pitchDTOName))
+            {
+                var correctPitchDTO = PitchInputMaker.MakeCorrectPitchDTO();
+                return JToken.FromObject(correctPitchDTO);
+            }
+
+            throw new  ArgumentException("Object type not recognized", "className");
         }
 
         private bool IsInCorrect(JToken requestBody, string className)

@@ -72,7 +72,6 @@ namespace ferrilata_devilline.Services
             var incomingPitch = requestBody.ToObject<PitchInDTO>();
 
             var newPitch = Translator.TranslateToPitch(incomingPitch);
-
             Save(newPitch);
         }
 
@@ -82,7 +81,6 @@ namespace ferrilata_devilline.Services
             var incomingPitch = requestBody.ToObject<PitchDTO>();
 
             var updatablePitch = Translator.TranslateToPitch(incomingPitch);
-
             Update(updatablePitch);
         }
     }

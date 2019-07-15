@@ -14,15 +14,15 @@ namespace ferrilata_devilline.Services.Helpers
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            List<Badge> badges = CreateBadges(context);
-            List<Level> levels = CreateLevels(context, badges);
-            List<User> users = CreateUsers(context);
-            List<UserLevel> userLevels = CreateUserLevels(context, users, levels);
+            var badges = CreateBadges(context);
+            var levels = CreateLevels(context, badges);
+            var users = CreateUsers(context);
+            var userLevels = CreateUserLevels(context, users, levels);
 
             levels = UpdateLevelsWithUserLevels(context, levels, userLevels);
             users = UpdateUsersWithUserLevels(context, users, userLevels);
 
-            List<Pitch> pitches = CreatePitches(context, users, levels);
+            var pitches = CreatePitches(context, users, levels);
             CreateReviews(context, users, pitches);
 
             CreateJsonSchemas(context);
@@ -30,13 +30,13 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static List<Badge> CreateBadges(ApplicationContext context)
         {
-            Badge badge1 = new Badge
+            var badge1 = new Badge
             {
                 Version = 1,
                 Name = "badge1 name",
                 Tag = "badge1 tag"
             };
-            Badge badge2 = new Badge
+            var badge2 = new Badge
             {
                 Version = 2,
                 Name = "badge2 name",
@@ -50,14 +50,14 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static List<Level> CreateLevels(ApplicationContext context, List<Badge> badges)
         {
-            Level level1 = new Level
+            var level1 = new Level
             {
                 LevelNumber = 1,
                 Description = "level1 description",
                 Weight = "level1 weight",
                 Badge = badges[0]
             };
-            Level level2 = new Level
+            var level2 = new Level
             {
                 LevelNumber = 2,
                 Description = "level2 description",
@@ -72,13 +72,13 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static List<User> CreateUsers(ApplicationContext context)
         {
-            User user1 = new User
+            var user1 = new User
             {
                 Name = "user1 name",
                 Email = "user1 email",
                 Role = "user1 role"
             };
-            User user2 = new User
+            var user2 = new User
             {
                 Name = "user2 name",
                 Email = "user2 email",
@@ -92,8 +92,8 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static List<UserLevel> CreateUserLevels(ApplicationContext context, List<User> users, List<Level> levels)
         {
-            UserLevel userLevel1 = new UserLevel(users[0], levels[0]);
-            UserLevel userLevel2 = new UserLevel(users[1], levels[1]);
+            var userLevel1 = new UserLevel(users[0], levels[0]);
+            var userLevel2 = new UserLevel(users[1], levels[1]);
 
             context.UserLevels.AddRange(userLevel1, userLevel2);
             context.SaveChanges();
@@ -122,7 +122,7 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static List<Pitch> CreatePitches(ApplicationContext context, List<User> users, List<Level> levels)
         {
-            Pitch pitch1 = new Pitch
+            var pitch1 = new Pitch
             {
                 Status = "open",
                 PitchedLevel = "pitch1 pitchedLevel",
@@ -131,7 +131,7 @@ namespace ferrilata_devilline.Services.Helpers
                 User = users[0],
                 Level = levels[1]
             };
-            Pitch pitch2 = new Pitch
+            var pitch2 = new Pitch
             {
                 Status = "open",
                 PitchedLevel = "pitch2 pitchedLevel",
@@ -148,14 +148,14 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static void CreateReviews(ApplicationContext context, List<User> users, List<Pitch> pitches)
         {
-            Review review1 = new Review
+            var review1 = new Review
             {
                 Message = "review1 message",
                 Result = "review1 result",
                 User = users[0],
                 Pitch = pitches[1]
             };
-            Review review2 = new Review
+            var review2 = new Review
             {
                 Message = "review2 message",
                 Result = "review2 result",

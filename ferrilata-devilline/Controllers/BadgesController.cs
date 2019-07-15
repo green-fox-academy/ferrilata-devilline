@@ -14,9 +14,9 @@ namespace ferrilata_devilline.Controllers
         JTokenAnalyzer _jTokenAnalyzer;
         private readonly IBadgeAndLevelService _badgeService;
 
-        public BadgesController(JsonSchemaService SchemaService, IBadgeAndLevelService badgeService)
+        public BadgesController(JsonSchemaService schemaService, IBadgeAndLevelService badgeService)
         {
-            _jTokenAnalyzer = new JTokenAnalyzer(SchemaService);
+            _jTokenAnalyzer = new JTokenAnalyzer(schemaService);
             _badgeService = badgeService;
         }
 

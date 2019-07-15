@@ -54,10 +54,9 @@ namespace ferrilata_devilline
             services.AddScoped<JsonSchemaService>();
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
 
-            var currentlyUsedContext = (ApplicationContext)services
+            var currentlyUsedContext = services
                 .BuildServiceProvider()
-                .GetService(typeof(ApplicationContext));
-
+                .GetRequiredService<ApplicationContext>();
             currentlyUsedContext.SeedWithData();
         }
 
