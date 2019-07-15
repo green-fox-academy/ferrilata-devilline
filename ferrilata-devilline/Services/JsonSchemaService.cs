@@ -13,7 +13,7 @@ namespace ferrilata_devilline.Services
             _context = context;
         }
 
-        public void Save(JsonSchema schema)
+        public void Save(JsonSchemaForDevilline schema)
         {
             _context.JsonSchemas.Add(schema);
             _context.SaveChanges();

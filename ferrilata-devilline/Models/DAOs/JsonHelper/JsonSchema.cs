@@ -2,7 +2,7 @@
 
 namespace ferrilata_devilline.Models.DAOs.JsonHelper
 {
-    public class JsonSchema
+    public class JsonSchemaForDevilline
     {
         [Key]
         public string Class { get; set; }

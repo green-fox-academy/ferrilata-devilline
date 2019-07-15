@@ -1,10 +1,21 @@
+<<<<<<< HEAD
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using ferrilata_devilline.Services;
+=======
 ﻿using ferrilata_devilline.Models;
+>>>>>>> b5a36ab710185109cd3e90b0b2ac84943717dd3f
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services;
 using ferrilata_devilline.Services.Helpers.ObjectTypeCheckers;
 using ferrilata_devilline.Services.Interfaces;
+<<<<<<< HEAD
+using ferrilata_devilline.Models;
+using ferrilata_devilline.Services.Helpers.ObjectTypeCheckers;
+=======
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+>>>>>>> b5a36ab710185109cd3e90b0b2ac84943717dd3f
 
 namespace ferrilata_devilline.Controllers
 {

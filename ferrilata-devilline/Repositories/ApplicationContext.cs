@@ -7,7 +7,7 @@ namespace ferrilata_devilline.Repositories
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<JsonSchema> JsonSchemas { get; set; }
+        public DbSet<JsonSchemaForDevilline> JsonSchemas { get; set; }
         public DbSet<Badge> Badges { get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<Pitch> Pitches { get; set; }
