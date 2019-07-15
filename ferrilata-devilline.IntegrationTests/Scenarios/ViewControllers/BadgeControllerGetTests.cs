@@ -40,7 +40,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ViewControllers
         {
             var response = await _testContext.Client.GetAsync(_url);
             var content = await HtmlReader.GetDocumentAsync(response);
-            var badgeList = content.QuerySelectorAll(".badge");
+            var badgeList = content.QuerySelectorAll(".badgeObject");
             var levelList = content.QuerySelectorAll(".level");
             var holderList = content.QuerySelectorAll(".holder");
 
@@ -54,7 +54,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ViewControllers
         {
             var response = await _testContext.Client.GetAsync(_url);
             var content = await HtmlReader.GetDocumentAsync(response);
-            var firstBadgeVersion = content.QuerySelector(".badge td");
+            var firstBadgeVersion = content.QuerySelector(".badgeObject td");
             var firstLevelNumber = content.QuerySelector(".level td");
             var firstHolderName = content.QuerySelector(".holder td");
 
