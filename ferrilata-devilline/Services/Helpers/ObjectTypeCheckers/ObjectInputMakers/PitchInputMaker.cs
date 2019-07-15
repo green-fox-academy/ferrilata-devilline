@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using ferrilata_devilline.IntegrationTests.Fixtures.Models;
 using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.Models;
 
-namespace ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers
+namespace ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.ObjectInputMakers
 {
     public static class PitchInputMaker
     {

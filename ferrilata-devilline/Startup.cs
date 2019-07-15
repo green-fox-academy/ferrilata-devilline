@@ -10,9 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
-using ferrilata_devilline.Services.Extensions;
 using ferrilata_devilline.Services.SlackIntegration;
+using ferrilata_devilline.Services.Helpers;
 
 namespace ferrilata_devilline
 {

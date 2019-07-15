@@ -4,15 +4,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xunit;
+using ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.ObjectInputMakers;
 using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.IntegrationTests.Fixtures.Models;
-using ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers;
 using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.Models;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
     [Collection("BaseCollection")]
     public class ApiPostPitchTests
+
     {
         private readonly TestContext _testContext;
         private readonly PitchInDTO _correctPitch;
