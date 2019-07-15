@@ -12,7 +12,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "FDPASSWORD": "saby6751",
+        "FDPASSWORD": "greenfox",
         "FDUSERNAME": "root",
         "FDHOST": "localhost",
         "FDDATABASE": "lvlup",
