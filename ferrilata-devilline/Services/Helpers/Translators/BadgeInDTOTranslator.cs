@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using ferrilata_devilline.Models.DAOs;
+﻿using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace ferrilata_devilline.Services.Translators
 {

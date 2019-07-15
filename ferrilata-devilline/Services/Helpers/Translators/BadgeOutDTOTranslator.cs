@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ferrilata_devilline.Models.DAOs;
-using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Repositories;
 
 namespace ferrilata_devilline.Services.Translators
 {

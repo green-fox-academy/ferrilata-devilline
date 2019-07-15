@@ -1,17 +1,17 @@
-using Microsoft.Extensions.Configuration;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services;
+using ferrilata_devilline.Services.Helpers;
 using ferrilata_devilline.Services.Interfaces;
+using ferrilata_devilline.Services.SlackIntegration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using ferrilata_devilline.Services.SlackIntegration;
-using ferrilata_devilline.Services.Helpers;
 
 namespace ferrilata_devilline
 {

@@ -1,4 +1,4 @@
-﻿@model List<ferrilata_devilline.Models.DAOs.Badge>;
+﻿@model List<BadgeOutDTO>;
 
 @{
     ViewData["Title"] = "Badge Library";
@@ -9,7 +9,7 @@
 </div>
 <div>
     <table class="table table-condensed table-hover" style="border-collapse:collapse;">
-        <thead >
+        <thead>
             <tr class="table-info">
                 <th scope="col">Version</th>
                 <th scope="col">Name</th>
@@ -20,7 +20,7 @@
         <tbody>
             @foreach (var badge in Model)
             {
-                <tr data-toggle="collapse" data-target="#@("a" + badge.Id)"  class="accordion-toggle badge">
+                <tr data-toggle="collapse" data-target="#@("a" + badge.BadgeId)" class="accordion-toggle badgeObject">
                     <td>@badge.Version</td>
                     <td>@badge.Name</td>
                     <td>@badge.Tag</td>
@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <td colspan="6" class="hiddenRow">
-                        <div class="accordian-body collapse" id="@("a" + badge.Id)">
+                        <div class="accordian-body collapse" id="@("a" + badge.BadgeId)">
                             <table class="table table-condensed col-9" style="border-collapse:collapse;">
                                 <thead>
                                     <tr class="table-active">
@@ -41,7 +41,7 @@
                                 <tbody>
                                     @foreach (var level in badge.Levels)
                                     {
-                                        <tr data-toggle="collapse" data-target="#@("a" + level.Id)" class="accordion-toggle level">
+                                        <tr data-toggle="collapse" data-target="#@("a" + level.LevelId)" class="accordion-toggle level">
                                             <td>@level.LevelNumber</td>
                                             <td>@level.Weight</td>
                                             <td>@level.Description</td>
@@ -49,7 +49,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="6" class="hiddenRow">
-                                                <div class="accordian-body collapse" id="@("a" + level.Id)">
+                                                <div class="accordian-body collapse" id="@("a" + level.LevelId)">
                                                     <table class="table table-condensed col-5" style="border-collapse:collapse;">
                                                         <thead>
                                                             <tr class="table-secondary">

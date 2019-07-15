@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json.Linq;
-using ferrilata_devilline.Models.DAOs;
+﻿using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Interfaces;
-using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Translators;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ferrilata_devilline.Services
 {
