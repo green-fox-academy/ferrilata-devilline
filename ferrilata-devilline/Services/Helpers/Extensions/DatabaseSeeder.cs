@@ -43,7 +43,7 @@ namespace ferrilata_devilline.Services.Helpers
                 Tag = "badge2 tag"
             };
 
-            context.Badges.AddRange( badge1, badge2 );
+            context.Badges.AddRange(badge1, badge2);
             context.SaveChanges();
             return context.Badges.OrderBy(b => b.BadgeId).ToList();
         }
@@ -63,7 +63,7 @@ namespace ferrilata_devilline.Services.Helpers
                 Badge = badges[1]
             };
 
-            context.Levels.AddRange( level1, level2 );
+            context.Levels.AddRange(level1, level2);
             context.SaveChanges();
             return context.Levels.OrderBy(b => b.LevelId).ToList();
         }
@@ -83,7 +83,7 @@ namespace ferrilata_devilline.Services.Helpers
                 Role = "user2 role"
             };
 
-            context.Users.AddRange( user1, user2 );
+            context.Users.AddRange(user1, user2);
             context.SaveChanges();
             return context.Users.OrderBy(b => b.UserId).ToList();
         }
@@ -93,7 +93,7 @@ namespace ferrilata_devilline.Services.Helpers
             UserLevel userLevel1 = new UserLevel(users[0], levels[0]);
             UserLevel userLevel2 = new UserLevel(users[1], levels[1]);
 
-            context.UserLevels.AddRange( userLevel1, userLevel2 );
+            context.UserLevels.AddRange(userLevel1, userLevel2);
             context.SaveChanges();
             return context.UserLevels.OrderBy(b => b.UserId).ToList();
         }
@@ -139,7 +139,7 @@ namespace ferrilata_devilline.Services.Helpers
                 Level = levels[0]
             };
 
-            context.Pitches.AddRange(pitch1, pitch2 );
+            context.Pitches.AddRange(pitch1, pitch2);
             context.SaveChanges();
             return context.Pitches.OrderBy(b => b.PitchId).ToList();
         }

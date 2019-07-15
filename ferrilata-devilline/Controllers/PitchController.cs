@@ -1,10 +1,21 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using ferrilata_devilline.Services;
+=======
+﻿using ferrilata_devilline.Models;
+>>>>>>> b5a36ab710185109cd3e90b0b2ac84943717dd3f
 using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Services;
+using ferrilata_devilline.Services.Helpers.ObjectTypeCheckers;
 using ferrilata_devilline.Services.Interfaces;
+<<<<<<< HEAD
 using ferrilata_devilline.Models;
 using ferrilata_devilline.Services.Helpers.ObjectTypeCheckers;
+=======
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+>>>>>>> b5a36ab710185109cd3e90b0b2ac84943717dd3f
 
 namespace ferrilata_devilline.Controllers
 {
@@ -26,16 +37,16 @@ namespace ferrilata_devilline.Controllers
             if (!Request.Headers.ContainsKey("Authorization") ||
                 Request.Headers["Authorization"].ToString().Length == 0)
             {
-                return Unauthorized(new {message = "Unauthorized"});
+                return Unauthorized(new { message = "Unauthorized" });
             }
 
-            if (_jTokenAnalyzer.FindsMissingFieldsOrValuesIn(requestBody, typeof (PitchInDTO).ToString()))
+            if (_jTokenAnalyzer.FindsMissingFieldsOrValuesIn(requestBody, typeof(PitchInDTO).ToString()))
             {
-                return NotFound(new {error = "Please provide all fields"});
+                return NotFound(new { error = "Please provide all fields" });
             }
 
             _pitchService.TranslateAndSave(requestBody);
-            return Created("", new {message = "Created"});
+            return Created("", new { message = "Created" });
         }
 
         [Route("pitches")]
@@ -58,15 +69,15 @@ namespace ferrilata_devilline.Controllers
                 _jTokenAnalyzer.ConsidersValid(requestBody, typeof(PitchDTO).ToString()))
             {
                 _pitchService.TranslateAndUpdate(requestBody);
-                return Ok(new {message = "Success"});
+                return Ok(new { message = "Success" });
             }
 
             if (_jTokenAnalyzer.ConsidersValid(requestBody, typeof(PitchDTO).ToString()))
             {
-                return Unauthorized(new {error = "Unauthorized"});
+                return Unauthorized(new { error = "Unauthorized" });
             }
 
-            return NotFound(new {error = "Please provide all fields"});
+            return NotFound(new { error = "Please provide all fields" });
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using ferrilata_devilline.Models.DTOs;
+﻿using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.Models;
+using System.Collections.Generic;
 
 namespace ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.ObjectInputMakers
 {
@@ -38,7 +38,7 @@ namespace ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.Obj
 
         public static PitchDTO MakeCorrectPitchDTO()
         {
-            return  new PitchDTO
+            return new PitchDTO
             {
                 PitchId = 1,
                 Status = "status",
@@ -49,7 +49,7 @@ namespace ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.Obj
                 User = MakeNewUser(),
                 Level = MakeNewLevel(),
                 Reviews = MakeNewReviews()
-            }; 
+            };
         }
 
         private static UserDTO MakeNewUser()

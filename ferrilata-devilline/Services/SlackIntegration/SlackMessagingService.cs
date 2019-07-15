@@ -1,8 +1,8 @@
+using ferrilata_devilline.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
 using System.Text;
-using ferrilata_devilline.Services.Interfaces;
-using Microsoft.Extensions.Options;
 
 namespace ferrilata_devilline.Services.SlackIntegration
 {

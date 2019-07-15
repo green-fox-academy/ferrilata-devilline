@@ -1,12 +1,12 @@
-﻿using System.Linq;
+﻿using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Repositories;
+using ferrilata_devilline.Services.Interfaces;
+using ferrilata_devilline.Services.Translators;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using ferrilata_devilline.Models.DAOs;
-using ferrilata_devilline.Repositories;
-using ferrilata_devilline.Services.Interfaces;
-using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Services.Translators;
+using System.Linq;
 
 namespace ferrilata_devilline.Services
 {
@@ -23,7 +23,7 @@ namespace ferrilata_devilline.Services
         {
             var Translator = new PitchOutDTOTranslator(_context);
 
-            var myPitches = new List<PitchDTO> {  };
+            var myPitches = new List<PitchDTO> { };
             _context.Pitches
                             .Include("User")
                             .Include("Level")

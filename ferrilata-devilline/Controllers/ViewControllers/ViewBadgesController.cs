@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ferrilata_devilline.Services.Interfaces;
+﻿using ferrilata_devilline.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
-    
+
     public class ViewBadgesController : Controller
     {
         private readonly IBadgeAndLevelService _badgeService;
@@ -12,7 +12,7 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         {
             _badgeService = badgeService;
         }
-        
+
         [HttpGet("/badgelibrary")]
         public IActionResult GetBadgeLibrary()
         {
