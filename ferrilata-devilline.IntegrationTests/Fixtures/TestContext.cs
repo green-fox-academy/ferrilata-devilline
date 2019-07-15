@@ -5,7 +5,7 @@ using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ferrilata_devilline.Repositories;
-using ferrilata_devilline.Services.Extensions;
+using ferrilata_devilline.Services.Helpers;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures
 {

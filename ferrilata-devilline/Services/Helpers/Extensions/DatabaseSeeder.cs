@@ -52,12 +52,14 @@ namespace ferrilata_devilline.Services.Helpers
         {
             Level level1 = new Level
             {
+                LevelNumber = 1,
                 Description = "level1 description",
                 Weight = "level1 weight",
                 Badge = badges[0]
             };
             Level level2 = new Level
             {
+                LevelNumber = 2,
                 Description = "level2 description",
                 Weight = "level2 weight",
                 Badge = badges[1]

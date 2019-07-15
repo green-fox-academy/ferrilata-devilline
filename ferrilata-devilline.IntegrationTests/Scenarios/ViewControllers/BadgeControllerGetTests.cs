@@ -45,8 +45,8 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ViewControllers
             var holderList = content.QuerySelectorAll(".holder");
 
             Assert.Equal(2, badgeList.Length);
-            Assert.Equal(3, levelList.Length);
-            Assert.Equal(4, holderList.Length);
+            Assert.Equal(2, levelList.Length);
+            Assert.Equal(2, holderList.Length);
         }
 
         [Fact]
@@ -58,9 +58,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ViewControllers
             var firstLevelNumber = content.QuerySelector(".level td");
             var firstHolderName = content.QuerySelector(".holder td");
 
-            Assert.Equal("2.3", firstBadgeVersion.TextContent);
+            Assert.Equal("1", firstBadgeVersion.TextContent);
             Assert.Equal("1", firstLevelNumber.TextContent);
-            Assert.Equal("balazs.barna", firstHolderName.TextContent);
+            Assert.Equal("user1 name", firstHolderName.TextContent);
         }
     }
 }

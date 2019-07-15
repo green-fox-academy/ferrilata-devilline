@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.IntegrationTests.Fixtures.ObjectInputMakers;
+using ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.ObjectInputMakers;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {

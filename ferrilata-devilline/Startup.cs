@@ -51,6 +51,7 @@ namespace ferrilata_devilline
 
             services.AddScoped<IBadgeAndLevelService, BadgeAndLevelService>();
             services.AddScoped<IPitchService, PitchService>();
+            services.AddScoped<JsonSchemaService>();
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
 
             var currentlyUsedContext = (ApplicationContext)services
