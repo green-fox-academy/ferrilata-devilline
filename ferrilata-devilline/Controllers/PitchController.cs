@@ -1,6 +1,7 @@
 ﻿using ferrilata_devilline.Models;
 using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
+using ferrilata_devilline.Models.DAOs;
 
 namespace ferrilata_devilline.Controllers
 {

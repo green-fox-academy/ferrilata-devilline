@@ -1,16 +1,17 @@
-using Microsoft.Extensions.Configuration;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services;
+using ferrilata_devilline.Services.Helpers;
 using ferrilata_devilline.Services.Interfaces;
+using ferrilata_devilline.Services.SlackIntegration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using ferrilata_devilline.Services.SlackIntegration;
 
 namespace ferrilata_devilline
 {
@@ -40,10 +41,6 @@ namespace ferrilata_devilline
                 });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddScoped<IBadgeService, MockBadgeService>();
-            services.AddScoped<IPitchService, MockPitchService>();
-            services.AddScoped<ISlackMessagingService, SlackMessagingService>();
-
             services.AddDbContext<ApplicationContext>(builder => builder
                 .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")}; " +
                           $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
@@ -51,6 +48,15 @@ namespace ferrilata_devilline
                           $" password={Environment.GetEnvironmentVariable("FDPASSWORD")};"));
 
             services.Configure<SlackOptions>(Configuration.GetSection("SlackOptions"));
+
+            services.AddScoped<IBadgeService, MockBadgeService>();
+            services.AddScoped<IPitchService, MockPitchService>();
+            services.AddScoped<ISlackMessagingService, SlackMessagingService>();
+
+            var currentlyUsedContext = services
+                .BuildServiceProvider()
+                .GetRequiredService<ApplicationContext>();
+            currentlyUsedContext.SeedWithData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,6 +96,8 @@ namespace ferrilata_devilline
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"), ServiceLifetime.Singleton);
 
             services.AddScoped<IBadgeService, MockBadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();

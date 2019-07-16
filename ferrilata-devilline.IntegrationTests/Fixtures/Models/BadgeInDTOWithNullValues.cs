@@ -1,14 +1,13 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures.Models
 {
-    class AdminDTOWithNullValues
+    public class BadgeInDTOWithNullValues
     {
         [JsonProperty(PropertyName = "version")]
-        public string Version { get; set; }
+        public double Version { get; set; }
 
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
@@ -17,6 +16,6 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures.Models
         public string Tag { get; set; }
 
         [JsonProperty(PropertyName = "levels")]
-        public List<object> Levels { get; set; }
+        public List<LevelInDTO> Levels { get; set; }
     }
 }
