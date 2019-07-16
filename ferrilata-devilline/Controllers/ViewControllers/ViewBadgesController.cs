@@ -2,6 +2,8 @@
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Google;
+using ferrilata_devilline.Models.DAOs;
+using System.Collections.Generic;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
@@ -18,7 +20,8 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpGet("/badgelibrary")]
         public IActionResult GetBadgeLibrary()
         {
-            return View(_badgeService.GetAll());
+            List<Badge> badges = _badgeService.GetAll();
+            return View(badges);
         }
     }
 }

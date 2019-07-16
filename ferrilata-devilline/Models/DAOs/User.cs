@@ -1,22 +1,20 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ferrilata_devilline.Models.DAOs
 {
-    public class Level
+    public class User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long LevelId { get; set; }
+        public long UserId { get; set; }
 
-        public int LevelNumber { get; set; }
+        public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string Email { get; set; }
 
-        public string Weight { get; set; }
-
-        public Badge Badge { get; set; }
+        public string Role { get; set; }
 
         public List<UserLevel> UserLevels { get; set; }
     }

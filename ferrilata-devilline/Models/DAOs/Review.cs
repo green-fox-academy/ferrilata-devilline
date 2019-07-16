@@ -3,16 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ferrilata_devilline.Models.DAOs
 {
-    public class Badge
+    public class Review
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long BadgeId { get; set; }
+        public long ReviewId { get; set; }
 
-        public double Version { get; set; }
+        public string Message { get; set; }
 
-        public string Name { get; set; }
+        public string Result { get; set; }
 
-        public string Tag { get; set; }
+        public User User { get; set; }
+
+        public Pitch Pitch { get; set; }
     }
 }

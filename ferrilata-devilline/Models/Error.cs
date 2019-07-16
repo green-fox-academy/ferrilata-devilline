@@ -29,7 +29,7 @@ namespace ferrilata_devilline.Models
 
         public override int GetHashCode()
         {
-            return (error != null ? error.GetHashCode() : 0);
+            return error != null ? error.GetHashCode() : 0;
         }
 
         public static bool operator ==(Error left, Error right)

@@ -1,6 +1,7 @@
 ﻿using ferrilata_devilline.Models;
 using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
+using ferrilata_devilline.Models.DAOs;
 
 namespace ferrilata_devilline.Controllers
 {
@@ -8,6 +9,11 @@ namespace ferrilata_devilline.Controllers
     public class PitchController : Controller
     {
         private readonly IPitchService _pitchService;
+
+        public PitchController(IPitchService pitchService)
+        {
+            _pitchService = pitchService;
+        }
 
         [HttpPost("post/pitch")]
         public IActionResult PostPitch([FromBody] AuxPitch NewPitch)
@@ -18,9 +24,9 @@ namespace ferrilata_devilline.Controllers
                 return Unauthorized(new {message = "Unauthorized"});
             }
 
-            if (HelperMethods.HelperMethods.checkMissingPostedPitchFields(NewPitch))
+            if (!ModelState.IsValid)
             {
-                return NotFound(new {error = "Please provide all fields"});
+                return NotFound(new { error = "Please provide all fields" });
             }
 
             return Created("", new {message = "Created"});
@@ -40,18 +46,18 @@ namespace ferrilata_devilline.Controllers
         [HttpPut("pitch")]
         public IActionResult PutPitch([FromBody] Pitch pitchToUpdate)
         {
-            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString() != "" &&
-                HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
+            if (!Request.Headers.ContainsKey("Authorization") ||
+                Request.Headers["Authorization"].ToString().Length == 0)
             {
-                return Ok(new {message = "Success"});
+                return Unauthorized(new { error = "Unauthorized" });
             }
 
-            if (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
+            if (!ModelState.IsValid)
             {
-                return Unauthorized(new {error = "Unauthorized"});
+                return NotFound(new { error = "Please provide all fields" });
             }
 
-            return NotFound(new {error = "Please provide all fields"});
+            return Ok(new { message = "Success" });
         }
     }
 }
