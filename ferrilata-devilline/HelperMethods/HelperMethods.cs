@@ -1,5 +1,6 @@
 ﻿using System;
 using ferrilata_devilline.Models;
+using ferrilata_devilline.Models.DAOs;
 
 namespace ferrilata_devilline.HelperMethods
 {
@@ -21,10 +22,7 @@ namespace ferrilata_devilline.HelperMethods
 
         public static bool checkIAllFieldsArePresent(Pitch pitch)
         {
-            if (pitch.Username == null ||
-                pitch.BadgeName == null ||
-                pitch.Status == null ||
-                pitch.PitchMessage == null)
+            if (pitch.Status == null )
             {
                 return false;
             }

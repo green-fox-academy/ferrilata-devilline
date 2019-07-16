@@ -10,7 +10,7 @@ namespace ferrilata_devilline.Services.Extensions
         public static bool HasMissingFieldsOrValuesAsAdmin(this JToken requestBody)
         {
             JSchemaGenerator generator = new JSchemaGenerator();
-            JSchema adminDTOSchema = generator.Generate(typeof(AdminDTO));
+            JSchema adminDTOSchema = generator.Generate(typeof(BadgeInDTO));
 
             return !requestBody.IsValid(adminDTOSchema);
         }

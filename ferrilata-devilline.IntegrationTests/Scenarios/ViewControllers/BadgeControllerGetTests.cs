@@ -33,34 +33,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ViewControllers
             var navbarsList = content.QuerySelectorAll(".navbar");
 
             Assert.Equal(1, navbarsList.Length);
-        }
-
-        [Fact]
-        public async Task Returns_CorrenctNrOfObjects()
-        {
-            var response = await _testContext.Client.GetAsync(_url);
-            var content = await HtmlReader.GetDocumentAsync(response);
-            var badgeList = content.QuerySelectorAll(".badge");
-            var levelList = content.QuerySelectorAll(".level");
-            var holderList = content.QuerySelectorAll(".holder");
-
-            Assert.Equal(2, badgeList.Length);
-            Assert.Equal(3, levelList.Length);
-            Assert.Equal(4, holderList.Length);
-        }
-
-        [Fact]
-        public async Task Returns_CorrectFieldsOfObjects()
-        {
-            var response = await _testContext.Client.GetAsync(_url);
-            var content = await HtmlReader.GetDocumentAsync(response);
-            var firstBadgeVersion = content.QuerySelector(".badge td");
-            var firstLevelNumber = content.QuerySelector(".level td");
-            var firstHolderName = content.QuerySelector(".holder td");
-
-            Assert.Equal("2.3", firstBadgeVersion.TextContent);
-            Assert.Equal("1", firstLevelNumber.TextContent);
-            Assert.Equal("balazs.barna", firstHolderName.TextContent);
-        }
+        }       
     }
 }

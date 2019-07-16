@@ -20,61 +20,13 @@
         <tbody>
             @foreach (var badge in Model)
             {
-                <tr data-toggle="collapse" data-target="#@("a" + badge.Id)"  class="accordion-toggle badge">
+                <tr data-toggle="collapse" data-target="#@("a" + badge.BadgeId)"  class="accordion-toggle badge">
                     <td>@badge.Version</td>
                     <td>@badge.Name</td>
                     <td>@badge.Tag</td>
                     <td>Levels</td>
                 </tr>
-                <tr>
-                    <td colspan="6" class="hiddenRow">
-                        <div class="accordian-body collapse" id="@("a" + badge.Id)">
-                            <table class="table table-condensed col-9" style="border-collapse:collapse;">
-                                <thead>
-                                    <tr class="table-active">
-                                        <th scope="col">LevelNumber</th>
-                                        <th scope="col">Weight</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Holders</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var level in badge.Levels)
-                                    {
-                                        <tr data-toggle="collapse" data-target="#@("a" + level.Id)" class="accordion-toggle level">
-                                            <td>@level.LevelNumber</td>
-                                            <td>@level.Weight</td>
-                                            <td>@level.Description</td>
-                                            <td>Click for more badges</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="6" class="hiddenRow">
-                                                <div class="accordian-body collapse" id="@("a" + level.Id)">
-                                                    <table class="table table-condensed col-5" style="border-collapse:collapse;">
-                                                        <thead>
-                                                            <tr class="table-secondary">
-                                                                <th scope="col">Name</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @foreach (var holder in level.Holders)
-                                                            {
-                                                                <tr class="holder">
-                                                                    <td>@holder.Name</td>
-                                                                </tr>
-                                                            }
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            }
+             }
         </tbody>
     </table>
 </div>

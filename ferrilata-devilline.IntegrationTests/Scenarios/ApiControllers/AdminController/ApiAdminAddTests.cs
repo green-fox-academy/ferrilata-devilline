@@ -6,8 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.IntegrationTests.Fixtures.Models;
+using ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.ObjectInputMakers;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
@@ -21,34 +20,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         {
             _testContext = testContext;
             _message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
-        }
-
-        [Theory]
-        [MemberData(nameof(Correct))]
-        public async Task Authorized_AndHasCorrectBody_Created(HttpContent content)
-        {
-            _message.Headers.Add("Authorization", "something");
-            _message.Content = content;
-
-            var response = await _testContext.Client.SendAsync(_message);
-
-            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-        }
-
-        [Theory]
-        [MemberData(nameof(Correct))]
-        public async Task Authorized_AndHasCorrectBody_ResponseObject(HttpContent content)
-        {
-            var expectedResponseObject = new List<object>() { new { message = "Created" } };
-            string expected = JsonConvert.SerializeObject(expectedResponseObject);
-
-            _message.Headers.Add("Authorization", "something");
-            _message.Content = content;
-
-            var response = await _testContext.Client.SendAsync(_message);
-            string received = await response.Content.ReadAsStringAsync();
-
-            Assert.Equal(expected, received);
         }
 
         [Theory]
@@ -107,39 +78,40 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public static IEnumerable<object[]> MissingFields =>
             new List<object[]>()
             {
-                new object[] 
-                {   new StringContent(JsonConvert.SerializeObject( 
-                        new
-                        {
-                            version = "2.3", levels = new List<object>()
-                        } ), Encoding.UTF8, "application/json")
+                new object[]
+                {   new StringContent(
+                        JsonConvert.SerializeObject(
+                            new { }
+                        ), Encoding.UTF8, "application/json"
+                    )
                 },
+            };
+
+
+        public static IEnumerable<object[]> NullValue =>
+            new List<object[]>()
+            {
+                new object[]
+                {
+                    new StringContent(
+                        JsonConvert.SerializeObject(
+                            BadgeInputMaker.MakeWithNullValue()
+                        ), Encoding.UTF8, "application/json"
+                    )
+                }
             };
 
         public static IEnumerable<object[]> Correct =>
             new List<object[]>()
             {
-                new object[] 
+                new object[]
                 {
-                    new StringContent(JsonConvert.SerializeObject(
-                        new
-                        {
-                            version = "2.3", name = "Badge inserter", tag = "general", levels = new List<object>()
-                        } ), Encoding.UTF8, "application/json")
-                },
-            };
-
-        public static IEnumerable<object[]> NullValue =>
-            new List<object[]>()
-            {
-                new object[] 
-                {
-                    new StringContent(JsonConvert.SerializeObject(
-                        new AdminDTOWithNullValues
-                        {
-                            Version = null, Name = "Badge inserter", Tag = "general", Levels = new List<object>()
-                        } ), Encoding.UTF8, "application/json")
-                },
+                    new StringContent(
+                        JsonConvert.SerializeObject(
+                            BadgeInputMaker.MakeCorrect()
+                        ), Encoding.UTF8, "application/json"
+                    )
+                }
             };
     }
 }
