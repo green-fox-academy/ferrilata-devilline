@@ -40,8 +40,23 @@ namespace ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.Obj
         {
             return new PitchDTO
             {
-                PitchId = 1,
+                
                 Status = "status",
+                PitchedMessage = "message",
+                PitchedLevel = "3",
+                Result = "result updated",
+                Created = 5,
+                User = MakeNewUser(),
+                Level = MakeNewLevel(),
+                Reviews = MakeNewReviews()
+            };
+        }
+
+        public static PitchDTO MakeInCorrectPitchDTO()
+        {
+            return new PitchDTO
+            {
+                Status = null,
                 PitchedMessage = "message",
                 PitchedLevel = "3",
                 Result = "result updated",

@@ -21,7 +21,7 @@ namespace ferrilata_devilline.Controllers
         }
 
         [HttpPost("post/pitch")]
-        public IActionResult PostPitch([FromBody] JToken requestBody)
+        public IActionResult PostPitch([FromBody] PitchInDTO requestBody)
         {
             if (!Request.Headers.ContainsKey("Authorization") ||
                 Request.Headers["Authorization"].ToString().Length == 0)
@@ -29,12 +29,12 @@ namespace ferrilata_devilline.Controllers
                 return Unauthorized(new { message = "Unauthorized" });
             }
 
-            if (_jTokenAnalyzer.FindsMissingFieldsOrValuesIn(requestBody, typeof(PitchInDTO).ToString()))
+            if (!ModelState.IsValid)
             {
                 return NotFound(new { error = "Please provide all fields" });
             }
-
-            _pitchService.TranslateAndSave(requestBody);
+            JObject toSave = (JObject)JToken.FromObject(requestBody);
+            _pitchService.TranslateAndSave(toSave);
             return Created("", new { message = "Created" });
         }
 
@@ -51,23 +51,25 @@ namespace ferrilata_devilline.Controllers
             return Unauthorized(new Error("Unauthorized"));
         }
 
-        [HttpPut("pitch")]
-        public IActionResult PutPitch([FromBody] JToken requestBody)
+        [HttpPut("pitch/{id}")]
+        public IActionResult PutPitch([FromBody] PitchDTO requestBody, long id)
         {
-            if (Request.Headers.ContainsKey("Authorization") && 
-                Request.Headers["Authorization"].ToString() != "" &&
-                _jTokenAnalyzer.ConsidersValid(requestBody, typeof(PitchDTO).ToString()))
-            {
-                _pitchService.TranslateAndUpdate(requestBody);
-                return Ok(new { message = "Success" });
-            }
-
-            if (_jTokenAnalyzer.ConsidersValid(requestBody, typeof(PitchDTO).ToString()))
+            //requestBody.PitchId = id;
+            requestBody.PitchId = id;
+            if (!Request.Headers.ContainsKey("Authorization") ||
+                Request.Headers["Authorization"].ToString().Length == 0)
             {
                 return Unauthorized(new { error = "Unauthorized" });
             }
 
-            return NotFound(new { error = "Please provide all fields" });
+            if (!ModelState.IsValid)
+            {
+                return NotFound(new { error = "Please provide all fields" });
+            }
+
+            JObject toSave = (JObject)JToken.FromObject(requestBody);
+            _pitchService.TranslateAndUpdate(toSave);
+            return Ok(new { message = "Success" });
         }
     }
 }

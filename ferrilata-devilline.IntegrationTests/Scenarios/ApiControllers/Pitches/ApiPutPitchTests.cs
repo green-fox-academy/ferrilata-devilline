@@ -20,11 +20,11 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         {
             _testContext = new TestContext(); 
             _correctPitchString = JsonConvert.SerializeObject(PitchInputMaker.MakeCorrectPitchDTO());
-            _inCorrectPitchString = JsonConvert.SerializeObject(PitchInputMaker.MakeCorrectPitchInDTO());
+            _inCorrectPitchString = JsonConvert.SerializeObject(PitchInputMaker.MakeInCorrectPitchDTO());
         }
 
         [Theory]
-        [InlineData("api/pitch")]
+        [InlineData("api/pitch/1")]
         public async Task PutPitchApi_CorrectAuthentication_CorrectBody_ShouldReturnOK(string url)
         {
             //Arrange
@@ -42,7 +42,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
 
         [Theory]
-        [InlineData("api/pitch")]
+        [InlineData("api/pitch/1")]
         public async Task PutPitchApi_CorrectAuthentication_CorrectBody_ShouldReturnSuccess(string url)
         {
             //Arrange
@@ -61,7 +61,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
 
         [Theory]
-        [InlineData("api/pitch")]
+        [InlineData("api/pitch/1")]
         public async Task PutPitchApi_CorrectAuthentication_CorrectBody_UpdatesInDatabase(string url)
         {
             //Arrange
@@ -85,7 +85,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
 
         [Theory]
-        [InlineData("api/pitch")]
+        [InlineData("api/pitch/1")]
         public async Task PutPitchApi_IncorrectAuthentication_CorrectBody_ShouldReturnUnauthorized(string url)
         {
             //Arrange
@@ -101,7 +101,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
 
         [Theory]
-        [InlineData("api/pitch")]
+        [InlineData("api/pitch/1")]
         public async Task PutPitchApi_IncorrectAuthentication_CorrectBody_ShouldReturnMessage_Unauthorized(string url)
         {
             //Arrange
@@ -118,7 +118,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
 
         [Theory]
-        [InlineData("api/pitch")]
+        [InlineData("api/pitch/1")]
         public async Task PutPitchApi_CorrectAuthentication_InCorrectBody_ShouldReturnNotFound(string url)
         {
             var request = new HttpRequestMessage(HttpMethod.Put, url);
@@ -133,7 +133,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         }
 
         [Theory]
-        [InlineData("api/pitch")]
+        [InlineData("api/pitch/1")]
         public async Task PutPitchApi_CorrectAuthentication_IncorrectBody_ShouldReturn_ErrorMessage(string url)
         {
             //Arrange
