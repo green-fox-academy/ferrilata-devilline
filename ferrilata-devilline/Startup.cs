@@ -17,7 +17,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Linq;
-using System.Net;
 
 namespace ferrilata_devilline
 {
@@ -66,7 +65,7 @@ namespace ferrilata_devilline
 
                         var payload = new JObject
                         {
-                            ["error"] = "Unauthorized",
+                            ["error"] = "Unauthorized"
                         };
 
                         return context.Response.WriteAsync(payload.ToString());
