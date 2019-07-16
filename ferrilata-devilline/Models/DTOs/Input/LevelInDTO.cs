@@ -1,16 +1,17 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace ferrilata_devilline.Models.DTOs
 {
     public class LevelInDTO
     {
-        [JsonProperty(PropertyName = "level", Required = Required.Always)]
+        [Required]
         public int LevelNumber { get; set; }
 
-        [JsonProperty(PropertyName = "weight", Required = Required.Always)]
+        [Required]
         public string Weight { get; set; }
 
-        [JsonProperty(PropertyName = "description", Required = Required.Always)]
+        [Required]
         public string Description { get; set; }
     }
 }

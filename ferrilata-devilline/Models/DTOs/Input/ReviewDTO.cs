@@ -1,19 +1,20 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace ferrilata_devilline.Models.DTOs
 {
     public class ReviewDTO
     {
-        [JsonProperty(PropertyName = "reviewId", Required = Required.Always)]
+        [Required]
         public long ReviewId { get; set; }
 
-        [JsonProperty(PropertyName = "message", Required = Required.Always)]
+        [Required]
         public string Message { get; set; }
 
-        [JsonProperty(PropertyName = "result", Required = Required.Always)]
+        [Required]
         public string Result { get; set; }
 
-        [JsonProperty(PropertyName = "reviewer", Required = Required.Always)]
+        [Required]
         public ReviewerDTO Reviewer { get; set; }
     }
 }

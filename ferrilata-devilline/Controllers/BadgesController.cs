@@ -11,12 +11,10 @@ namespace ferrilata_devilline.Controllers
 {
     public class BadgesController : Controller
     {
-        JTokenAnalyzer _jTokenAnalyzer;
         private readonly IBadgeAndLevelService _badgeService;
 
-        public BadgesController(JsonSchemaService schemaService, IBadgeAndLevelService badgeService)
+        public BadgesController(IBadgeAndLevelService badgeService)
         {
-            _jTokenAnalyzer = new JTokenAnalyzer(schemaService);
             _badgeService = badgeService;
         }
 
@@ -35,23 +33,22 @@ namespace ferrilata_devilline.Controllers
         }
 
         [HttpPost("api/badges")]
-        public IActionResult AddAdmin([FromBody]JToken requestBody)
+        public IActionResult AddBadge([FromBody]BadgeInDTO requestBody)
         {
-            string authorization = Request.GetAuthorization();
-            string expectedType = typeof(BadgeInDTO).ToString();
-
-            if (authorization != null && authorization != "")
+            if (!Request.Headers.ContainsKey("Authorization") ||
+                Request.Headers["Authorization"].ToString().Length == 0)
             {
-                if (requestBody == null || _jTokenAnalyzer.FindsMissingFieldsOrValuesIn(requestBody, expectedType))
-                {
-                    return BadRequest(new { error = "Please provide all fields" });
-                }
-
-                _badgeService.TranslateAndSave(requestBody);
-                return Created("/api/badges/1", new List<object> { new { message = "Created" } });
+                return Unauthorized(new { message = "Unauthorized" });
             }
 
-            return Unauthorized(Json(new { error = "Unauthorized" }));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { error = "Please provide all fields" });
+            }
+
+            JObject toSave = (JObject)JToken.FromObject(requestBody);
+            _badgeService.TranslateAndSave(toSave);
+            return Created("/api/badges/1", new List<object> { new { message = "Created" } });
         }
     }
 }

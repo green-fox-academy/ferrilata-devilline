@@ -11,12 +11,10 @@ namespace ferrilata_devilline.Controllers
     [Route("api")]
     public class PitchController : Controller
     {
-        private readonly JTokenAnalyzer _jTokenAnalyzer;
         private readonly IPitchService _pitchService;
 
-        public PitchController(IPitchService pitchService, JsonSchemaService service)
+        public PitchController(IPitchService pitchService)
         {
-            _jTokenAnalyzer = new JTokenAnalyzer(service);
             _pitchService = pitchService;
         }
 
@@ -33,6 +31,7 @@ namespace ferrilata_devilline.Controllers
             {
                 return NotFound(new { error = "Please provide all fields" });
             }
+
             JObject toSave = (JObject)JToken.FromObject(requestBody);
             _pitchService.TranslateAndSave(toSave);
             return Created("", new { message = "Created" });
@@ -54,7 +53,6 @@ namespace ferrilata_devilline.Controllers
         [HttpPut("pitch/{id}")]
         public IActionResult PutPitch([FromBody] PitchDTO requestBody, long id)
         {
-            //requestBody.PitchId = id;
             requestBody.PitchId = id;
             if (!Request.Headers.ContainsKey("Authorization") ||
                 Request.Headers["Authorization"].ToString().Length == 0)
