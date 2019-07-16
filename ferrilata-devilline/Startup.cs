@@ -70,21 +70,16 @@ namespace ferrilata_devilline
                     //    }
                     //};
                 })
-                .AddCustomAuth(options =>
-                {
-                    // Configure single or multiple passwords for authentication
-                    options.AuthKey = "custom auth key";
-                });
+                ;
             ;
 
-            
 
 
 
-            services.AddMvc(options =>
-            {
+
+            services.AddMvc();
                 // All endpoints need authorization using our custom authorization filter
-                options.Filters.Add(new CustomAuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build())).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                
 
             services.AddScoped<IBadgeService, MockBadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();

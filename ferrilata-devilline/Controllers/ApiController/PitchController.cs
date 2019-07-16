@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Collections.Generic;
 
 namespace ferrilata_devilline.Controllers
 {
@@ -20,45 +21,27 @@ namespace ferrilata_devilline.Controllers
         [HttpPost("post/pitch")]
         public IActionResult PostPitch([FromBody] AuxPitch NewPitch)
         {
-            if (!Request.Headers.ContainsKey("Authorization") ||
-                Request.Headers["Authorization"].ToString().Length == 0)
+            if (!ModelState.IsValid)
             {
-                return Unauthorized(new {message = "Unauthorized"});
+                return NotFound(new { error = "Please provide all fields" });
             }
-
-            if (HelperMethods.HelperMethods.checkMissingPostedPitchFields(NewPitch))
-            {
-                return NotFound(new {error = "Please provide all fields"});
-            }
-
             return Created("", new {message = "Created"});
         }
 
         [Route("pitches")]
         public IActionResult Return_Pitches()
-        {
-            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString().Length != 0)
-            {
-                return Json(_pitchService.GetPitches());
-            }
-
-            return Unauthorized(new Error("Unauthorized"));
+        {  
+            return Json(_pitchService.GetPitches());
         }
 
         [HttpPut("pitch")]
         public IActionResult PutPitch([FromBody] Pitch pitchToUpdate)
-        {           
-            if ((Request.Headers.ContainsKey("Authorization")) && (Request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate)))
+        {
+            if (!ModelState.IsValid)
             {
-                return Ok(new { message = "Success" });
+                return NotFound(new { error = "Please provide all fields" });
             }
-            if (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
-            {
-                return Unauthorized(new { error = "Unauthorized" });
-            }
-            return NotFound(new { error = "Please provide all fields" });
-        }
-
-        
+            return Created("", new { message = "Success" });
+        }   
     }
 }
