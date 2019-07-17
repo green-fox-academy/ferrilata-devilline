@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers
 {
-    //[Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
@@ -17,7 +16,7 @@ namespace ferrilata_devilline.Controllers
 
         [HttpGet]
         [Route("/api/badges")]
-        public IActionResult getGadgets()
+        public IActionResult getBadges()
         {
             var request = Request;
 

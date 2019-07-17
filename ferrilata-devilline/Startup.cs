@@ -101,6 +101,7 @@ namespace ferrilata_devilline
 
             services.AddScoped<IBadgeService, MockBadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
+
         }
     }
 }
