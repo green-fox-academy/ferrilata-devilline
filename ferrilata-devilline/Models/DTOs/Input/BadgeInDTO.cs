@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace ferrilata_devilline.Models.DTOs
 {
-    public class AdminDTO
+    public class BadgeInDTO
     {
-        [JsonProperty (PropertyName = "version", Required = Required.Always)]
-        public string Version { get; set; }
+        [JsonProperty(PropertyName = "version", Required = Required.Always)]
+        public double Version { get; set; }
 
         [JsonProperty(PropertyName = "name", Required = Required.Always)]
         public string Name { get; set; }
@@ -16,6 +15,6 @@ namespace ferrilata_devilline.Models.DTOs
         public string Tag { get; set; }
 
         [JsonProperty(PropertyName = "levels", Required = Required.Always)]
-        public List<object> Levels { get; set; }
+        public List<LevelInDTO> Levels { get; set; }
     }
 }
