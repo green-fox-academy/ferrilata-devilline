@@ -1,6 +1,7 @@
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services;
 using ferrilata_devilline.Services.Helpers;
+using ferrilata_devilline.Services.Helpers.Extensions;
 using ferrilata_devilline.Services.Interfaces;
 using ferrilata_devilline.Services.SlackIntegration;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -57,6 +58,8 @@ namespace ferrilata_devilline
                 .BuildServiceProvider()
                 .GetRequiredService<ApplicationContext>();
             currentlyUsedContext.SeedWithData();
+
+            services.SetUpAllAutoMappers(currentlyUsedContext);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
