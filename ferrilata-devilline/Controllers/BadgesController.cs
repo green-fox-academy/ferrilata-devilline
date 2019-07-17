@@ -1,6 +1,4 @@
 ﻿using ferrilata_devilline.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers
@@ -25,7 +23,7 @@ namespace ferrilata_devilline.Controllers
             { 
                 return Ok(_badgeService.GetAll());
             }
-            return Unauthorized(new { error = "Unauthorized" });
+            return Unauthorized(new {error = "Unauthorized"});
         }
     }
 }

@@ -26,7 +26,7 @@ namespace ferrilata_devilline.Controllers
 
             if (!ModelState.IsValid)
             {
-                return NotFound(new { error = "Please provide all fields" });
+                return NotFound(new {error = "Please provide all fields" });
             }
 
             return Created("", new {message = "Created"});
@@ -49,15 +49,15 @@ namespace ferrilata_devilline.Controllers
             if (!Request.Headers.ContainsKey("Authorization") ||
                 Request.Headers["Authorization"].ToString().Length == 0)
             {
-                return Unauthorized(new { error = "Unauthorized" });
+                return Unauthorized(new {error = "Unauthorized"});
             }
 
             if (!ModelState.IsValid)
             {
-                return NotFound(new { error = "Please provide all fields" });
+                return NotFound(new {error = "Please provide all fields"});
             }
 
-            return Ok(new { message = "Success" });
+            return Ok(new {message = "Success"});
         }
     }
 }
