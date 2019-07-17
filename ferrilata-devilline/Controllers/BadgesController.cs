@@ -1,8 +1,11 @@
 ﻿using ferrilata_devilline.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers
 {
+    [Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
