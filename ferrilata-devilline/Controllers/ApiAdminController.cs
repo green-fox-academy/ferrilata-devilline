@@ -26,21 +26,6 @@ namespace ferrilata_devilline.Controllers
             }
 
             return Created("/api/badges/1", new List<object> { new { message = "Created" } });
-
-
-            //string authorization = Request.GetAuthorization();
-
-            //if (authorization != null && authorization != "")
-            //{
-            //    if (requestBody == null || requestBody.HasMissingFieldsOrValuesAsAdmin())
-            //    {
-            //       return BadRequest(new { error = "Please provide all fields" });
-            //    }
-
-            //    return Created("/api/badges/1", new List<object> { new { message = "Created" } });
-            //}
-
-            //return Unauthorized(Json(new { error = "Unauthorized" }));
         }
     }
 }
