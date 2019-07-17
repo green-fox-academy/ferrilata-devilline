@@ -10,7 +10,7 @@ namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
     {
         public PitchToPitches(IPitchService pitchService)
         {
-            CreateMap<Badge, BadgeOutDTO>();
+            CreateMap<Pitch, Pitches>();
         }
     }
 }
