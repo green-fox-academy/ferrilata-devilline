@@ -59,7 +59,7 @@ namespace ferrilata_devilline
                 .GetRequiredService<ApplicationContext>();
             currentlyUsedContext.SeedWithData();
 
-            services.SetUpAllAutoMappers(currentlyUsedContext);
+            services.SetUpAllAutoMappers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
