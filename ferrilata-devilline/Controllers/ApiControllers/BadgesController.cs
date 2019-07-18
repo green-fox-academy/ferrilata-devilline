@@ -14,7 +14,7 @@ namespace ferrilata_devilline.Controllers
 
         [HttpGet]
         [Route("/api/badges")]
-        public IActionResult getGadgets()
+        public IActionResult getBadges()
         {
             var request = Request;
 
@@ -25,5 +25,22 @@ namespace ferrilata_devilline.Controllers
             }
             return Unauthorized(new { error = "Unauthorized" });
         }
+
+        [HttpGet]
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult getBadgeById(long badgeId)
+        {
+            long id = badgeId;
+            var request = Request;
+
+            if (request.Headers.ContainsKey("Authorization") &&
+                request.Headers["Authorization"].ToString() != "")
+            {
+                return Ok(_badgeService.GetAll());
+            }
+            return Unauthorized(new { error = "Unauthorized" });
+        }
+
+
     }
 }

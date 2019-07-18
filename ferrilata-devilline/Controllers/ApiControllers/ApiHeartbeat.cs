@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ferrilata_devilline.Controllers.ApiController
+namespace ferrilata_devilline.Controllers.ApiControllers
 {
     public class ApiHeartbeat : Controller
     {
