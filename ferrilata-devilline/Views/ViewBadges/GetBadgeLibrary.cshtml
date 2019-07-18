@@ -1,0 +1,32 @@
+﻿@model List<ferrilata_devilline.Models.DAOs.Badge>;
+
+@{
+    ViewData["Title"] = "Badge Library";
+}
+
+<div class="page-header">
+    <h1>Badges</h1>
+</div>
+<div>
+    <table class="table table-condensed table-hover" style="border-collapse:collapse;">
+        <thead >
+            <tr class="table-info">
+                <th scope="col">Version</th>
+                <th scope="col">Name</th>
+                <th scope="col">Tag</th>
+                <th scope="col">Expand for Levels</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var badge in Model)
+            {
+                <tr data-toggle="collapse" data-target="#@("a" + badge.BadgeId)"  class="accordion-toggle badge">
+                    <td>@badge.Version</td>
+                    <td>@badge.Name</td>
+                    <td>@badge.Tag</td>
+                    <td>Levels</td>
+                </tr>
+             }
+        </tbody>
+    </table>
+</div>

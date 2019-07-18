@@ -1,24 +1,22 @@
-﻿using ferrilata_devilline.Models.DAOs;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ferrilata_devilline.Models
+namespace ferrilata_devilline.Models.DAOs
 {
     public class Badge
     {
-        [JsonProperty(PropertyName = "id")]
-        public long Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long BadgeId { get; set; }
 
-        [JsonProperty(PropertyName = "version")]
         public double Version { get; set; }
 
-        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
-        [JsonProperty(PropertyName = "tag")]
         public string Tag { get; set; }
-
-        [JsonProperty(PropertyName = "levels")]
+        
+        [ForeignKey("levels")]
         public List<Level> Levels { get; set; }
     }
 }

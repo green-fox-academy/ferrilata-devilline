@@ -1,0 +1,15 @@
+﻿.table tr {
+    cursor: pointer;
+}
+
+.hiddenRow {
+    padding: 0 4px !important;
+    background-color: #eeeeee;
+    font-size: 13px;
+}
+
+.page-header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+

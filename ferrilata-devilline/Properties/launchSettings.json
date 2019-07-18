@@ -19,10 +19,22 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
+        "FDUSERNAME": "root",
+        "FDDATABASE": "DevillineDB",
+        "FDPASSWORD": "",
+        "FDHOST": "localhost",
         "FDTOKENSECRET": "7f57a148-46cf-4ca1-84b9-b76a127526f0",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
+    },
+    "ferrilata_devilline.IntegrationTests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "FDTOKENSECRET": "7f57a148-46cf-4ca1-84b9-b76a127526f0",
+        "ASPNETCORE_ENVIRONMENT": "Testing"
+      }
     }
   }
 }

@@ -9,6 +9,7 @@ using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.IntegrationTests.Fixtures.Models;
 using ferrilata_devilline.Services.Interfaces;
+using ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.ObjectInputMakers;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
@@ -121,30 +122,31 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 },
             };
 
-        public static IEnumerable<object[]> Correct =>
-            new List<object[]>()
-            {
-                new object[]
-                {
-                    new StringContent(JsonConvert.SerializeObject(
-                        new
-                        {
-                            version = "2.3", name = "Badge inserter", tag = "general", levels = new List<object>()
-                        } ), Encoding.UTF8, "application/json")
-                },
-            };
 
         public static IEnumerable<object[]> NullValue =>
             new List<object[]>()
             {
                 new object[]
                 {
-                    new StringContent(JsonConvert.SerializeObject(
-                        new AdminDTOWithNullValues
-                        {
-                            Version = null, Name = "Badge inserter", Tag = "general", Levels = new List<object>()
-                        } ), Encoding.UTF8, "application/json")
-                },
+                    new StringContent(
+                        JsonConvert.SerializeObject(
+                            BadgeInputMaker.MakeWithNullValue()
+                        ), Encoding.UTF8, "application/json"
+                    )
+                }
+            };
+
+        public static IEnumerable<object[]> Correct =>
+            new List<object[]>()
+            {
+                new object[]
+                {
+                    new StringContent(
+                        JsonConvert.SerializeObject(
+                            BadgeInputMaker.MakeCorrect()
+                        ), Encoding.UTF8, "application/json"
+                    )
+                }
             };
     }
 }

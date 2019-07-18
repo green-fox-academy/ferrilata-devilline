@@ -1,13 +1,15 @@
-using Microsoft.Extensions.Configuration;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services;
+using ferrilata_devilline.Services.Helpers;
 using ferrilata_devilline.Services.Interfaces;
+using ferrilata_devilline.Services.SlackIntegration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Text;
@@ -75,17 +77,23 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddScoped<IBadgeService, MockBadgeService>();
-            services.AddScoped<IPitchService, MockPitchService>();
-
             services.AddDbContext<ApplicationContext>(builder => builder
+                .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")}; " +
+                          $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
+                          $"user={Environment.GetEnvironmentVariable("FDUSERNAME")};" +
+                          $" password={Environment.GetEnvironmentVariable("FDPASSWORD")};"));
 
-            .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")}; " +
-            $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
-            $"user={Environment.GetEnvironmentVariable("FDUSERNAME")};" +
-            $" password={Environment.GetEnvironmentVariable("FDPASSWORD")}"));
-
+            services.Configure<SlackOptions>(Configuration.GetSection("SlackOptions"));
+            services.AddScoped<IBadgeRepository, BadgeRepository>();
+            services.AddScoped<IBadgeService, BadgeService>();
+            services.AddScoped<IPitchService, MockPitchService>();
+            services.AddScoped<ISlackMessagingService, SlackMessagingService>();
             services.AddScoped<ITokenService, TokenService>();
+
+            var currentlyUsedContext = services
+                .BuildServiceProvider()
+                .GetRequiredService<ApplicationContext>();
+            currentlyUsedContext.SeedWithData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,6 +104,7 @@ namespace ferrilata_devilline
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseMvc();
             app.UseAuthentication();
         }
@@ -126,7 +135,9 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddScoped<IBadgeService, MockBadgeService>();
+            services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"), ServiceLifetime.Singleton);
+            services.AddScoped<IBadgeRepository, BadgeRepository>();
+            services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
             services.AddScoped<ITokenService, TokenService>();
 
