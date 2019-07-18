@@ -28,27 +28,3 @@ namespace ferrilata_devilline.Controllers
         }
     }
 }
-
-
-//[
-//{
-//    "id": 123,
-//    "version": "2.3",
-//    "name": "Process improver/initator",
-//    "tag": "general",
-//    "levels": [
-//    {
-//        "id": 12,
-//        "level": 1,
-//        "weight": 2,
-//        "description": "I can see through processes and propose relevant and doable ideas for improvement. I can create improved definition / accountibility / documentation and communicate it to the team",
-//        "holders": [
-//        {
-//            "id": 45,
-//            "name": "balazs.barna"
-//        },
-//        ...
-//            ]
-//    },
-//    ...
-//        ]
