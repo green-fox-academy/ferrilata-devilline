@@ -48,8 +48,8 @@ namespace ferrilata_devilline
                           $" password={Environment.GetEnvironmentVariable("FDPASSWORD")};"));
 
             services.Configure<SlackOptions>(Configuration.GetSection("SlackOptions"));
-
-            services.AddScoped<IBadgeService, MockBadgeService>();
+            services.AddScoped<IBadgeRepository, BadgeRepository>();
+            services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
 
@@ -98,8 +98,8 @@ namespace ferrilata_devilline
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"), ServiceLifetime.Singleton);
-
-            services.AddScoped<IBadgeService, MockBadgeService>();
+            services.AddScoped<IBadgeRepository, BadgeRepository>();
+            services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
         }
     }

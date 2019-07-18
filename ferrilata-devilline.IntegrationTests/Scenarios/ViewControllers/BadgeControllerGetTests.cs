@@ -33,6 +33,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ViewControllers
             var navbarsList = content.QuerySelectorAll(".navbar");
 
             Assert.Equal(1, navbarsList.Length);
-        }       
+        }
     }
 }
