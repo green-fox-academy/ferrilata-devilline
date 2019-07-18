@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ferrilata_devilline.Models.DAOs
@@ -14,5 +15,7 @@ namespace ferrilata_devilline.Models.DAOs
         public string Name { get; set; }
 
         public string Tag { get; set; }
+
+        public List<Level> Levels { get; set; }
     }
 }
