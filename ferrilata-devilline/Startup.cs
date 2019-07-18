@@ -50,7 +50,8 @@ namespace ferrilata_devilline
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("FDTOKENSECRET"))),
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("FDTOKENSECRET"))),
                         ValidateIssuer = false,
                         ValidateAudience = false,
                         ClockSkew = TimeSpan.Zero
@@ -155,8 +156,8 @@ namespace ferrilata_devilline
                 x.Events = new JwtBearerEvents();
                 x.Events.OnChallenge = context =>
                 {
-                // Skip the default logic.
-                context.HandleResponse();
+                    // Skip the default logic.
+                    context.HandleResponse();
                     context.Response.StatusCode = 401;
 
                     var payload = new JObject

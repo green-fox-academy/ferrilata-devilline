@@ -17,14 +17,15 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
 
         public TestContext()
         {
-            //var config = new ConfigurationBuilder()
-            //    .AddJsonFile("/Users/yarik/Desktop/ferrilata-develline/ferrilata-devilline/" +
-            //    "ferrilata-devilline/appsettings.Testing.json", optional: false, reloadOnChange: false)
-            // .AddEnvironmentVariables()
-            // .Build();
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("/Users/yarik/Desktop/ferrilata-develline/ferrilata-devilline/" +
+                "ferrilata-devilline/appsettings.Testing.json", optional: false, reloadOnChange: false)
+             .AddEnvironmentVariables()
+             .Build();
 
             var builder = new WebHostBuilder()
                 .UseEnvironment("Testing")
+                .UseConfiguration(config)
                 .UseStartup<Startup>();
 
             server = new TestServer(builder);
