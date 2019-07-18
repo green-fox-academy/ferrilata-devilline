@@ -102,6 +102,8 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.SetUpAutoMapper();
+
             services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"), ServiceLifetime.Singleton);
             services.AddScoped<IBadgeRepository, BadgeRepository>();
             services.AddScoped<IBadgeService, BadgeService>();
