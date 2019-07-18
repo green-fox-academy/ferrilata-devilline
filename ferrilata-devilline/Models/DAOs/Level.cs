@@ -18,6 +18,8 @@ namespace ferrilata_devilline.Models.DAOs
 
         public Badge Badge { get; set; }
 
+        //public List<User> Holders { get; set; }
+
         public List<UserLevel> UserLevels { get; set; }
 
         public List<Pitch> Pitches { get; set; }

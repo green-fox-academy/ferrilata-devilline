@@ -41,11 +41,11 @@ namespace ferrilata_devilline.Controllers
             {
                 return Unauthorized(new { error = "Unauthorized" });
             }
-            else if (_badgeRepository.FindBadgeById(badgeId) == null)
+            else if (_badgeService.FindById(badgeId) == null)
             {
                 return NotFound(new { error = "Please provide an existing Badge Id" });
             }
-                return Ok(_badgeRepository.FindBadgeById(badgeId));
+                return Ok(_badgeService.FindById(badgeId));
             
         }
     }

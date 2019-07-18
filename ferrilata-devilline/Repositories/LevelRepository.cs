@@ -28,7 +28,7 @@ namespace ferrilata_devilline.Repositories
 
         public List<Level> RetrieveLevelsFromDB()
         {
-            return _applicationContext.Levels.Include(level => level.UserLevels).ToList();
+            return _applicationContext.Levels.Include(level => level.UserLevels.Select(x => x.User)).ToList();
         }
 
         public Level FindLevelById(long id)

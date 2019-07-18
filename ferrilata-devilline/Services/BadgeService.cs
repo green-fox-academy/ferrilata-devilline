@@ -14,9 +14,9 @@ namespace ferrilata_devilline.Services
             _badgeRepository = badgeRepository;
         }
 
-        public Level FindById()
+        public Badge FindById(long id)
         {
-            throw new System.NotImplementedException();
+            return _badgeRepository.FindBadgeById(id);
         }
 
         public List<Badge> GetAll()
