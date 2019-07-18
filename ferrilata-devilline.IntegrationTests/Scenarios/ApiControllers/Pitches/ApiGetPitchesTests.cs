@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models;
+using ferrilata_devilline.Services.Interfaces;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -13,10 +14,14 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
     {
         private const string ApiPitches = "/api/pitches";
         private readonly TestContext _testContext;
+        private readonly ITokenService _tokenService;
+        private readonly string email;
 
         public ApiPitchesIntegrationTests(TestContext testContext)
         {
             _testContext = testContext;
+            _tokenService = _testContext.TokenService;
+            email = "useremail@ferillata.com";
         }
 
         [Fact]
@@ -46,7 +51,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PitchesApi_Should_ReturnStatusOK_WhenRequestHeaderAuthorizationIsNotEmpty()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, ApiPitches);
-            request.Headers.Add("Authorization", "something");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
 
             var response = await _testContext.Client.SendAsync(request);
 
@@ -57,7 +62,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PitchesApi_Should_ReturnJSONPitchers_WhenRequestHeaderAuthorizationIsNotEmpty()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, ApiPitches);
-            request.Headers.Add("Authorization", "something");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
 
             var response = await _testContext.Client.SendAsync(request);
 

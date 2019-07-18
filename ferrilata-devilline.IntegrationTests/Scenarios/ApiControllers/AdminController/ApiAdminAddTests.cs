@@ -8,6 +8,7 @@ using Xunit;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.IntegrationTests.Fixtures.Models;
+using ferrilata_devilline.Services.Interfaces;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
@@ -16,18 +17,22 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
     {
         private readonly TestContext _testContext;
         private readonly HttpRequestMessage _message;
+        private readonly ITokenService _tokenService;
+        private readonly string email;
 
         public ApiAdminAddTests(TestContext testContext)
         {
             _testContext = testContext;
             _message = new HttpRequestMessage(HttpMethod.Post, "/api/admin/add");
+            _tokenService = _testContext.TokenService;
+            email = "useremail@ferillata.com";
         }
 
         [Theory]
         [MemberData(nameof(Correct))]
         public async Task Authorized_AndHasCorrectBody_Created(HttpContent content)
         {
-            _message.Headers.Add("Authorization", "something");
+            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             _message.Content = content;
 
             var response = await _testContext.Client.SendAsync(_message);
@@ -42,7 +47,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var expectedResponseObject = new List<object>() { new { message = "Created" } };
             string expected = JsonConvert.SerializeObject(expectedResponseObject);
 
-            _message.Headers.Add("Authorization", "something");
+            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             _message.Content = content;
 
             var response = await _testContext.Client.SendAsync(_message);
@@ -79,7 +84,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [MemberData(nameof(NullValue))]
         public async Task Authorized_IncorrectBody_BadRequest(HttpContent content)
         {
-            _message.Headers.Add("Authorization", "something");
+            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             _message.Content = content;
 
             var response = await _testContext.Client.SendAsync(_message);
@@ -95,7 +100,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var expectedResponseObject = new { error = "Please provide all fields" };
             string expected = JsonConvert.SerializeObject(expectedResponseObject);
 
-            _message.Headers.Add("Authorization", "something");
+            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             _message.Content = content;
 
             var response = await _testContext.Client.SendAsync(_message);
@@ -107,8 +112,8 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public static IEnumerable<object[]> MissingFields =>
             new List<object[]>()
             {
-                new object[] 
-                {   new StringContent(JsonConvert.SerializeObject( 
+                new object[]
+                {   new StringContent(JsonConvert.SerializeObject(
                         new
                         {
                             version = "2.3", levels = new List<object>()
@@ -119,7 +124,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public static IEnumerable<object[]> Correct =>
             new List<object[]>()
             {
-                new object[] 
+                new object[]
                 {
                     new StringContent(JsonConvert.SerializeObject(
                         new
@@ -132,7 +137,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public static IEnumerable<object[]> NullValue =>
             new List<object[]>()
             {
-                new object[] 
+                new object[]
                 {
                     new StringContent(JsonConvert.SerializeObject(
                         new AdminDTOWithNullValues

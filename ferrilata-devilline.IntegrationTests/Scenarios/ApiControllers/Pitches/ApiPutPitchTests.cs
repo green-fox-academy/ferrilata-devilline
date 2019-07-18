@@ -1,5 +1,6 @@
 ﻿using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models;
+using ferrilata_devilline.Services.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
     public class ApiPutPitchTests
     {
         private readonly TestContext _testContext;
+        private readonly ITokenService _tokenService;
+        private readonly string email;
+
         public ApiPutPitchTests(TestContext testContext)
         {
             _testContext = testContext;
+            _tokenService = _testContext.TokenService;
+            email = "useremail@ferillata.com";
         }
 
         [Theory]
@@ -26,13 +32,13 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             //Arrange
             var InputPitch = CreateNewPitch();
             string InputJson = JsonConvert.SerializeObject(InputPitch);
-            
+
             //Act
             var request = new HttpRequestMessage(HttpMethod.Put, url);
             request.Content = new StringContent(InputJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "test");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             var response = await _testContext.Client.SendAsync(request);
 
             //Assert
@@ -71,7 +77,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(InputJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "test");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             var response = await _testContext.Client.SendAsync(request);
 
             //Assert
@@ -93,7 +99,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(InputJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "test");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
@@ -118,7 +124,8 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var responseString = await response.Content.ReadAsStringAsync();
 
             //Assert
-            Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }), responseString);
+            Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }),
+                "{" + responseString.Substring(4, 23).Replace(" ", "") + "}");
         }
 
         [Theory]
@@ -134,7 +141,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(InputJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "test");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 

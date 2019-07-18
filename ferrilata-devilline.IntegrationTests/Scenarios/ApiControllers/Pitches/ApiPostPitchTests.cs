@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models;
+using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Xunit;
@@ -16,24 +17,21 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
     public class ApiPostPitchTests
     {
         private readonly TestContext _testContext;
+        private readonly ITokenService _tokenService;
+        private readonly string email;
 
         public ApiPostPitchTests(TestContext testContext)
         {
             _testContext = testContext;
+            _tokenService = _testContext.TokenService;
+            email = "useremail@ferillata.com";
         }
 
         [Theory]
         [InlineData("api/post/pitch")]
         public async Task PostPitchCorrect_AuthorizationPresent(string url)
         {
-            var newPosting = new AuxPitch
-            {
-                BadgeName = "English speaker",
-                OldLVL = 2,
-                PitchedLVL = 3,
-                PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
-            };
+            var newPosting = CreateNewPitch();
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -41,7 +39,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "something");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             var response = await client.SendAsync(request);
 
             Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
@@ -51,14 +49,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchCorrect_AuthorizationMissing(string url)
         {
-            var newPosting = new AuxPitch
-            {
-                BadgeName = "English speaker",
-                OldLVL = 2,
-                PitchedLVL = 3,
-                PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
-            };
+            var newPosting = CreateNewPitch();
             var PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -75,14 +66,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchMissingPropertytAuthorizationOK(string url)
         {
-            var newPosting = new AuxPitch
-            {
-                BadgeName = "English speaker",
-                OldLVL = 2,
-                PitchedLVL = 3,
-                PitchMessage = "Hello World! My English is bloody gorgeous."
-
-            };
+            var newPosting = new Pitch { BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -90,7 +74,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "something");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             var response = await client.SendAsync(request);
 
             Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
@@ -100,14 +84,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestMessage(string url)
         {
-            var newPosting = new AuxPitch
-            {
-                BadgeName = "English speaker",
-                OldLVL = 2,
-                PitchedLVL = 3,
-                PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
-            };
+            var newPosting = CreateNewPitch();
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -115,7 +92,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "something");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             var response = await client.SendAsync(request);
             string ResponseBody = await response.Content.ReadAsStringAsync();
 
@@ -126,14 +103,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestUnauthorized(string url)
         {
-            var newPosting = new AuxPitch
-            {
-                BadgeName = "English speaker",
-                OldLVL = 2,
-                PitchedLVL = 3,
-                PitchMessage = "Hello World! My English is bloody gorgeous.",
-                Holders = new[] { "balazs.jozsef", "benedek.vamosi", "balazs.barna" }.ToList()
-            };
+            var newPosting = CreateNewPitch();
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -144,20 +114,15 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var response = await client.SendAsync(request);
             string ResponseBody = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new { message = "Unauthorized" }), ResponseBody);
+            Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }),
+               "{" + ResponseBody.Substring(4, 23).Replace(" ", "") + "}");
         }
 
         [Theory]
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestMissingField(string url)
         {
-            var newPosting = new AuxPitch
-            {
-                BadgeName = "English speaker",
-                OldLVL = 2,
-                PitchedLVL = 3,
-                PitchMessage = "Hello World! My English is bloody gorgeous."
-            };
+            var newPosting = new Pitch { BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -165,12 +130,19 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "something");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
             var response = await client.SendAsync(request);
             string ResponseBody = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields" }),
               ResponseBody);
+        }
+
+        public Pitch CreateNewPitch()
+        {
+            Pitch NewPitch = new Pitch { Username = "UserName", BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
+
+            return NewPitch;
         }
     }
 }

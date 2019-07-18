@@ -115,6 +115,7 @@ namespace ferrilata_devilline
 
         public void ConfigureTestingServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -126,6 +127,46 @@ namespace ferrilata_devilline
 
             services.AddScoped<IBadgeService, MockBadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
+            services.AddScoped<ITokenService, TokenService>();
+
+            services.AddAuthentication(options =>
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie()
+            .AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthNSection =
+                Configuration.GetSection("Authentication:Google");
+
+                options.ClientId = googleAuthNSection["ClientId"];
+                options.ClientSecret = googleAuthNSection["ClientSecret"];
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("7f57a148-46cf-4ca1-84b9-b76a127526f0")),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+
+                x.Events = new JwtBearerEvents();
+                x.Events.OnChallenge = context =>
+                {
+                // Skip the default logic.
+                context.HandleResponse();
+                    context.Response.StatusCode = 401;
+
+                    var payload = new JObject
+                    {
+                        ["error"] = "Unauthorized"
+                    };
+
+                    return context.Response.WriteAsync(payload.ToString());
+                };
+            });
         }
     }
 }

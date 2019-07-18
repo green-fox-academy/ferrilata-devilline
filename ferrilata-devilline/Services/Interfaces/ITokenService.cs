@@ -6,6 +6,7 @@ namespace ferrilata_devilline.Services.Interfaces
     public interface ITokenService
     {
         string GenerateToken(string UserEmail);
+        string GenerateTestToken(string UserEmail);
     }
 
 
