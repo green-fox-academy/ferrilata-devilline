@@ -1,15 +1,19 @@
-﻿using ferrilata_devilline.Services.Interfaces;
+﻿using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ferrilata_devilline.Controllers
 {
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
+        private readonly ILevelService _levelService;
 
-        public BadgesController(IBadgeService badgeService)
+        public BadgesController(IBadgeService badgeService, ILevelService levelService)
         {
             _badgeService = badgeService;
+            _levelService = levelService;
         }
 
         [HttpGet]
@@ -26,29 +30,31 @@ namespace ferrilata_devilline.Controllers
 
             return Unauthorized(new {error = "Unauthorized"});
         }
+
+        [HttpPut("/api/badges/{badgeId}")]
+        public IActionResult PutBadge([FromBody]BadgeDTO badge, long badgeId)
+        {
+            var request = Request;
+
+            if (request.Headers.ContainsKey("Authorization") &&
+                request.Headers["Authorization"].ToString() != "")
+            { 
+                if (badgeId != badge.BadgeId)
+                {
+                    return BadRequest(new { message = "Please provide a single Badge ID" });
+                }
+
+                if (_badgeService.BadgeExists(badgeId))
+                {
+                    _badgeService.TranslateAndUpdateBadgeFrom(badge);
+                    _levelService.TranslateAndSaveLevelsFrom(badge);
+                    return Ok(new { message = "Updated" });
+                }
+
+                return NotFound(new { message = "Please provide an existing Badge ID" });
+            }
+
+            return Unauthorized(new { error = "Unauthorized" });
+        }
     }
 }
-
-
-//[
-//{
-//    "id": 123,
-//    "version": "2.3",
-//    "name": "Process improver/initator",
-//    "tag": "general",
-//    "levels": [
-//    {
-//        "id": 12,
-//        "level": 1,
-//        "weight": 2,
-//        "description": "I can see through processes and propose relevant and doable ideas for improvement. I can create improved definition / accountibility / documentation and communicate it to the team",
-//        "holders": [
-//        {
-//            "id": 45,
-//            "name": "balazs.barna"
-//        },
-//        ...
-//            ]
-//    },
-//    ...
-//        ]

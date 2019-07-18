@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace ferrilata_devilline.Repositories
@@ -16,9 +17,13 @@ namespace ferrilata_devilline.Repositories
 
         public void SaveOrUpdate(Badge badge)
         {
-            if (_applicationContext.Badges.Find(badge.BadgeId) == null)
+            if (FindBadgeById(badge.BadgeId) != null)
             {
                 _applicationContext.Badges.Add(badge);
+            }
+            else
+            {
+                _applicationContext.Badges.Update(badge);
             }
 
             _applicationContext.SaveChanges();
@@ -26,12 +31,12 @@ namespace ferrilata_devilline.Repositories
 
         public List<Badge> RetrieveBadgesFromDB()
         {
-            return _applicationContext.Badges.Include(badge => badge.Version).ToList();
+            return _applicationContext.Badges.ToList();
         }
 
         public Badge FindBadgeById(long id)
         {
-            return RetrieveBadgesFromDB().Find(x => x.BadgeId == id);
+            return RetrieveBadgesFromDB().Where(x => x.BadgeId == id).FirstOrDefault();
         }
 
         public void DeleteBadgeById(long id)

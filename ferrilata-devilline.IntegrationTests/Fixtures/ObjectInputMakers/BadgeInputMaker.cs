@@ -1,5 +1,6 @@
 ﻿using ferrilata_devilline.IntegrationTests.Fixtures.Models;
 using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Models.DTOs.Input;
 using System.Collections.Generic;
 
 namespace ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.ObjectInputMakers
@@ -27,10 +28,34 @@ namespace ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.Obj
             };
         }
 
-        public static BadgeInDTOWithNullValues MakeWithNullValue()
+        public static BadgeDTO MakeCorrectBadgeDTO()
         {
-            return new BadgeInDTOWithNullValues
+            var levels = new List<LevelWithoutHoldersDTO>
             {
+                new LevelWithoutHoldersDTO
+                {
+                    LevelId = 1,
+                    LevelNumber = 3,
+                    Weight = "heavy",
+                    Description = "to be described"
+                }
+            };
+
+            return new BadgeDTO
+            {
+                BadgeId = 1,
+                Version = 2.2,
+                Name = "such name",
+                Tag = "such tag",
+                Levels = levels
+            };
+        }
+
+        public static BadgeDTOWithNullValues MakeBadgeDTOWithNullValue()
+        {
+            return new BadgeDTOWithNullValues
+            {
+                BadgeId = 1,
                 Version = 2.2,
                 Name = "such name",
                 Tag = "such tag",

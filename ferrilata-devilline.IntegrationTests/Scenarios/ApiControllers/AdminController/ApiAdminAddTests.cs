@@ -95,7 +95,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                 {
                     new StringContent(
                         JsonConvert.SerializeObject(
-                            BadgeInputMaker.MakeWithNullValue()
+                            BadgeInputMaker.MakeBadgeDTOWithNullValue()
                         ), Encoding.UTF8, "application/json"
                     )
                 }

@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Helpers.AutoMapper.Profiles;
-using ferrilata_devilline.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ferrilata_devilline.Services.Helpers.Extensions
@@ -15,8 +13,8 @@ namespace ferrilata_devilline.Services.Helpers.Extensions
                 cfg.AddProfile(new PitchToPitches());
             });
 
-            IMapper Mapper = config.CreateMapper();
-            services.AddSingleton(Mapper);
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton<IMapper>(mapper);
         }
     }
 }
