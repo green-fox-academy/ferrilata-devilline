@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models;
+using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
@@ -66,7 +67,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchMissingPropertytAuthorizationOK(string url)
         {
-            var newPosting = new Pitch { BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
+            var newPosting = new Pitch { };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -122,7 +123,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestMissingField(string url)
         {
-            var newPosting = new Pitch { BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
+            var newPosting = new Pitch { };
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -140,7 +141,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
         public Pitch CreateNewPitch()
         {
-            Pitch NewPitch = new Pitch { Username = "UserName", BadgeName = "BadgeName", Status = "status", PitchMessage = "level" };
+            Pitch NewPitch = new Pitch { Status = "status" };
 
             return NewPitch;
         }

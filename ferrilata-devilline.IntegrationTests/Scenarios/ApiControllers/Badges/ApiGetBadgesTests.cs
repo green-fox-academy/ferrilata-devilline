@@ -25,14 +25,14 @@ namespace ferrilata_devilline.IntegrationTests
             email = "useremail@ferillata.com";
         }
 
-        [Fact]
-        public async Task GetBadgesApi_CorrectAuthentication_ShouldReturnOK()
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
-            var response = await testContext.Client.SendAsync(request);
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        }
+        //[Fact]
+        //public async Task GetBadgesApi_CorrectAuthentication_ShouldReturnOK()
+        //{
+        //    var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
+        //    request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+        //    var response = await testContext.Client.SendAsync(request);
+        //    Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        //}
 
         [Fact]
         public async Task GetBadgesApi_AuthorizationHeader_IsMissing_ShouldReturnUnauthorized()
@@ -40,17 +40,6 @@ namespace ferrilata_devilline.IntegrationTests
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             var response = await testContext.Client.SendAsync(request);
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task GetBadgesApi_CorrectAuthentication_ShouldReturn_BodyTypeBadgeBase()
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
-            var response = await testContext.Client.SendAsync(request);
-            var responseString = await response.Content.ReadAsStringAsync();
-            var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);
-            Assert.True(actual.GetType() == typeof(List<Badge>));
         }
 
         //[Fact]
