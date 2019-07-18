@@ -8,21 +8,14 @@ namespace ferrilata_devilline.Services.Helpers.Extensions
 {
     public static class AutoMapperSetup
     {
-        public static void SetUpAllAutoMappers(this IServiceCollection services)
+        public static void SetUpAutoMapper(this IServiceCollection services)
         {
-            var badgeService = services
-                .BuildServiceProvider()
-                .GetRequiredService<IBadgeService>();
-            var pitchService = services
-                .BuildServiceProvider()
-                .GetRequiredService<IPitchService>();
-
             var config = new MapperConfiguration(cfg => {
-                cfg.AddProfile(new BadgeInDTOToBadge(badgeService));
-                cfg.AddProfile(new PitchToPitches(pitchService));
+                cfg.AddProfile(new BadgeInDTOToBadge());
+                cfg.AddProfile(new PitchToPitches());
             });
 
-            var Mapper = config.CreateMapper();
+            IMapper Mapper = config.CreateMapper();
             services.AddSingleton(Mapper);
         }
     }

@@ -50,6 +50,8 @@ namespace ferrilata_devilline
 
             services.Configure<SlackOptions>(Configuration.GetSection("SlackOptions"));
 
+            services.SetUpAutoMapper();
+
             services.AddScoped<IBadgeService, MockBadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
@@ -58,8 +60,6 @@ namespace ferrilata_devilline
                 .BuildServiceProvider()
                 .GetRequiredService<ApplicationContext>();
             currentlyUsedContext.SeedWithData();
-
-            services.SetUpAllAutoMappers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

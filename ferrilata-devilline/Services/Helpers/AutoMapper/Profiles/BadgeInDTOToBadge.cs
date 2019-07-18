@@ -7,7 +7,7 @@ namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
 {
     public class BadgeInDTOToBadge : Profile
     {
-        public BadgeInDTOToBadge(IBadgeService badgeService)
+        public BadgeInDTOToBadge()
         {
             CreateMap<BadgeInDTO, Badge>();
         }

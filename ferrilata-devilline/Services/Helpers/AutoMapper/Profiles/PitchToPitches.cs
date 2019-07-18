@@ -8,7 +8,7 @@ namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
 {
     public class PitchToPitches : Profile
     {
-        public PitchToPitches(IPitchService pitchService)
+        public PitchToPitches()
         {
             CreateMap<Pitch, Pitches>();
         }
