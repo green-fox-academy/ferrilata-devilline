@@ -1,5 +1,6 @@
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models;
+using ferrilata_devilline.Models.DAOs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

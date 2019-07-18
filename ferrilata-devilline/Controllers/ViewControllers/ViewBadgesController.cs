@@ -3,7 +3,6 @@ using ferrilata_devilline.Services.Interfaces;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
-    
     public class ViewBadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
