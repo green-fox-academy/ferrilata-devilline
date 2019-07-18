@@ -20,13 +20,13 @@ namespace ferrilata_devilline.Repositories
             {
                 _applicationContext.Badges.Add(badge);
             }
-
+            _applicationContext.Update(badge);
             _applicationContext.SaveChanges();
         }
 
         public List<Badge> RetrieveBadgesFromDB()
         {
-            return _applicationContext.Badges.Include(badge => badge.Version).ToList();
+            return _applicationContext.Badges.Include(badge => badge.Levels).ToList();
         }
 
         public Badge FindBadgeById(long id)

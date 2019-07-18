@@ -1,4 +1,5 @@
-﻿using ferrilata_devilline.Services.Interfaces;
+﻿using ferrilata_devilline.Repositories;
+using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers
@@ -6,10 +7,12 @@ namespace ferrilata_devilline.Controllers
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
+        private readonly IBadgeRepository _badgeRepository;
 
-        public BadgesController(IBadgeService badgeService)
+        public BadgesController(IBadgeService badgeService, IBadgeRepository badgeRepository)
         {
             _badgeService = badgeService;
+            _badgeRepository = badgeRepository;
         }
 
         [HttpGet]
@@ -26,29 +29,24 @@ namespace ferrilata_devilline.Controllers
 
             return Unauthorized(new {error = "Unauthorized"});
         }
+
+        [HttpGet]
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult GetBadgeById(long badgeId)
+        {
+            var request = Request;
+
+            if (!(request.Headers.ContainsKey("Authorization") &&
+                request.Headers["Authorization"].ToString() != ""))
+            {
+                return Unauthorized(new { error = "Unauthorized" });
+            }
+            else if (_badgeRepository.FindBadgeById(badgeId) == null)
+            {
+                return NotFound(new { error = "Please provide an existing Badge Id" });
+            }
+                return Ok(_badgeRepository.FindBadgeById(badgeId));
+            
+        }
     }
 }
-
-
-//[
-//{
-//    "id": 123,
-//    "version": "2.3",
-//    "name": "Process improver/initator",
-//    "tag": "general",
-//    "levels": [
-//    {
-//        "id": 12,
-//        "level": 1,
-//        "weight": 2,
-//        "description": "I can see through processes and propose relevant and doable ideas for improvement. I can create improved definition / accountibility / documentation and communicate it to the team",
-//        "holders": [
-//        {
-//            "id": 45,
-//            "name": "balazs.barna"
-//        },
-//        ...
-//            ]
-//    },
-//    ...
-//        ]
