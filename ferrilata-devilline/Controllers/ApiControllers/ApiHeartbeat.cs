@@ -13,10 +13,10 @@ namespace ferrilata_devilline.Controllers.ApiController
         {
             if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString().Length != 0)
             {
-                return Ok(new { status = "OK" });
+                return Ok(new {status = "OK"});
             }
 
-            return Unauthorized(new { error = "Unauthorized" });
+            return Unauthorized(new {error = "Unauthorized"});
         }
     }
 }
