@@ -32,7 +32,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [MemberData(nameof(Correct))]
         public async Task Authorized_AndHasCorrectBody_Created(HttpContent content)
         {
-            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             _message.Content = content;
 
             var response = await _testContext.Client.SendAsync(_message);
@@ -47,7 +47,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var expectedResponseObject = new List<object>() { new { message = "Created" } };
             string expected = JsonConvert.SerializeObject(expectedResponseObject);
 
-            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             _message.Content = content;
 
             var response = await _testContext.Client.SendAsync(_message);
@@ -84,7 +84,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [MemberData(nameof(NullValue))]
         public async Task Authorized_IncorrectBody_BadRequest(HttpContent content)
         {
-            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             _message.Content = content;
 
             var response = await _testContext.Client.SendAsync(_message);
@@ -100,7 +100,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             var expectedResponseObject = new { error = "Please provide all fields" };
             string expected = JsonConvert.SerializeObject(expectedResponseObject);
 
-            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            _message.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             _message.Content = content;
 
             var response = await _testContext.Client.SendAsync(_message);

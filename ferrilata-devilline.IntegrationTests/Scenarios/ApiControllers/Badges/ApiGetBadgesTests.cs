@@ -29,7 +29,7 @@ namespace ferrilata_devilline.IntegrationTests
         public async Task GetBadgesApi_CorrectAuthentication_ShouldReturnOK()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             var response = await testContext.Client.SendAsync(request);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
@@ -46,7 +46,7 @@ namespace ferrilata_devilline.IntegrationTests
         public async Task GetBadgesApi_CorrectAuthentication_ShouldReturn_BodyTypeBadgeBase()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             var response = await testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
             var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);
@@ -57,7 +57,7 @@ namespace ferrilata_devilline.IntegrationTests
         public async Task GetBadgesApi_CorrectAuthentication_ShouldReturn_CorrectBadges()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             var response = await testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
             var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);

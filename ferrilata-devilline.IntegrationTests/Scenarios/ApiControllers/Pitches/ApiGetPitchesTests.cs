@@ -51,7 +51,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PitchesApi_Should_ReturnStatusOK_WhenRequestHeaderAuthorizationIsNotEmpty()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, ApiPitches);
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
 
             var response = await _testContext.Client.SendAsync(request);
 
@@ -62,7 +62,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PitchesApi_Should_ReturnJSONPitchers_WhenRequestHeaderAuthorizationIsNotEmpty()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, ApiPitches);
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
 
             var response = await _testContext.Client.SendAsync(request);
 

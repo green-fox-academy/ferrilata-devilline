@@ -39,7 +39,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email));
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             var response = await client.SendAsync(request);
 
             Assert.Equal(System.Net.HttpStatusCode.Created, response.StatusCode);
@@ -74,7 +74,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             var response = await client.SendAsync(request);
 
             Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
@@ -92,7 +92,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             var response = await client.SendAsync(request);
             string ResponseBody = await response.Content.ReadAsStringAsync();
 
@@ -130,7 +130,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateTestToken(email));
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
             var response = await client.SendAsync(request);
             string ResponseBody = await response.Content.ReadAsStringAsync();
 

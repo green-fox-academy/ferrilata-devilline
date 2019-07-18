@@ -24,7 +24,7 @@ namespace ferrilata_devilline.Controllers
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
 
-            return Ok(_tokenService.GenerateToken(email));
+            return Ok(_tokenService.GenerateToken(email, false));
         }
     }
 }
