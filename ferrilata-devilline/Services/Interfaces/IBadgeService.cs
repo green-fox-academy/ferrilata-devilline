@@ -1,11 +1,10 @@
-﻿using ferrilata_devilline.Models;
-using ferrilata_devilline.Models.DAOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.Services.Interfaces
 {
     public interface IBadgeService
     {
-        List<Badge> GetAll();
+        List<BadgeDTO> GetAll();
     }
 }

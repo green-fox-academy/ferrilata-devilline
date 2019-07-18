@@ -51,6 +51,7 @@ namespace ferrilata_devilline
             services.AddScoped<IBadgeRepository, BadgeRepository>();
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
+            services.AddScoped<ILevelRepository, LevelRepository>();
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
 
             var currentlyUsedContext = services
@@ -97,9 +98,11 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"), ServiceLifetime.Singleton);
+            services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"),
+                ServiceLifetime.Singleton);
             services.AddScoped<IBadgeRepository, BadgeRepository>();
             services.AddScoped<IBadgeService, BadgeService>();
+            services.AddScoped<ILevelRepository, LevelRepository>();
             services.AddScoped<IPitchService, MockPitchService>();
         }
     }
