@@ -26,7 +26,8 @@ namespace ferrilata_devilline.Repositories
 
         public List<Badge> RetrieveBadgesFromDB()
         {
-            return _applicationContext.Badges.Include(badge => badge.Levels).ToList();
+            return _applicationContext.Badges.Include(badge => badge.Levels)
+                .ThenInclude(x => x.UserLevels).ThenInclude(x => x.User).ToList();
         }
 
         public Badge FindBadgeById(long id)

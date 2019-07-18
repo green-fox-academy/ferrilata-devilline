@@ -21,7 +21,7 @@ namespace ferrilata_devilline.Controllers
             if (request.Headers.ContainsKey("Authorization") &&
                 request.Headers["Authorization"].ToString() != "")
             {
-                return Ok(_badgeService.GetAll());
+                return Ok(_badgeService.GetAllDTO());
             }
 
             return Unauthorized(new {error = "Unauthorized"});

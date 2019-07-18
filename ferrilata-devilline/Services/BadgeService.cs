@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Repositories;
@@ -10,20 +10,23 @@ namespace ferrilata_devilline.Services
     public class BadgeService : IBadgeService
     {
         private readonly IBadgeRepository _badgeRepository;
-        private readonly ILevelRepository _levelRepository;
+        private readonly IMapper _mapper;
 
-        public BadgeService(IBadgeRepository badgeRepository, ILevelRepository levelRepository)
+        public BadgeService(IBadgeRepository badgeRepository, IMapper mapper)
         {
             _badgeRepository = badgeRepository;
-            _levelRepository = levelRepository;
+            _mapper = mapper;
         }
 
-        public List<BadgeDTO> GetAll()
+        public List<BadgeDTO> GetAllDTO()
         {
-            List<BadgeDTO> BadgeDTOList = new List<BadgeDTO>();
-            List<Badge> BadgeList = _badgeRepository.RetrieveBadgesFromDB();
-
+            var BadgeDTOList = _mapper.Map<List<Badge>, List<BadgeDTO>>(_badgeRepository.RetrieveBadgesFromDB());
             return BadgeDTOList;
+        }
+
+        public List<Badge> GetAll()
+        {
+            return _badgeRepository.RetrieveBadgesFromDB();
         }
     }
 }

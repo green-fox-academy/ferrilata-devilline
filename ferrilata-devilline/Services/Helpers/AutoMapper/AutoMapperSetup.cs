@@ -10,7 +10,8 @@ namespace ferrilata_devilline.Services.Helpers.Extensions
     {
         public static void SetUpAutoMapper(this IServiceCollection services)
         {
-            var config = new MapperConfiguration(cfg => {
+            var config = new MapperConfiguration(cfg =>
+            {
                 cfg.AddProfile(new BadgeInDTOToBadge());
                 cfg.AddProfile(new PitchToPitches());
             });
