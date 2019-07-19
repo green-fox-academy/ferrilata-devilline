@@ -15,9 +15,9 @@ namespace ferrilata_devilline.Repositories
             _applicationContext = applicationContext;
         }
 
-        public async void SaveOrUpdate(Badge badge)
+        public void SaveOrUpdate(Badge badge)
         {
-            //var badgeInDatabase = await _applicationContext.FindAsync(typeof(Badge), badge.BadgeId); //To avoid a tracking error
+
             var badgeInDatabase = FindBadgeById(badge.BadgeId);
             _applicationContext.Entry(badgeInDatabase).State = EntityState.Detached;
 
@@ -27,8 +27,10 @@ namespace ferrilata_devilline.Repositories
             }
 
             var removedLevels = badgeInDatabase.Levels.Except(badge.Levels).ToList();
-            _applicationContext.Levels.RemoveRange(removedLevels); // this is actually necessary for updating
-            _applicationContext.Badges.Update(badge);
+            _applicationContext.Entry(badge).State = EntityState.Modified;
+            foreach (var level in removedLevels) {
+                badge.Levels.Remove(level);
+            };
 
             _applicationContext.SaveChanges();
         }

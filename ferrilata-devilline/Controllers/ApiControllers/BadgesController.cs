@@ -30,21 +30,21 @@ namespace ferrilata_devilline.Controllers
         }
 
         [HttpPut("/api/badges/{badgeId}")]
-        public IActionResult PutBadge([FromBody]BadgeDTO badge, long badgeId)
+        public IActionResult PutBadge([FromBody]BadgeDTO badgeDTO, long badgeId) 
         {
             var request = Request;
 
-            if (request.Headers.ContainsKey("Authorization") &&
-                request.Headers["Authorization"].ToString() != "")
+            if (request.Headers.ContainsKey("Authorization") && 
+                request.Headers["Authorization"].ToString() != "") 
             { 
-                if (badgeId != badge.BadgeId)
+                if (badgeId != badgeDTO.BadgeId)
                 {
                     return BadRequest(new { message = "Please provide a single Badge ID" });
                 }
 
                 if (_badgeService.BadgeExists(badgeId))
                 {
-                    _badgeService.TranslateAndUpdateBadgeFrom(badge);
+                    _badgeService.TranslateAndUpdateBadgeFrom(badgeDTO);
                     return Ok(new { message = "Updated" });
                 }
 

@@ -33,6 +33,7 @@ namespace ferrilata_devilline.Services
         public void TranslateAndUpdateBadgeFrom(BadgeDTO badgeDTO)
         {
             var badge = _mapper.Map<BadgeDTO, Badge>(badgeDTO);
+
             var levels = new List<Level> { };
             foreach (var levelDTO in badgeDTO.Levels)
             {
@@ -40,6 +41,7 @@ namespace ferrilata_devilline.Services
                 levels.Add(level);
             }
             badge.Levels = levels;
+
             _badgeRepository.SaveOrUpdate(badge);
         }
     }
