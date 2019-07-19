@@ -2,6 +2,7 @@
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
+using System.Linq;
 
 namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
 {
@@ -11,7 +12,8 @@ namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
         {
             CreateMap<BadgeInDTO, Badge>();
             CreateMap<Badge, BadgeDTO>();
-            CreateMap<Level, LevelOutDTO>().ForMember
+            CreateMap<User, PersonDTO>().ForMember(person => person.PersonId, x => x.MapFrom(src => src.UserId));
+            CreateMap<Level, LevelOutDTO>().ForMember(dest => dest.Holders, x => x.MapFrom(src => src.UserLevels.Select(userLevel => userLevel.User)));
         }
     }
 }
