@@ -186,14 +186,14 @@ namespace ferrilata_devilline.Services.Helpers
                 Message = "review1 message",
                 Result = "review1 result",
                 User = users[0],
-                Pitch = pitches[0]
+                Pitch = pitches[1]
             };
             var review2 = new Review
             {
                 Message = "review2 message",
                 Result = "review2 result",
                 User = users[1],
-                Pitch = pitches[1]
+                Pitch = pitches[0]
             };
 
             context.Reviews.AddRange(review1, review2);
@@ -212,8 +212,8 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static void UpdatePitchesWithReviews(ApplicationContext context, List<Pitch> pitches, List<Review> reviews)
         {
-            pitches[0].Reviews = new List<Review> { reviews[0] };
-            pitches[1].Reviews = new List<Review> { reviews[1] };
+            pitches[0].Reviews = new List<Review> { reviews[1] };
+            pitches[1].Reviews = new List<Review> { reviews[0] };
 
             context.Pitches.UpdateRange(pitches);
             context.SaveChanges();
