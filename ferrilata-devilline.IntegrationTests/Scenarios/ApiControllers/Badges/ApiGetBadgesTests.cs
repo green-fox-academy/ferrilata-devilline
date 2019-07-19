@@ -1,10 +1,10 @@
 using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.Models.DAOs;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ferrilata_devilline.Models.DTOs;
 using Xunit;
 
 namespace ferrilata_devilline.IntegrationTests
@@ -43,8 +43,8 @@ namespace ferrilata_devilline.IntegrationTests
             request.Headers.Add("Authorization", "test");
             var response = testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).Result;
             var responseString = response.Content.ReadAsStringAsync().Result;
-            var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);
-            Assert.True(actual.GetType() == typeof(List<Badge>));
+            var actual = JsonConvert.DeserializeObject<List<BadgeDTO>>(responseString);
+            Assert.True(actual.GetType() == typeof(List<BadgeDTO>));
         }
 
         [Fact]

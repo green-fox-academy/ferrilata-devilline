@@ -5,17 +5,15 @@ using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
 {
-    public class BadgeInDTOToBadge : Profile
+    public class BadgeTransformer : Profile
     {
-        public BadgeInDTOToBadge()
+        public BadgeTransformer()
         {
             CreateMap<BadgeInDTO, Badge>();
             CreateMap<Badge, BadgeDTO>();
-            CreateMap<User, PersonDTO>();
-
-            var levelMap = CreateMap<Level, LevelOutDTO>();
-            levelMap.ForMember(x => x.Holders,
-                               x => x.MapFrom(y => y.UserLevels.Select(z => z.User)));
+            CreateMap<User, PersonDTO>().ForMember(x => x.PersonId, x => x.MapFrom(y => y.UserId));
+            CreateMap<Level, LevelOutDTO>().ForMember(x => x.Holders,
+                x => x.MapFrom(y => y.UserLevels.Select(z => z.User)));
         }
     }
 }

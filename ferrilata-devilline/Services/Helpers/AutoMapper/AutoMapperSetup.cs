@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Helpers.AutoMapper.Profiles;
-using ferrilata_devilline.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ferrilata_devilline.Services.Helpers.Extensions
@@ -12,7 +10,7 @@ namespace ferrilata_devilline.Services.Helpers.Extensions
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new BadgeInDTOToBadge());
+                cfg.AddProfile(new BadgeTransformer());
                 cfg.AddProfile(new PitchToPitches());
             });
 
