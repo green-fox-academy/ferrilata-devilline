@@ -10,6 +10,8 @@ namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
         public BadgeInDTOToBadge()
         {
             CreateMap<BadgeInDTO, Badge>();
+            CreateMap<Badge, BadgeDTO>();
+            CreateMap<Level, LevelOutDTO>().ForMember
         }
     }
 }
