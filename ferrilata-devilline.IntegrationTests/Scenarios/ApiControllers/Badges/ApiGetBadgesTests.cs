@@ -7,9 +7,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ferrilata_devilline.Models.DAOs;
 using Xunit;
-using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.IntegrationTests
 {
@@ -45,8 +43,8 @@ namespace ferrilata_devilline.IntegrationTests
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             request.Headers.Add("Authorization", "test");
-            var response = await testContext.Client.SendAsync(request);
-            var responseString = await response.Content.ReadAsStringAsync();
+            var response = testContext.Client.SendAsync(request).Result;
+            var responseString = response.Content.ReadAsStringAsync().Result;
             var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);
             Assert.True(actual.GetType() == typeof(List<Badge>));
         }
