@@ -34,7 +34,7 @@ namespace ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.Obj
             {
                 new LevelWithoutHoldersDTO
                 {
-                    LevelId = 1,
+                    LevelId = 2,
                     LevelNumber = 3,
                     Weight = "heavy",
                     Description = "to be described"

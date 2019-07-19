@@ -9,5 +9,6 @@ namespace ferrilata_devilline.Repositories
     public interface ILevelRepository
     {
         void SaveOrUpdate(Level level);
+        Level GetById(long levelId);
     }
 }

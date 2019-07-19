@@ -10,11 +10,13 @@ namespace ferrilata_devilline.Services
     public class BadgeService : IBadgeService
     {
         private readonly IBadgeRepository _badgeRepository;
+        private readonly ILevelRepository _levelRepository;
         private readonly IMapper _mapper;
 
-        public BadgeService(IBadgeRepository badgeRepository, IMapper mapper)
+        public BadgeService(IBadgeRepository badgeRepository, ILevelRepository levelRepository, IMapper mapper)
         {
             _badgeRepository = badgeRepository;
+            _levelRepository = levelRepository;
             _mapper = mapper;
         }
 
@@ -31,6 +33,13 @@ namespace ferrilata_devilline.Services
         public void TranslateAndUpdateBadgeFrom(BadgeDTO badgeDTO)
         {
             var badge = _mapper.Map<BadgeDTO, Badge>(badgeDTO);
+            var levels = new List<Level> { };
+            foreach (var levelDTO in badgeDTO.Levels)
+            {
+                var level = _levelRepository.GetById(levelDTO.LevelId);
+                levels.Add(level);
+            }
+            badge.Levels = levels;
             _badgeRepository.SaveOrUpdate(badge);
         }
     }

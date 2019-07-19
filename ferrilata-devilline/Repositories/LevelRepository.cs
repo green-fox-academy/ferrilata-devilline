@@ -16,7 +16,7 @@ namespace ferrilata_devilline.Repositories
 
         public void SaveOrUpdate(Level level)
         {
-            if (FindLevelById(level.LevelId) == null)
+            if (GetById(level.LevelId) == null)
             {
                 _applicationContext.Levels.Add(level);
             } else
@@ -26,7 +26,7 @@ namespace ferrilata_devilline.Repositories
             _applicationContext.SaveChanges();
         }
 
-        public Level FindLevelById(long levelId)
+        public Level GetById(long levelId)
         {
             return GetAllWithBadges().Where(x => x.LevelId == levelId).FirstOrDefault();
         }

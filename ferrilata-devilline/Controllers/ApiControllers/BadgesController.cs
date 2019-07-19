@@ -8,12 +8,10 @@ namespace ferrilata_devilline.Controllers
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
-        private readonly ILevelService _levelService;
 
-        public BadgesController(IBadgeService badgeService, ILevelService levelService)
+        public BadgesController(IBadgeService badgeService)
         {
             _badgeService = badgeService;
-            _levelService = levelService;
         }
 
         [HttpGet]
@@ -47,7 +45,6 @@ namespace ferrilata_devilline.Controllers
                 if (_badgeService.BadgeExists(badgeId))
                 {
                     _badgeService.TranslateAndUpdateBadgeFrom(badge);
-                    _levelService.TranslateAndSaveLevelsFrom(badge);
                     return Ok(new { message = "Updated" });
                 }
 

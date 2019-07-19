@@ -15,19 +15,10 @@ namespace ferrilata_devilline.Services
         private readonly ILevelRepository _levelRepository;
         private readonly IMapper _mapper;
 
-        public LevelService (ILevelRepository levelRepository, IMapper mapper)
+        public LevelService(ILevelRepository levelRepository, IMapper mapper)
         {
             _levelRepository = levelRepository;
             _mapper = mapper;
-        }
-
-        public void TranslateAndSaveLevelsFrom(BadgeDTO badgeDTO)
-        {
-            var levels = _mapper.Map<BadgeDTO, List<Level>>(badgeDTO);
-            foreach (var level in levels)
-            {
-                _levelRepository.SaveOrUpdate(level);
-            }
         }
     }
 }
