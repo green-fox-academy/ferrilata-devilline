@@ -20,7 +20,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "FDUSERNAME": "root",
-        "FDDATABASE": "DevillineDB",
+        "FDDATABASE": "ProjectDB",
         "FDPASSWORD": "",
         "FDHOST": "localhost",
         "ASPNETCORE_ENVIRONMENT": "Development"
