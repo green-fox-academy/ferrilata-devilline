@@ -1,14 +1,22 @@
-﻿//using System;
-//using AutoMapper;
+﻿using AutoMapper;
+using ferrilata_devilline.Repositories;
+using ferrilata_devilline.Services.Helpers.AutoMapper.Profiles;
+using ferrilata_devilline.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
-//namespace ferrilata_devilline.Services.Helpers.Automapper
-//{
-//    public class AutomapperSetup
-//    {
-//        public AutomapperSetup(IMapper mapper)
-//        {
-//            var config = new MapperConfiguration(cfg ->
-//                cfg)
-//        }
-//    }
-//}
+namespace ferrilata_devilline.Services.Helpers.Extensions
+{
+    public static class AutoMapperSetup
+    {
+        public static void SetUpAutoMapper(this IServiceCollection services)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new BadgeMapper());
+            });
+
+            IMapper Mapper = config.CreateMapper();
+            services.AddSingleton(Mapper);
+        }
+    }
+}
