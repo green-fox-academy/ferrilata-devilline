@@ -19,6 +19,10 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
+        "FDUSERNAME": "root",
+        "FDDATABASE": "ProjectDB",
+        "FDPASSWORD": "",
+        "FDHOST": "localhost",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
@@ -27,8 +31,8 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Testing",
-        "FDTOKENSECRET": "7f57a148-46cf-4ca1-84b9-b76a127526f0"
+        "FDTOKENSECRET": "7f57a148-46cf-4ca1-84b9-b76a127526f0",
+        "ASPNETCORE_ENVIRONMENT": "Testing"
       }
     }
   }
