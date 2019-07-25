@@ -29,5 +29,7 @@
 
     <ItemGroup>
         <Folder Include="Services\Helpers\ObjectInputMakers\" />
+        <Folder Include="Services\Helpers\Automapper\" />
+        <Folder Include="Services\Helpers\Automapper\Profiles\" />
     </ItemGroup>
 </Project>
