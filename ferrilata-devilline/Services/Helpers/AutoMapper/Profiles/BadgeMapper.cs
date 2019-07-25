@@ -5,11 +5,12 @@ using ferrilata_devilline.Services.Interfaces;
 
 namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
 {
-    public class BadgeInDTOToBadge : Profile
+    public class BadgeMapper : Profile
     {
-        public BadgeInDTOToBadge()
+        public BadgeMapper()
         {
             CreateMap<BadgeInDTO, Badge>();
+            CreateMap<LevelInDTO, Level>();
         }
     }
 }

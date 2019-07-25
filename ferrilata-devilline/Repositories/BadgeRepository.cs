@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ferrilata_devilline.Models.DAOs;
@@ -14,11 +15,30 @@ namespace ferrilata_devilline.Repositories
             _applicationContext = applicationContext;
         }
 
-        public void SaveOrUpdate(Badge badge)
+        public void SaveOrUpdateBadge(Badge badge)
         {
             if (_applicationContext.Badges.Find(badge.BadgeId) == null)
             {
                 _applicationContext.Badges.Add(badge);
+            }
+            else
+            {
+                var oldBadge = FindBadgeById(badge.BadgeId);
+                oldBadge = badge;
+            }
+            _applicationContext.SaveChanges();
+        }
+
+        public void SaveOrUpdateLevel(Level level)
+        {
+            if (_applicationContext.Levels.Find(level.LevelId) == null)
+            {
+                _applicationContext.Levels.Add(level);
+            }
+            else
+            {
+                var oldLevel = FindLevelById(level.LevelId);
+                oldLevel = level;
             }
 
             _applicationContext.SaveChanges();
@@ -32,6 +52,16 @@ namespace ferrilata_devilline.Repositories
         public Badge FindBadgeById(long id)
         {
             return RetrieveBadgesFromDB().Find(x => x.BadgeId == id);
+        }
+
+        public Level FindLevelById(long levelId)
+        {
+            return RetrieveLevelsFromDB().Find(x => x.LevelId == levelId);
+        }
+
+        public List<Level> RetrieveLevelsFromDB()
+        {
+            return _applicationContext.Levels.Include(level => level.Badge).ToList();
         }
 
         public void DeleteBadgeById(long id)

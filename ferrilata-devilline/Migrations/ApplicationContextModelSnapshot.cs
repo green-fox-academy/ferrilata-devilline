@@ -37,17 +37,17 @@ namespace ferrilata_devilline.Migrations
                     b.Property<long>("LevelId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<long?>("BadgeId");
+
                     b.Property<string>("Description");
 
                     b.Property<int>("LevelNumber");
 
                     b.Property<string>("Weight");
 
-                    b.Property<long?>("hello");
-
                     b.HasKey("LevelId");
 
-                    b.HasIndex("hello");
+                    b.HasIndex("BadgeId");
 
                     b.ToTable("Levels");
                 });
@@ -135,7 +135,7 @@ namespace ferrilata_devilline.Migrations
                 {
                     b.HasOne("ferrilata_devilline.Models.DAOs.Badge", "Badge")
                         .WithMany("Levels")
-                        .HasForeignKey("hello");
+                        .HasForeignKey("BadgeId");
                 });
 
             modelBuilder.Entity("ferrilata_devilline.Models.DAOs.Pitch", b =>

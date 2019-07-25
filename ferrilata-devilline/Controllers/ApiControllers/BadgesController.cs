@@ -1,5 +1,8 @@
-﻿using ferrilata_devilline.Services.Interfaces;
+﻿using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace ferrilata_devilline.Controllers
 {
@@ -24,7 +27,21 @@ namespace ferrilata_devilline.Controllers
                 return Ok(_badgeService.GetAll());
             }
 
-            return Unauthorized(new {error = "Unauthorized"});
+            return Unauthorized(new { error = "Unauthorized" });
+        }
+
+        [HttpPost]
+        [Route("/api/post/badges")]
+        public IActionResult PostBadge([FromBody] BadgeInDTO IncomingBadge)
+        {
+            if (!Request.Headers.ContainsKey("Authorization") ||
+                   Request.Headers["Authorization"].ToString().Length == 0)
+            {
+                return Unauthorized(new { message = "Unauthorized" });
+            }
+            _badgeService.AddBadge(IncomingBadge);
+
+            return Created("", new { message = "Created" });
         }
     }
 }
