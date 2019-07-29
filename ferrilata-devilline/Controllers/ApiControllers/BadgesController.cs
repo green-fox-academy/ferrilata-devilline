@@ -30,14 +30,14 @@ namespace ferrilata_devilline.Controllers
 
         [HttpDelete]
         [Route("/api/badges/{badgeid}")]
-        public IActionResult DeleteBadge(long id)
+        public IActionResult DeleteBadge(long badgeid)
         {
             var request = Request;
 
             if (request.Headers.ContainsKey("Authorization") &&
                 request.Headers["Authorization"].ToString() != "")
             {
-                _badgeService.DeleteById(id);
+                _badgeService.DeleteById(badgeid);
                 return Ok("Deleted");
             }
 

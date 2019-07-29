@@ -1,11 +1,13 @@
 using System;
 using System.Net.Http;
+using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Services;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Helpers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures

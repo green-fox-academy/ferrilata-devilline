@@ -1,6 +1,7 @@
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -56,5 +57,34 @@ namespace ferrilata_devilline.IntegrationTests
             Assert.Equal("Unauthorized",
                 JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
         }
+
+        [Fact]
+        public async Task DeleteBadgeApi_IncorrectAuthentication_ShouldMessageEqual()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/2");
+            var response = await testContext.Client.SendAsync(request);
+            var responseString = await response.Content.ReadAsStringAsync();
+            Assert.Equal("Unauthorized",
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
+        }
+
+        [Fact]
+        public async Task DeleteBadgeApi_CorrectAuthentication_ShouldReturnOK()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
+            request.Headers.Add("Authorization", "test");
+            var response = await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeleteBadge()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
+            request.Headers.Add("Authorization", "test");
+            await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            Assert.True(testContext.Context.Badges.Count(badge => badge.BadgeId == 1) == 0);
+        }
+        
     }
 }
