@@ -6,14 +6,9 @@ namespace ferrilata_devilline.HelperMethods
 {
     public class HelperMethods
     {
-        public static bool checkMissingPostedPitchFields(AuxPitch NewPitch)
+        public static bool checkMissingPostedPitchFields(Pitch NewPitch)
         {
-            if (NewPitch == null ||
-                NewPitch.BadgeName == null ||
-                NewPitch.Holders == null ||
-                NewPitch.OldLVL == 0 ||
-                NewPitch.PitchedLVL == 0 ||
-                NewPitch.PitchMessage == null)
+            if (NewPitch.Status == null)
             {
                 return true;
             }
@@ -22,7 +17,7 @@ namespace ferrilata_devilline.HelperMethods
 
         public static bool checkIAllFieldsArePresent(Pitch pitch)
         {
-            if (pitch.Status == null )
+            if (pitch.Status == null)
             {
                 return false;
             }

@@ -13,6 +13,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace ferrilata_devilline
 {
@@ -39,7 +46,36 @@ namespace ferrilata_devilline
 
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
+                }).AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("FDTOKENSECRET"))),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ClockSkew = TimeSpan.Zero
+                    };
+
+                    x.Events = new JwtBearerEvents();
+                    x.Events.OnChallenge = context =>
+                    {
+                        // Skip the default logic.
+                        context.HandleResponse();
+                        context.Response.StatusCode = 401;
+
+                        var payload = new JObject
+                        {
+                            ["error"] = "Unauthorized"
+                        };
+
+                        return context.Response.WriteAsync(payload.ToString());
+                    };
                 });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ApplicationContext>(builder => builder
@@ -59,6 +95,7 @@ namespace ferrilata_devilline
 
             services.AddScoped<IPitchService, MockPitchService>();
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             var currentlyUsedContext = services
                 .BuildServiceProvider()
@@ -95,6 +132,7 @@ namespace ferrilata_devilline
 
         public void ConfigureTestingServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -110,7 +148,46 @@ namespace ferrilata_devilline
             services.AddScoped<IBadgeRepository, BadgeRepository>();
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
+            services.AddScoped<ITokenService, TokenService>();
 
+            services.AddAuthentication(options =>
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie()
+            .AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthNSection =
+                Configuration.GetSection("Authentication:Google");
+
+                options.ClientId = googleAuthNSection["ClientId"];
+                options.ClientSecret = googleAuthNSection["ClientSecret"];
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("secretTestingKey")),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+
+                x.Events = new JwtBearerEvents();
+                x.Events.OnChallenge = context =>
+                {
+                    // Skip the default logic.
+                    context.HandleResponse();
+                    context.Response.StatusCode = 401;
+
+                    var payload = new JObject
+                    {
+                        ["error"] = "Unauthorized"
+                    };
+
+                    return context.Response.WriteAsync(payload.ToString());
+                };
+            });
         }
     }
 }
