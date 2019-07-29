@@ -25,7 +25,14 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PutPitchApi_CorrectAuthentication_InCorrectBody_ShouldReturnNotFound(string url)
         {
             //Arrange
-            var InputPitch = new Pitch {  };
+            var InputPitch = new Pitch
+            {
+                Status = "test",
+                PitchedLevel = "test",
+                PitchedMessage = "test",
+                Result = "test"
+            };
+           
             string InputJson = JsonConvert.SerializeObject(InputPitch);
 
             //Act
