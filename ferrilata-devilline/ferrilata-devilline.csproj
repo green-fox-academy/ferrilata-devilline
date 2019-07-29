@@ -5,12 +5,12 @@
         <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
         <RootNamespace>ferrilata_devilline</RootNamespace>
         <UserSecretsId>aspnet-ferrilata-develline-FCF732B7-4A52-449A-A5F7-3CFC0207B382</UserSecretsId>
-        
-        
+
+
     </PropertyGroup>
-    
+
     <ItemGroup>
-        
+        <PackageReference Include="AutoMapper" Version="8.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
@@ -25,9 +25,8 @@
         <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.16" />
         <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <Folder Include="Migrations\" />
-      <Folder Include="Services\Helpers\ObjectInputMakers\" />
+        <Folder Include="Services\Helpers\ObjectInputMakers\" />
     </ItemGroup>
 </Project>

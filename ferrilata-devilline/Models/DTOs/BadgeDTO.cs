@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ferrilata_devilline.Models.DTOs
 {
-    public class BadgeOutDTO
+    public class BadgeDTO
     {
         [JsonProperty(PropertyName = "id")]
         public long BadgeId { get; set; }

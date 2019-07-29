@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,7 +35,9 @@ namespace ferrilata_devilline.Models.DAOs
         [Required]
         public Level Level { get; set; }
 
-        
+        [Required]
+        public List<Review> Reviews { get; set; }
+
         public Pitch()
         {
             Created = DateTime.Now.Millisecond;
