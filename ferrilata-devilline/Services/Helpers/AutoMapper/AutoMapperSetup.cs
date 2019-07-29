@@ -13,6 +13,7 @@ namespace ferrilata_devilline.Services.Helpers.Extensions
             var config = new MapperConfiguration(cfg => {
                 cfg.AddProfile(new BadgeInDTOToBadge());
                 cfg.AddProfile(new PitchToPitches());
+                cfg.AddProfile(new LevelMapper());
             });
 
             IMapper Mapper = config.CreateMapper();

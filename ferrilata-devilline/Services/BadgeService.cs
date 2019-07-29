@@ -38,5 +38,11 @@ namespace ferrilata_devilline.Services
         {
             return GetAllDTO().SingleOrDefault(x => x.BadgeId == id);
         }
+
+        //public void AddLevelToBadge(Badge badge, Level level)
+        //{
+        //    badge.Levels.Add(level);
+        //    _badgeRepository.SaveOrUpdate(badge);
+        //}
     }
 }

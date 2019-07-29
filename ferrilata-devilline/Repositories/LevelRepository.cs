@@ -20,9 +20,11 @@ namespace ferrilata_devilline.Repositories
             if (_applicationContext.Levels.Find(level.LevelId) == null)
             {
                 _applicationContext.Levels.Add(level);
+            } else
+            {
+                _applicationContext.Update(level);
             }
 
-            _applicationContext.Update(level);
             _applicationContext.SaveChanges();
         }
 

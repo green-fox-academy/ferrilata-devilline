@@ -19,8 +19,10 @@ namespace ferrilata_devilline.Repositories
             if (_applicationContext.Badges.Find(badge.BadgeId) == null)
             {
                 _applicationContext.Badges.Add(badge);
+            } else
+            {
+                _applicationContext.Update(badge);
             }
-            _applicationContext.Update(badge);
             _applicationContext.SaveChanges();
         }
 
@@ -39,7 +41,5 @@ namespace ferrilata_devilline.Repositories
             _applicationContext.Badges.Remove(FindBadgeById(id));
             _applicationContext.SaveChanges();
         }
-
-        
     }
 }
