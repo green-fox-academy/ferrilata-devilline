@@ -5,9 +5,12 @@ using System.Collections.Generic;
 
 namespace ferrilata_devilline.Services.Interfaces
 {
-	public interface IBadgeService
-	{
-		List<Badge> GetAll();
-		void AddBadge(BadgeInDTO IncomingBadge);
-	}
+    public interface IBadgeService
+    {
+        List<BadgeOutDTO> GetAll();
+        void AddBadge(BadgeInDTO IncomingBadge);
+        BadgeOutDTO FindBadgeOutDTOById(long id);
+        List<LevelOutDTO> FindBadgeLevelsByBadgeId(long id);
+        void DeleteLevelById(long LevelId);
+    }
 }
