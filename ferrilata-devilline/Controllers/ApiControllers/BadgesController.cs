@@ -1,8 +1,6 @@
-﻿using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Repositories;
+﻿using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace ferrilata_devilline.Controllers
 {
@@ -28,7 +26,6 @@ namespace ferrilata_devilline.Controllers
             {
                 return Ok(_badgeService.GetAll());
             }
-
             return Unauthorized(new {error = "Unauthorized"});
         }
 
@@ -47,9 +44,7 @@ namespace ferrilata_devilline.Controllers
             {
                 return NotFound(new { error = "Please provide an existing Badge Id" });
             }
-            
             return Ok(_badgeService.FinDTOById(badgeId));
-            
         }
     }
 }

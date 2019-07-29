@@ -96,7 +96,5 @@ namespace ferrilata_devilline.IntegrationTests
             var actual = JsonConvert.DeserializeObject<BadgeDTO>(responseString);
             Assert.True(actual.GetType() == typeof(BadgeDTO));
         }
-
-
     }
 }
