@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AngleSharp.Common;
-using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using Xunit;
 
