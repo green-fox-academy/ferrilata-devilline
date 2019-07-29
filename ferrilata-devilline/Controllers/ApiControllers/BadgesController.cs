@@ -1,4 +1,5 @@
-﻿using ferrilata_devilline.Services.Interfaces;
+﻿using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers
@@ -22,6 +23,22 @@ namespace ferrilata_devilline.Controllers
                 request.Headers["Authorization"].ToString() != "")
             {
                 return Ok(_badgeService.GetAllDTO());
+            }
+
+            return Unauthorized(new {error = "Unauthorized"});
+        }
+
+        [HttpGet]
+        [Route("/api/badges/{badgeid}")]
+        public IActionResult DeleteBadge(long id)
+        {
+            var request = Request;
+
+            if (request.Headers.ContainsKey("Authorization") &&
+                request.Headers["Authorization"].ToString() != "")
+            {
+                Badge badgeToDelete = _badgeService.FindBadge(id);
+                return Ok("Deleted");
             }
 
             return Unauthorized(new {error = "Unauthorized"});

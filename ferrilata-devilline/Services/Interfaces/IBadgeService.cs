@@ -6,7 +6,9 @@ namespace ferrilata_devilline.Services.Interfaces
 {
     public interface IBadgeService
     {
+        Badge FindBadge(long id);
         List<BadgeDTO> GetAllDTO();
         List<Badge> GetAll();
+        void Delete(Badge badge);
     }
 }
