@@ -143,5 +143,36 @@ namespace ferrilata_devilline.IntegrationTests
                 Assert.Empty(testContext.Context.Reviews.Where(r => r.ReviewId == reviews[i].ReviewId));
             }
         }
+
+        [Fact]
+        public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeletePitchAssociatedWithBadgeFromUser()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
+            request.Headers.Add("Authorization", "test");
+            var levels = testContext.Context.Badges.GetItemByIndex(0).Levels;
+            var pitches = levels.SelectMany(l => l.Pitches).ToList();
+            await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            foreach (var t in pitches)
+            {
+                Assert.Empty(testContext.Context.Users.SelectMany(u => u.Pitches).ToList()
+                    .FindAll(p => p.PitchId == t.PitchId));
+            }
+        }
+
+        [Fact]
+        public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeleteReviewAssociatedWithBadgeFromUser()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
+            request.Headers.Add("Authorization", "test");
+            var levels = testContext.Context.Badges.GetItemByIndex(0).Levels;
+            var pitches = levels.SelectMany(l => l.Pitches).ToList();
+            var reviews = pitches.SelectMany(p => p.Reviews).ToList();
+            await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            foreach (var t in reviews)
+            {
+                Assert.Empty(testContext.Context.Users.SelectMany(u => u.Reviews).ToList()
+                    .FindAll(r => r.ReviewId == t.ReviewId));
+            }
+        }
     }
 }
