@@ -1,6 +1,7 @@
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services;
 using ferrilata_devilline.Services.Helpers;
+using ferrilata_devilline.Services.Helpers.Extensions;
 using ferrilata_devilline.Services.Interfaces;
 using ferrilata_devilline.Services.SlackIntegration;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -48,8 +49,12 @@ namespace ferrilata_devilline
                           $" password={Environment.GetEnvironmentVariable("FDPASSWORD")};"));
 
             services.Configure<SlackOptions>(Configuration.GetSection("SlackOptions"));
+
+            services.SetUpAutoMapper();
+
             services.AddScoped<IBadgeRepository, BadgeRepository>();
             services.AddScoped<IBadgeService, BadgeService>();
+
             services.AddScoped<IPitchService, MockPitchService>();
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
 
@@ -96,6 +101,8 @@ namespace ferrilata_devilline
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.SetUpAutoMapper();
 
             services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"), ServiceLifetime.Singleton);
             services.AddScoped<IBadgeRepository, BadgeRepository>();

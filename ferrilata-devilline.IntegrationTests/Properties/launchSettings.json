@@ -4,11 +4,12 @@
     "anonymousAuthentication": true
   },
   "profiles": {
-    "ferrilata_devilline": {
+    "ferrilata_devilline.IntegrationTests": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Testing",
+        "FDTOKENSECRET": "7f57a148-46cf-4ca1-84b9-b76a127526f0"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
