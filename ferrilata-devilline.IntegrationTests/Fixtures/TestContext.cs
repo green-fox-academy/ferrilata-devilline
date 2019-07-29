@@ -16,6 +16,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
         private TestServer server;
         public HttpClient Client { get; set; }
         public ITokenService TokenService { get; set; }
+        public ILevelService LevelService { get; set; }
 
         public ApplicationContext Context { get; set; }
 
@@ -28,6 +29,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
             server = new TestServer(builder);
             Client = server.CreateClient();
             TokenService = server.Host.Services.GetRequiredService<ITokenService>();
+            LevelService = server.Host.Services.GetRequiredService<ILevelService>();
             Context = server.Host.Services.GetRequiredService<ApplicationContext>();
             Context.SeedWithData();
         }

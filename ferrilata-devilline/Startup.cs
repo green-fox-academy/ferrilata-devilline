@@ -149,6 +149,8 @@ namespace ferrilata_devilline
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ILevelRepository, LevelRepository>();
+            services.AddScoped<ILevelService, LevelService>();
 
             services.AddAuthentication(options =>
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme)

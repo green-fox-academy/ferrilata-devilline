@@ -1,10 +1,14 @@
 ﻿using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers
 {
+    [Authorize(AuthenticationSchemes =
+    JwtBearerDefaults.AuthenticationScheme)]
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
@@ -20,28 +24,14 @@ namespace ferrilata_devilline.Controllers
         [Route("/api/badges")]
         public IActionResult GetBadges()
         {
-            var request = Request;
-
-            if (request.Headers.ContainsKey("Authorization") &&
-                request.Headers["Authorization"].ToString() != "")
-            {
-                return Ok(_badgeService.GetAll());
-            }
-            return Unauthorized(new {error = "Unauthorized"});
+             return Ok(_badgeService.GetAll());
         }
 
         [HttpGet]
         [Route("/api/badges/{badgeId}")]
         public IActionResult GetBadgeById(long badgeId)
         {
-            var request = Request;
-
-            if (!(request.Headers.ContainsKey("Authorization") &&
-                request.Headers["Authorization"].ToString() != ""))
-            {
-                return Unauthorized(new { error = "Unauthorized" });
-            }
-            else if (_badgeService.FindById(badgeId) == null)
+            if (_badgeService.FindById(badgeId) == null)
             {
                 return NotFound(new { error = "Please provide an existing Badge Id" });
             }
@@ -52,14 +42,6 @@ namespace ferrilata_devilline.Controllers
         [Route("/api/badges/{badgeId}/levels")]
         public IActionResult PostLevelByBadgeId([FromBody] LevelInDTO newLevel, long badgeId)
         {
-            var request = Request;
-
-            if (!(request.Headers.ContainsKey("Authorization") &&
-                request.Headers["Authorization"].ToString() != ""))
-            {
-                return Unauthorized(new {error = "Unauthorized"});
-            }
-
             if (_badgeService.FindById(badgeId) == null)
             {
                 return NotFound(new {error = "Please provide an existing Badge Id"});
