@@ -37,17 +37,6 @@ namespace ferrilata_devilline.IntegrationTests
         }
 
         [Fact]
-        public async Task GetBadgesApi_CorrectAuthentication_ShouldReturn_BodyTypeBadgeBase()
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
-            request.Headers.Add("Authorization", "test");
-            var response = testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).Result;
-            var responseString = response.Content.ReadAsStringAsync().Result;
-            var actual = JsonConvert.DeserializeObject<List<Badge>>(responseString);
-            Assert.True(actual.GetType() == typeof(List<Badge>));
-        }
-
-        [Fact]
         public async Task GetBadgesApi_IncorrectAuthentication_ShouldMessageEqual()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");

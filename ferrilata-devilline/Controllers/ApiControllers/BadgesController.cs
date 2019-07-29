@@ -2,6 +2,7 @@
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json.Linq;
 
 namespace ferrilata_devilline.Controllers
@@ -38,6 +39,11 @@ namespace ferrilata_devilline.Controllers
                    Request.Headers["Authorization"].ToString().Length == 0)
             {
                 return Unauthorized(new { message = "Unauthorized" });
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return NotFound(new { error = "Please provide all files" });
             }
             _badgeService.AddBadge(IncomingBadge);
 
