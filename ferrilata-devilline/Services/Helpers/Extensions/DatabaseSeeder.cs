@@ -13,15 +13,23 @@ namespace ferrilata_devilline.Services.Helpers
             context.Database.EnsureCreated();
 
             var badges = CreateBadges(context);
-            var levels = CreateLevels(context, badges);
-            var users = CreateUsers(context);
-            var userLevels = CreateUserLevels(context, users, levels);
 
+            var levels = CreateLevels(context, badges);
+            UpdateBadgesWithLevels(context, badges, levels);
+
+            var users = CreateUsers(context);
+
+            var userLevels = CreateUserLevels(context, users, levels);
             levels = UpdateLevelsWithUserLevels(context, levels, userLevels);
             users = UpdateUsersWithUserLevels(context, users, userLevels);
 
             var pitches = CreatePitches(context, users, levels);
-            CreateReviews(context, users, pitches);
+            users = UpdateUsersWithPitches(context, users, pitches);
+            UpdateLevelsWithPitches(context, levels, pitches);
+
+            var reviews = CreateReviews(context, users, pitches);
+            UpdateUsersWithReviews(context, users, reviews);
+            UpdatePitchesWithReviews(context, pitches, reviews);
         }
 
         private static List<Badge> CreateBadges(ApplicationContext context)
@@ -64,6 +72,16 @@ namespace ferrilata_devilline.Services.Helpers
             context.Levels.AddRange(level1, level2);
             context.SaveChanges();
             return context.Levels.OrderBy(b => b.LevelId).ToList();
+        }
+
+        private static List<Badge> UpdateBadgesWithLevels(ApplicationContext context, List<Badge> badges, List<Level> levels)
+        {
+            badges[0].Levels = new List<Level> { levels[0] };
+            badges[1].Levels = new List<Level> { levels[1] };
+
+            context.Badges.UpdateRange(badges);
+            context.SaveChanges();
+            return badges;
         }
 
         private static List<User> CreateUsers(ApplicationContext context)
@@ -142,7 +160,26 @@ namespace ferrilata_devilline.Services.Helpers
             return context.Pitches.OrderBy(b => b.PitchId).ToList();
         }
 
-        private static void CreateReviews(ApplicationContext context, List<User> users, List<Pitch> pitches)
+        private static List<User> UpdateUsersWithPitches(ApplicationContext context, List<User> users, List<Pitch> pitches)
+        {
+            users[0].Pitches = new List<Pitch> { pitches[0] };
+            users[1].Pitches = new List<Pitch> { pitches[1] };
+
+            context.Users.UpdateRange(users);
+            context.SaveChanges();
+            return users;
+        }
+
+        private static void UpdateLevelsWithPitches(ApplicationContext context, List<Level> levels, List<Pitch> pitches)
+        {
+            levels[0].Pitches = new List<Pitch> { pitches[1] };
+            levels[1].Pitches = new List<Pitch> { pitches[0] };
+
+            context.Levels.UpdateRange(levels);
+            context.SaveChanges();
+        }
+
+        private static List<Review> CreateReviews(ApplicationContext context, List<User> users, List<Pitch> pitches)
         {
             var review1 = new Review
             {
@@ -160,6 +197,25 @@ namespace ferrilata_devilline.Services.Helpers
             };
 
             context.Reviews.AddRange(review1, review2);
+            context.SaveChanges();
+            return context.Reviews.OrderBy(b => b.ReviewId).ToList();
+        }
+
+        private static void UpdateUsersWithReviews(ApplicationContext context, List<User> users, List<Review> reviews)
+        {
+            users[0].Reviews = new List<Review> { reviews[0] };
+            users[1].Reviews = new List<Review> { reviews[1] };
+
+            context.Users.UpdateRange(users);
+            context.SaveChanges();
+        }
+
+        private static void UpdatePitchesWithReviews(ApplicationContext context, List<Pitch> pitches, List<Review> reviews)
+        {
+            pitches[0].Reviews = new List<Review> { reviews[1] };
+            pitches[1].Reviews = new List<Review> { reviews[0] };
+
+            context.Pitches.UpdateRange(pitches);
             context.SaveChanges();
         }
     }
