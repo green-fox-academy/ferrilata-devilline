@@ -17,12 +17,12 @@ namespace ferrilata_devilline.Services
             _badgeRepository = badgeRepository;
             _mapper = mapper;
         }
-        
+
         public Badge FindBadge(long id)
         {
             return _badgeRepository.FindBadgeById(id);
         }
-        
+
 
         public List<BadgeDTO> GetAllDTO()
         {
@@ -35,9 +35,9 @@ namespace ferrilata_devilline.Services
             return _badgeRepository.RetrieveBadgesFromDB();
         }
 
-        public void Delete(Badge badge)
+        public void DeleteById(long id)
         {
-            _badgeRepository.DeleteBadgeById(badge.BadgeId);
+            _badgeRepository.DeleteBadgeById(id);
         }
     }
 }

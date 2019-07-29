@@ -28,7 +28,7 @@ namespace ferrilata_devilline.Controllers
             return Unauthorized(new {error = "Unauthorized"});
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("/api/badges/{badgeid}")]
         public IActionResult DeleteBadge(long id)
         {
@@ -37,7 +37,7 @@ namespace ferrilata_devilline.Controllers
             if (request.Headers.ContainsKey("Authorization") &&
                 request.Headers["Authorization"].ToString() != "")
             {
-                Badge badgeToDelete = _badgeService.FindBadge(id);
+                _badgeService.DeleteById(id);
                 return Ok("Deleted");
             }
 
