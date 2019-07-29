@@ -20,15 +20,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/badges")]
         public IActionResult GetBadges()
         {
-            var request = Request;
-
-            if (request.Headers.ContainsKey("Authorization") &&
-                request.Headers["Authorization"].ToString() != "")
-            {
-                return Ok(_badgeService.GetAllDTO());
-            }
-
-            return Unauthorized(new {error = "Unauthorized"});
+            return Ok(_badgeService.GetAllDTO());
         }
     }
 }

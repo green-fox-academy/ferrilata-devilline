@@ -1,14 +1,14 @@
-using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.Services.Interfaces;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Services.Interfaces;
+using Newtonsoft.Json;
 using Xunit;
 
-namespace ferrilata_devilline.IntegrationTests
+namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
 {
     [Collection("BaseCollection")]
     public class ApiBadgesTest
