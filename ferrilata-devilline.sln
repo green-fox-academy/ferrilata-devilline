@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ferrilata-devilline.IntegrationTests", ".\ferrilata-devilline.IntegrationTests\ferrilata-devilline.IntegrationTests.csproj", "{A2B68805-77C8-4829-90B9-436BF443AE80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ferrilata-devilline.UnitTests", "ferrilata-devilline.UnitTests\ferrilata-devilline.UnitTests.csproj", "{9D029518-E5FD-4C97-A66C-D51E5519569B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ferrilata-devilline.UnitTests", ".\ferrilata-devilline.UnitTests\ferrilata-devilline.UnitTests.csproj", "{6E57DE92-3D6A-44A9-A620-6ACEA7272DDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ferrilata-devilline", "ferrilata-devilline\ferrilata-devilline.csproj", "{D153447A-8076-40C3-90E9-BABB124F917E}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "ferrilata-devilline", ".\ferrilata-devilline\ferrilata-devilline.csproj", "{AA17515F-5B63-40BC-B2BD-9581125D342B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ferrilata-devilline.IntegrationTests", "ferrilata-devilline.IntegrationTests\ferrilata-devilline.IntegrationTests.csproj", "{AA3C29B0-B245-492B-83EB-24E1F1A4F86E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A2B68805-77C8-4829-90B9-436BF443AE80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2B68805-77C8-4829-90B9-436BF443AE80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2B68805-77C8-4829-90B9-436BF443AE80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2B68805-77C8-4829-90B9-436BF443AE80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E57DE92-3D6A-44A9-A620-6ACEA7272DDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E57DE92-3D6A-44A9-A620-6ACEA7272DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E57DE92-3D6A-44A9-A620-6ACEA7272DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E57DE92-3D6A-44A9-A620-6ACEA7272DDD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA17515F-5B63-40BC-B2BD-9581125D342B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA17515F-5B63-40BC-B2BD-9581125D342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA17515F-5B63-40BC-B2BD-9581125D342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA17515F-5B63-40BC-B2BD-9581125D342B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D029518-E5FD-4C97-A66C-D51E5519569B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D029518-E5FD-4C97-A66C-D51E5519569B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D029518-E5FD-4C97-A66C-D51E5519569B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D029518-E5FD-4C97-A66C-D51E5519569B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D153447A-8076-40C3-90E9-BABB124F917E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D153447A-8076-40C3-90E9-BABB124F917E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D153447A-8076-40C3-90E9-BABB124F917E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D153447A-8076-40C3-90E9-BABB124F917E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA3C29B0-B245-492B-83EB-24E1F1A4F86E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA3C29B0-B245-492B-83EB-24E1F1A4F86E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA3C29B0-B245-492B-83EB-24E1F1A4F86E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA3C29B0-B245-492B-83EB-24E1F1A4F86E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

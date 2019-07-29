@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models;
 using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
@@ -32,7 +34,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchCorrect_AuthorizationPresent(string url)
         {
-            var newPosting = CreateNewPitch();
+            var newPosting = CreatePitchInDTO();
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -50,7 +52,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchCorrect_AuthorizationMissing(string url)
         {
-            var newPosting = CreateNewPitch();
+            var newPosting = CreatePitchInDTO();
             var PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -85,7 +87,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestMessage(string url)
         {
-            var newPosting = CreateNewPitch();
+            var newPosting = CreatePitchInDTO();
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -104,7 +106,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         [InlineData("api/post/pitch")]
         public async Task PostPitchOKPropertytAuthorizationOK_TestUnauthorized(string url)
         {
-            var newPosting = CreateNewPitch();
+            var newPosting = CreatePitchInDTO();
             string PostingJson = JsonConvert.SerializeObject(newPosting);
 
             var client = _testContext.Client;
@@ -139,9 +141,20 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
               ResponseBody);
         }
 
-        public Pitch CreateNewPitch()
+        public PitchInDTO CreatePitchInDTO()
         {
-            Pitch NewPitch = new Pitch { Status = "status" };
+            List<ReviewDTO> fakeReviews = new List<ReviewDTO>();
+            PitchInDTO NewPitch = new PitchInDTO
+            {
+                Status = "status",
+                PitchedMessage = "Good jobber",
+                PitchedLevel = "1",
+                Result = "Good",
+                Created = 1,
+                User = new UserDTO(),
+                Level = new LevelMiniDTO(),
+                Reviews = fakeReviews
+            };
 
             return NewPitch;
         }

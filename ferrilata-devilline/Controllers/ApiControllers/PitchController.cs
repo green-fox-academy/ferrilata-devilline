@@ -22,7 +22,7 @@ namespace ferrilata_devilline.Controllers
         [HttpPost("post/pitch")]
         public IActionResult PostPitch([FromBody] Pitch NewPitch)
         {
-            if (HelperMethods.HelperMethods.checkMissingPostedPitchFields(NewPitch))
+            if (!ModelState.IsValid)
             {
                 return NotFound(new { error = "Please provide all fields" });
             }
@@ -44,20 +44,13 @@ namespace ferrilata_devilline.Controllers
         [HttpPut("pitch")]
         public IActionResult PutPitch([FromBody] Pitch pitchToUpdate)
         {
-            if ((Request.Headers.ContainsKey("Authorization")) && (Request.Headers["Authorization"].ToString() != "") && (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate)))
 
-                if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString() != "" &&
-                    HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
-                {
-                    return Ok(new { message = "Success" });
-                }
-
-            if (HelperMethods.HelperMethods.checkIAllFieldsArePresent(pitchToUpdate))
+            if (!ModelState.IsValid)
             {
-                return Unauthorized(new { error = "Unauthorized" });
+                return NotFound(new { error = "Please provide all fields" });
             }
 
-            return NotFound(new { error = "Please provide all fields" });
+            return Ok(new { message = "Success" });
         }
     }
 }

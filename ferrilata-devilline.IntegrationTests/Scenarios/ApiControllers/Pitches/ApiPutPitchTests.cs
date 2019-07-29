@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.IntegrationTests.Scenarios
 {
@@ -31,7 +32,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PutPitchApi_CorrectAuthentication_CorrectBody_ShouldReturnOK(string url)
         {
             //Arrange
-            var InputPitch = CreateNewPitch();
+            var InputPitch = CreatePitchInDTO();
             string InputJson = JsonConvert.SerializeObject(InputPitch);
 
             //Act
@@ -51,7 +52,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PutPitchApi_IncorrectAuthentication_CorrectBody_ShouldReturnUnauthorized(string url)
         {
             //Arrange
-            var InputPitch = CreateNewPitch();
+            var InputPitch = CreatePitchInDTO();
             string InputJson = JsonConvert.SerializeObject(InputPitch);
 
             //Act
@@ -70,7 +71,15 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PutPitchApi_CorrectAuthentication_InCorrectBody_ShouldReturnNotFound(string url)
         {
             //Arrange
-            var InputPitch = new Pitch { };
+
+            var InputPitch = new Pitch
+            {
+                Status = "test",
+                PitchedLevel = "test",
+                PitchedMessage = "test",
+                Result = "test"
+            };
+
             string InputJson = JsonConvert.SerializeObject(InputPitch);
 
             //Act
@@ -92,7 +101,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PutPitchApi_CorrectAuthentication_CorrectBody_ShouldReturnSuccess(string url)
         {
             //Arrange
-            var InputPitch = CreateNewPitch();
+            var InputPitch = CreatePitchInDTO();
             string InputJson = JsonConvert.SerializeObject(InputPitch);
 
             //Act
@@ -113,7 +122,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
         public async Task PutPitchApi_IncorrectAuthentication_CorrectBody_ShouldReturnMessage_Unauthorized(string url)
         {
             //Arrange
-            var InputPitch = CreateNewPitch();
+            var InputPitch = CreatePitchInDTO();
             string InputJson = JsonConvert.SerializeObject(InputPitch);
 
             //Act
@@ -150,9 +159,20 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields" }), responseString);
         }
 
-        public Pitch CreateNewPitch()
+        public PitchInDTO CreatePitchInDTO()
         {
-            Pitch NewPitch = new Pitch { Status = "status" };
+            List<ReviewDTO> fakeReviews = new List<ReviewDTO>();
+            PitchInDTO NewPitch = new PitchInDTO
+            {
+                Status = "status",
+                PitchedMessage = "Good jobber",
+                PitchedLevel = "1",
+                Result = "Good",
+                Created = 1,
+                User = new UserDTO(),
+                Level = new LevelMiniDTO(),
+                Reviews = fakeReviews
+            };
 
             return NewPitch;
         }

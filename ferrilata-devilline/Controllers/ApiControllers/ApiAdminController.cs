@@ -1,33 +1,28 @@
-﻿using ferrilata_devilline.Services.Extensions;
+
+using ferrilata_devilline.Services.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+
+using ferrilata_devilline.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace ferrilata_devilline.Controllers
 {
+
     [Authorize(AuthenticationSchemes =
     JwtBearerDefaults.AuthenticationScheme)]
-    [ApiController]
     public class ApiAdminController : Controller
     {
         [HttpPost("api/admin/add")]
-        public IActionResult AddAdmin([FromBody]JToken requestBody)
+        public IActionResult AddAdmin([FromBody]BadgeInDTO requestBody)
         {
-            string authorization = Request.GetAuthorization();
-
-            if (authorization != null && authorization != "")
+            if (!ModelState.IsValid)
             {
-                if (requestBody == null || requestBody.HasMissingFieldsOrValuesAsAdmin())
-                {
-                    return BadRequest(new { error = "Please provide all fields" });
-                }
-
-                return Created("/api/badges/1", new List<object> { new { message = "Created" } });
+                return BadRequest(new { error = "Please provide all fields" });
             }
 
-            return Unauthorized(Json(new { error = "Unauthorized" }));
+            return Created("/api/badges/1", new List<object> { new { message = "Created" } });
         }
     }
 }
