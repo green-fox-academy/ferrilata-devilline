@@ -33,7 +33,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -46,7 +46,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -61,7 +61,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -75,7 +75,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -89,7 +89,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token.Substring(0, 20));
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -102,7 +102,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token.Substring(0, 20));
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -118,7 +118,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -131,7 +131,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -146,7 +146,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/3/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -159,7 +159,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             string postingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/3/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
