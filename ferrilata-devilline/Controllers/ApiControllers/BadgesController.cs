@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ferrilata_devilline.Controllers
+namespace ferrilata_devilline.Controllers.ApiControllers
 {
     [Authorize(AuthenticationSchemes =
         JwtBearerDefaults.AuthenticationScheme)]
@@ -24,10 +24,10 @@ namespace ferrilata_devilline.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/badges/{badgeid}")]
-        public IActionResult DeleteBadge(long badgeid)
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult DeleteBadge(long badgeId)
         {
-            _badgeService.DeleteById(badgeid);
+            _badgeService.DeleteById(badgeId);
             return Ok("Deleted");
         }
     }

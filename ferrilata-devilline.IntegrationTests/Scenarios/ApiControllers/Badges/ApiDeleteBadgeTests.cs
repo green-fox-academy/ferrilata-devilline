@@ -18,7 +18,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         private readonly ITokenService _tokenService;
         private readonly string email;
 
-        
+
         public ApiDeleteBadgeTests()
         {
             testContext = new TestContext();
@@ -79,9 +79,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var pitches = levels.SelectMany(l => l.Pitches).ToList();
 
             await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-            for (var i = 0;
-                i < pitches.Count;
-                i++)
+            for (var i = 0; i < pitches.Count; i++)
             {
                 Assert.Empty(testContext.Context.Pitches.Where(p => p.PitchId == pitches[i].PitchId));
             }
@@ -96,9 +94,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var userLevels = levels.SelectMany(l => l.UserLevels).ToList();
 
             await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-            for (var i = 0;
-                i < userLevels.Count;
-                i++)
+            for (var i = 0; i < userLevels.Count; i++)
             {
                 Assert.Empty(testContext.Context.UserLevels.Where(ul => ul.LevelId == userLevels[i].LevelId));
             }
@@ -114,9 +110,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var reviews = pitches.SelectMany(p => p.Reviews).ToList();
 
             await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-            for (var i = 0;
-                i < reviews.Count;
-                i++)
+            for (var i = 0; i < reviews.Count; i++)
             {
                 Assert.Empty(testContext.Context.Reviews.Where(r => r.ReviewId == reviews[i].ReviewId));
             }
