@@ -23,7 +23,6 @@ namespace ferrilata_devilline.Services
             return _badgeRepository.FindBadgeById(id);
         }
 
-
         public List<BadgeDTO> GetAllDTO()
         {
             var BadgeDTOList = _mapper.Map<List<Badge>, List<BadgeDTO>>(_badgeRepository.RetrieveBadgesFromDB());
