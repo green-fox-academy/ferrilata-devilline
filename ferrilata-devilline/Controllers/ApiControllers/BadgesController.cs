@@ -38,14 +38,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/badges/{badgeId}")]
         public IActionResult GetBadgeById(long badgeId)
         {
-            var request = Request;
-
-            if (!(request.Headers.ContainsKey("Authorization") &&
-                request.Headers["Authorization"].ToString() != ""))
-            {
-                return Unauthorized(new { error = "Unauthorized" });
-            }
-            else if (_badgeService.FindBadge(badgeId) == null)
+            if (_badgeService.FindBadge(badgeId) == null)
             {
                 return NotFound(new { error = "Please provide an existing Badge Id" });
             }
