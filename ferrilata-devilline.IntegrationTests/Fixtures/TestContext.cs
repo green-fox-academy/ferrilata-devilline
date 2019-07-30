@@ -3,8 +3,6 @@ using System.Net.Http;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Configuration;
-using ferrilata_devilline.Services;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Helpers;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,4 @@
-﻿using ferrilata_devilline.Models.DTOs;
+using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +35,14 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             _badgeService.AddBadge(IncomingBadge);
 
             return Created("", new { message = "Created" });
+        }
+
+        [HttpDelete]
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult DeleteBadge(long badgeId)
+        {
+            _badgeService.DeleteById(badgeId);
+            return Ok("Deleted");
         }
     }
 }
