@@ -3,7 +3,7 @@ using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -15,18 +15,16 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
     [Collection("BaseCollection")]
     public class PostLevelByBadgeIdTests
     {
-        private readonly TestContext testContext;
+        private readonly TestContext _testContext;
         private readonly ITokenService _tokenService;
-        private readonly ILevelService _levelService;
         
         private string token;
 
         public PostLevelByBadgeIdTests(TestContext testContext)
         {
-            this.testContext = testContext;
-            _tokenService = this.testContext.TokenService;
+            _testContext = testContext;
+            _tokenService = _testContext.TokenService;
             token = "Bearer " + _tokenService.GenerateToken("useremail@ferillata.com", true);
-            _levelService = this.testContext.LevelService;
         }
 
         [Fact]
@@ -38,7 +36,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await testContext.Client.SendAsync(request);
+            var response = await _testContext.Client.SendAsync(request);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         }
 
@@ -51,7 +49,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await testContext.Client.SendAsync(request);
+            var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(JsonConvert.SerializeObject(new {message = "Created"}), responseString);
@@ -66,10 +64,23 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await testContext.Client.SendAsync(request);
-            bool expected = _levelService.FindById(3) != null;
+            var response = await _testContext.Client.SendAsync(request);
 
-            Assert.True(expected);
+            Assert.True(_testContext.Context.Badges.Where(l => l.BadgeId == 3) != null);
+        }
+
+        [Fact]
+        public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldAddNewLevel_ToBadgeWithId_1()
+        {
+            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
+            request.Headers.Add("Authorization", token);
+            request.Content = new StringContent(PostingJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            var response = await _testContext.Client.SendAsync(request);
+
+            Assert.True(_testContext.Context.Badges.First(b => b.BadgeId == 1).Levels.Where(l => l.LevelId == 3) != null);
         }
 
         [Fact]
@@ -81,7 +92,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await testContext.Client.SendAsync(request);
+            var response = await _testContext.Client.SendAsync(request);
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
 
@@ -94,7 +105,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await testContext.Client.SendAsync(request);
+            var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }),
@@ -110,7 +121,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await testContext.Client.SendAsync(request);
+            var response = await _testContext.Client.SendAsync(request);
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
@@ -123,7 +134,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await testContext.Client.SendAsync(request);
+            var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields"}), responseString);
@@ -138,7 +149,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await testContext.Client.SendAsync(request);
+            var response = await _testContext.Client.SendAsync(request);
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
@@ -151,7 +162,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             request.Content = new StringContent(PostingJson,
                                     Encoding.UTF8,
                                     "application/json");
-            var response = await testContext.Client.SendAsync(request);
+            var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(JsonConvert.SerializeObject(new {error = "Please provide an existing Badge Id"}), responseString);
