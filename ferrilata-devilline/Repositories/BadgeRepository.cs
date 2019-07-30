@@ -20,18 +20,19 @@ namespace ferrilata_devilline.Repositories
             {
                 _applicationContext.Badges.Add(badge);
             }
-            _applicationContext.Update(badge);
+
             _applicationContext.SaveChanges();
         }
 
         public List<Badge> RetrieveBadgesFromDB()
         {
-            return _applicationContext.Badges.Include(badge => badge.Levels).ThenInclude(Level => Level.UserLevels).ThenInclude(UserLevel => UserLevel.User).ToList();
+            return _applicationContext.Badges.Include(badge => badge.Levels)
+                .ThenInclude(x => x.UserLevels).ThenInclude(x => x.User).ToList();
         }
 
         public Badge FindBadgeById(long id)
         {
-            return RetrieveBadgesFromDB().SingleOrDefault(x => x.BadgeId == id);
+            return RetrieveBadgesFromDB().Find(x => x.BadgeId == id);
         }
 
         public void DeleteBadgeById(long id)
@@ -39,7 +40,5 @@ namespace ferrilata_devilline.Repositories
             _applicationContext.Badges.Remove(FindBadgeById(id));
             _applicationContext.SaveChanges();
         }
-
-        
     }
 }

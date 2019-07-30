@@ -1,9 +1,13 @@
 ﻿using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ferrilata_devilline.Controllers
+namespace ferrilata_devilline.Controllers.ApiControllers
 {
+    [Authorize(AuthenticationSchemes =
+        JwtBearerDefaults.AuthenticationScheme)]
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
@@ -19,14 +23,15 @@ namespace ferrilata_devilline.Controllers
         [Route("/api/badges")]
         public IActionResult GetBadges()
         {
-            var request = Request;
+            return Ok(_badgeService.GetAllDTO());
+        }
 
-            if (request.Headers.ContainsKey("Authorization") &&
-                request.Headers["Authorization"].ToString() != "")
-            {
-                return Ok(_badgeService.GetAll());
-            }
-            return Unauthorized(new {error = "Unauthorized"});
+        [HttpDelete]
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult DeleteBadge(long badgeId)
+        {
+            _badgeService.DeleteById(badgeId);
+            return Ok("Deleted");
         }
 
         [HttpGet]

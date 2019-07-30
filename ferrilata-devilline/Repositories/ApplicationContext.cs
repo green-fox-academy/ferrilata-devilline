@@ -21,8 +21,22 @@ namespace ferrilata_devilline.Repositories
         {
             base.OnModelCreating(modelBuilder);
 
+
+            modelBuilder.Entity<Badge>().HasMany(b => b.Levels).WithOne(l => l.Badge)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Level>().HasMany(l => l.UserLevels).WithOne(l => l.Level)
+                .HasForeignKey(l => l.LevelId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Level>().HasMany(l => l.Pitches).WithOne(p => p.Level)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Pitch>().HasMany(p => p.Reviews).WithOne(r => r.Pitch)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<UserLevel>()
-                 .HasKey(e => new { e.UserId, e.LevelId });
+                .HasKey(e => new {e.UserId, e.LevelId});
         }
     }
 }
