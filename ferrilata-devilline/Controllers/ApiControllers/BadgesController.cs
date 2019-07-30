@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -24,11 +27,18 @@ namespace ferrilata_devilline.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/badges/{badgeid}")]
-        public IActionResult DeleteBadge(long badgeid)
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult DeleteBadge(long badgeId)
         {
-            _badgeService.DeleteById(badgeid);
+            _badgeService.DeleteById(badgeId);
             return Ok("Deleted");
         }
+
+        [HttpPut]
+        [Route("/api/badges/{badgeId}/levels/{levelId}")]
+        public IActionResult UpdateBadgeLevel([FromBody] BadgeDTO badgeDTO, long badgeId, long levelId)
+        {
+                            return Ok("Deleted");
+            }
+        }
     }
-}
