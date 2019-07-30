@@ -31,8 +31,6 @@ namespace ferrilata_devilline.Services
         public void AddLevel(long badgeId, LevelInDTO inputLevel)
         {
             Level newLevel = _mapper.Map<LevelInDTO, Level>(inputLevel);
-            _levelRepository.SaveOrUpdate(newLevel);
-            //newLevel.LevelId = GetAll().OrderByDescending(l => l.LevelId).FirstOrDefault().LevelId + 1;
             newLevel.Badge = _badgeRepository.FindBadgeById(badgeId);
             _levelRepository.SaveOrUpdate(newLevel);
         }
