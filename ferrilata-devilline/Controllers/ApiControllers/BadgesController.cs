@@ -1,5 +1,4 @@
 ﻿using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -24,18 +23,7 @@ namespace ferrilata_devilline.Controllers
         [Route("/api/badges")]
         public IActionResult GetBadges()
         {
-             return Ok(_badgeService.GetAll());
-        }
-
-        [HttpGet]
-        [Route("/api/badges/{badgeId}")]
-        public IActionResult GetBadgeById(long badgeId)
-        {
-            if (_badgeService.FindById(badgeId) == null)
-            {
-                return NotFound(new { error = "Please provide an existing Badge Id" });
-            }
-            return Ok(_badgeService.FinDTOById(badgeId));
+            return Ok(_badgeService.GetAllDTO());
         }
 
         [HttpPost]
