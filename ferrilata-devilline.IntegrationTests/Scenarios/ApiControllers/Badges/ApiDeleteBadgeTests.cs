@@ -62,9 +62,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var levels = testContext.Context.Badges.GetItemByIndex(0).Levels;
 
             await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-            for (var i = 0;
-                i < levels.Count;
-                i++)
+            for (var i = 0; i < levels.Count; i++)
             {
                 Assert.Empty(testContext.Context.Levels.Where(l => l.LevelId == levels[i].LevelId));
             }
@@ -125,10 +123,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var pitches = levels.SelectMany(l => l.Pitches).ToList();
 
             await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-            foreach (var t in pitches)
+            foreach (var pitch in pitches)
             {
                 Assert.Empty(testContext.Context.Users.SelectMany(u => u.Pitches).ToList()
-                    .FindAll(p => p.PitchId == t.PitchId));
+                    .FindAll(p => p.PitchId == pitch.PitchId));
             }
         }
 
@@ -142,10 +140,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var reviews = pitches.SelectMany(p => p.Reviews).ToList();
 
             await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-            foreach (var t in reviews)
+            foreach (var review in reviews)
             {
                 Assert.Empty(testContext.Context.Users.SelectMany(u => u.Reviews).ToList()
-                    .FindAll(r => r.ReviewId == t.ReviewId));
+                    .FindAll(r => r.ReviewId == review.ReviewId));
             }
         }
     }
