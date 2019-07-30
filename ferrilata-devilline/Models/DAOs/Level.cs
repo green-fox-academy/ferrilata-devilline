@@ -17,7 +17,7 @@ namespace ferrilata_devilline.Models.DAOs
         public string Weight { get; set; }
 
         public Badge Badge { get; set; }
-
+                
         public List<UserLevel> UserLevels { get; set; }
 
         public List<Pitch> Pitches { get; set; }

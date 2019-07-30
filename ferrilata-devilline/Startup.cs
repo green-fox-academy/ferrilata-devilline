@@ -87,6 +87,8 @@ namespace ferrilata_devilline
 
             services.AddScoped<IBadgeRepository, BadgeRepository>();
             services.AddScoped<IBadgeService, BadgeService>();
+            services.AddScoped<ILevelRepository, LevelRepository>();
+            services.AddScoped<ILevelService, LevelService>();
 
             services.AddScoped<IPitchService, MockPitchService>();
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
@@ -144,6 +146,8 @@ namespace ferrilata_devilline
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ILevelRepository, LevelRepository>();
+            services.AddScoped<ILevelService, LevelService>();
 
             services.AddAuthentication(options =>
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme)
