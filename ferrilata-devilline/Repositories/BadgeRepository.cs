@@ -40,5 +40,21 @@ namespace ferrilata_devilline.Repositories
             _applicationContext.Badges.Remove(FindBadgeById(id));
             _applicationContext.SaveChanges();
         }
+
+        public void SaveBadge(Badge badge)
+        {
+            _applicationContext.Badges.Add(badge);
+            _applicationContext.SaveChanges();
+        }
+
+        public Level FindLevelById(long levelId)
+        {
+            return RetrieveLevelsFromDB().Find(x => x.LevelId == levelId);
+        }
+
+        public List<Level> RetrieveLevelsFromDB()
+        {
+            return _applicationContext.Levels.Include(level => level.Badge).ToList();
+        }
     }
 }

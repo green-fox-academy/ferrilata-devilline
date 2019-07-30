@@ -34,9 +34,17 @@ namespace ferrilata_devilline.Services
             return _badgeRepository.RetrieveBadgesFromDB();
         }
 
+
+        public void AddBadge(BadgeInDTO IncomingBadge)
+        {
+            Badge NewBadge = _mapper.Map<Badge>(IncomingBadge);
+            _badgeRepository.SaveBadge(NewBadge);
+        }
+
         public void DeleteById(long id)
         {
             _badgeRepository.DeleteBadgeById(id);
+
         }
     }
 }

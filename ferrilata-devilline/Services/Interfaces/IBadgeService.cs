@@ -9,6 +9,7 @@ namespace ferrilata_devilline.Services.Interfaces
         Badge FindBadge(long id);
         List<BadgeDTO> GetAllDTO();
         List<Badge> GetAll();
+        void AddBadge(BadgeInDTO IncomingBadge);
         void DeleteById(long id);
     }
 }
