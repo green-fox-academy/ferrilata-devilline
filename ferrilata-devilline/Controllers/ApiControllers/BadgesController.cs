@@ -11,12 +11,10 @@ namespace ferrilata_devilline.Controllers.ApiControllers
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
-        private readonly IBadgeRepository _badgeRepository;
 
-        public BadgesController(IBadgeService badgeService, IBadgeRepository badgeRepository)
+        public BadgesController(IBadgeService badgeService)
         {
             _badgeService = badgeService;
-            _badgeRepository = badgeRepository;
         }
 
         [HttpGet]
