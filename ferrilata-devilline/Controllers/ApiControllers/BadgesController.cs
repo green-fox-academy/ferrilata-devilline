@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ferrilata_devilline.Controllers
+namespace ferrilata_devilline.Controllers.ApiControllers
 {
     [Authorize(AuthenticationSchemes =
         JwtBearerDefaults.AuthenticationScheme)]
@@ -38,7 +36,7 @@ namespace ferrilata_devilline.Controllers
         [Route("/api/badges/{badgeId}/levels/{levelId}")]
         public IActionResult UpdateBadgeLevel([FromBody] BadgeDTO badgeDTO, long badgeId, long levelId)
         {
-                            return Ok("Deleted");
-            }
+            return Ok("Deleted");
         }
     }
+}

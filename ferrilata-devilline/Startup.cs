@@ -1,7 +1,6 @@
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services;
 using ferrilata_devilline.Services.Helpers;
-using ferrilata_devilline.Services.Helpers.Extensions;
 using ferrilata_devilline.Services.Interfaces;
 using ferrilata_devilline.Services.SlackIntegration;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Text;
+using ferrilata_devilline.Services.Helpers.AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;

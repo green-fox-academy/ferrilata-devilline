@@ -5,9 +5,9 @@ using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
 {
-    public class BadgeTransformer : Profile
+    public class BadgeProfile : Profile
     {
-        public BadgeTransformer()
+        public BadgeProfile()
         {
             CreateMap<BadgeInDTO, Badge>();
             CreateMap<Badge, BadgeDTO>();
