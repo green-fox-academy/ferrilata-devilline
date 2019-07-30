@@ -1,7 +1,6 @@
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services;
 using ferrilata_devilline.Services.Helpers;
-using ferrilata_devilline.Services.Helpers.Extensions;
 using ferrilata_devilline.Services.Interfaces;
 using ferrilata_devilline.Services.SlackIntegration;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -17,6 +16,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.IO;
+using ferrilata_devilline.Services.Helpers.AutoMapper;
 using Newtonsoft.Json.Linq;
 
 namespace ferrilata_devilline
@@ -142,7 +142,8 @@ namespace ferrilata_devilline
 
             services.SetUpAutoMapper();
 
-            services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"), ServiceLifetime.Singleton);
+            services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"),
+                ServiceLifetime.Singleton);
             services.AddScoped<IBadgeRepository, BadgeRepository>();
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IPitchService, MockPitchService>();

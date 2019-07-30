@@ -2,14 +2,13 @@
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 
-
 namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
 {
-    public class LevelMapper : Profile
+    public class PitchProfile : Profile
     {
-        public LevelMapper()
+        public PitchProfile()
         {
-            CreateMap<LevelInDTO, Level>();
+            CreateMap<Pitch, Pitches>();
         }
     }
 }
