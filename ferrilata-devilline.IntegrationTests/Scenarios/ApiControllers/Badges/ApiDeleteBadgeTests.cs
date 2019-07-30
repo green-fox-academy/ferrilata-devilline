@@ -16,14 +16,14 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
     {
         private readonly TestContext testContext;
         private readonly ITokenService _tokenService;
-        private readonly string email;
+        private readonly string token;
 
 
         public ApiDeleteBadgeTests()
         {
             testContext = new TestContext();
             _tokenService = testContext.TokenService;
-            email = "useremail@ferillata.com";
+            token = "Bearer " + _tokenService.GenerateToken("useremail@ferillata.com", true);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         public async Task DeleteBadgeApi_CorrectAuthentication_ShouldReturnOK()
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+            request.Headers.Add("Authorization", token);
             var response = await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
@@ -49,7 +49,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeleteBadge()
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+            request.Headers.Add("Authorization", token);
             await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
             Assert.True(testContext.Context.Badges.Count(badge => badge.BadgeId == 1) == 0);
         }
@@ -58,7 +58,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeleteLevelsAssociatedWithBadge()
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+            request.Headers.Add("Authorization", token);
             var levels = testContext.Context.Badges.GetItemByIndex(0).Levels;
 
             await testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
@@ -72,7 +72,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeletePitchAssociatedWithBadge()
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+            request.Headers.Add("Authorization", token);
             var levels = testContext.Context.Badges.GetItemByIndex(0).Levels;
             var pitches = levels.SelectMany(l => l.Pitches).ToList();
 
@@ -87,7 +87,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeleteUserLevelAssociatedWithBadge()
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+            request.Headers.Add("Authorization", token);
             var levels = testContext.Context.Badges.GetItemByIndex(0).Levels;
             var userLevels = levels.SelectMany(l => l.UserLevels).ToList();
 
@@ -102,7 +102,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeleteReviewAssociatedWithBadge()
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+            request.Headers.Add("Authorization", token);
             var levels = testContext.Context.Badges.GetItemByIndex(0).Levels;
             var pitches = levels.SelectMany(l => l.Pitches).ToList();
             var reviews = pitches.SelectMany(p => p.Reviews).ToList();
@@ -118,7 +118,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeletePitchAssociatedWithBadgeFromUser()
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+            request.Headers.Add("Authorization", token);
             var levels = testContext.Context.Badges.GetItemByIndex(0).Levels;
             var pitches = levels.SelectMany(l => l.Pitches).ToList();
 
@@ -134,7 +134,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         public async Task DeleteBadgeApi_CorrectAuthentication_ShouldDeleteReviewAssociatedWithBadgeFromUser()
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, "/api/badges/1");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+            request.Headers.Add("Authorization", token);
             var levels = testContext.Context.Badges.GetItemByIndex(0).Levels;
             var pitches = levels.SelectMany(l => l.Pitches).ToList();
             var reviews = pitches.SelectMany(p => p.Reviews).ToList();
