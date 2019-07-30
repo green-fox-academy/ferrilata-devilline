@@ -45,7 +45,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             {
                 return Unauthorized(new { error = "Unauthorized" });
             }
-            else if (_badgeService.FindById(badgeId) == null)
+            else if (_badgeService.FindBadge(badgeId) == null)
             {
                 return NotFound(new { error = "Please provide an existing Badge Id" });
             }
