@@ -26,7 +26,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Ok(_badgeService.GetAllDTO());
         }
 
-
         [HttpPost]
         [Route("/api/badges/{badgeId}/levels")]
         public IActionResult PostLevelByBadgeId([FromBody] LevelInDTO newLevel, long badgeId)
