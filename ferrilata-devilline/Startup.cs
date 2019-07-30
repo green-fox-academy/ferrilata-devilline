@@ -92,7 +92,6 @@ namespace ferrilata_devilline
             services.AddScoped<IBadgeService, BadgeService>();
 
             services.AddScoped<IPitchService, MockPitchService>();
-            services.AddScoped<ILevelRepository, LevelRepository>();
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
             services.AddScoped<ITokenService, TokenService>();
 
@@ -147,7 +146,6 @@ namespace ferrilata_devilline
                 ServiceLifetime.Singleton);
             services.AddScoped<IBadgeRepository, BadgeRepository>();
             services.AddScoped<IBadgeService, BadgeService>();
-            services.AddScoped<ILevelRepository, LevelRepository>();
             services.AddScoped<IPitchService, MockPitchService>();
             services.AddScoped<ITokenService, TokenService>();
 
