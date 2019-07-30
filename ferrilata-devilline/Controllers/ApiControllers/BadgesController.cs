@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ferrilata_devilline.Controllers
+namespace ferrilata_devilline.Controllers.ApiControllers
 {
     [Authorize(AuthenticationSchemes =
     JwtBearerDefaults.AuthenticationScheme)]
@@ -26,22 +26,31 @@ namespace ferrilata_devilline.Controllers
             return Ok(_badgeService.GetAllDTO());
         }
 
+
         [HttpPost]
         [Route("/api/badges/{badgeId}/levels")]
         public IActionResult PostLevelByBadgeId([FromBody] LevelInDTO newLevel, long badgeId)
         {
-            if (_badgeService.FindById(badgeId) == null)
+            if (_badgeService.FindBadge(badgeId) == null)
             {
-                return NotFound(new {error = "Please provide an existing Badge Id"});
+                return NotFound(new { error = "Please provide an existing Badge Id" });
             }
 
             if (!ModelState.IsValid)
             {
-                return NotFound(new {error = "Please provide all fields"});
+                return NotFound(new { error = "Please provide all fields" });
             }
 
             _levelService.AddLevel(badgeId, newLevel);
             return Created("", new { message = "Created" });
+        }
+
+        [HttpDelete]
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult DeleteBadge(long badgeId)
+        {
+            _badgeService.DeleteById(badgeId);
+            return Ok("Deleted");
         }
     }
 }

@@ -25,6 +25,15 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         }
 
         [Fact]
+        public async Task GetBadgesApi_CorrectAuthentication_ShouldReturnOK()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
+            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
+            var response = testContext.Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).Result;
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
         public async Task GetBadgesApi_AuthorizationHeader_IsMissing_ShouldReturnUnauthorized()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
@@ -43,15 +52,14 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             Assert.True(actual.GetType() == typeof(List<BadgeDTO>));
         }
 
-
         [Fact]
         public async Task GetBadgesApi_IncorrectAuthentication_ShouldMessageEqual()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges");
             var response = await testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
-            Assert.Equal(JsonConvert.SerializeObject(new {error = "Unauthorized"}),
-                "{" + responseString.Substring(4, 23).Replace(" ", "") + "\"}");
+            Assert.Equal("Unauthorized",
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
         }
     }
 }
