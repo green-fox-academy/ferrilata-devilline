@@ -97,7 +97,8 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var response = await testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new {error = "Unauthorized"}), responseString);
+            Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }),
+                "{" + responseString.Substring(4, 23).Replace(" ", "") + "\"}");
         }
 
         [Fact]

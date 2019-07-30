@@ -118,7 +118,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
             string ResponseBody = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }),
-               "{" + ResponseBody.Substring(4, 23).Replace(" ", "") + "}");
+               "{" + ResponseBody.Substring(4, 23).Replace(" ", "") + "\"}");
         }
 
         [Theory]

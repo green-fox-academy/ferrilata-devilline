@@ -135,7 +135,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
 
             //Assert
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }),
-                "{" + responseString.Substring(4, 23).Replace(" ", "") + "}");
+                "{" + responseString.Substring(4, 23).Replace(" ", "") + "\"}");
         }
 
         [Theory]

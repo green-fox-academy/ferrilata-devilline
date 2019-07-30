@@ -59,7 +59,7 @@ namespace ferrilata_devilline.IntegrationTests
             var response = await testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
             Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized"}),
-               "{" + responseString.Substring(4, 23).Replace(" ", "") + "}");
+               "{" + responseString.Substring(4, 23).Replace(" ", "") + "\"}");
         }
     }
 }
