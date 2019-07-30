@@ -5,7 +5,9 @@ namespace ferrilata_devilline.Repositories
 {
     public interface IBadgeRepository
     {
-        void SaveOrUpdate(Badge badge);
+        void Save(Badge badge);
+        void Update();
+        bool CheckBadge(long id);
         List<Badge> RetrieveBadgesFromDB();
         Badge FindBadgeById(long id);
         void DeleteBadgeById(long id);

@@ -36,7 +36,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/badges/{badgeId}/levels/{levelId}")]
         public IActionResult UpdateBadgeLevel([FromBody] BadgeDTO badgeDTO, long badgeId, long levelId)
         {
-            return Ok("Deleted");
+            return Ok("Updated");
         }
     }
 }
