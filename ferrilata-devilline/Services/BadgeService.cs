@@ -39,5 +39,10 @@ namespace ferrilata_devilline.Services
         {
             _badgeRepository.DeleteBadgeById(id);
         }
+
+        public void SaveorUpdate(long id)
+        {
+            
+        }
     }
 }
