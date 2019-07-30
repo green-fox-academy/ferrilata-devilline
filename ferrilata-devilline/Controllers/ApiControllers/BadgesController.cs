@@ -28,7 +28,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/post/badges")]
         public IActionResult PostBadge([FromBody] BadgeInDTO IncomingBadge)
         {
-
             if (!ModelState.IsValid)
             {
                 return NotFound(new { error = "Please provide all files" });

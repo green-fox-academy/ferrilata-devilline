@@ -32,13 +32,7 @@ namespace ferrilata_devilline.Services
         public void AddBadge(BadgeInDTO IncomingBadge)
         {
             Badge NewBadge = _mapper.Map<Badge>(IncomingBadge);
-            _badgeRepository.SaveOrUpdateBadge(NewBadge);
-
-            foreach (Level each in NewBadge.Levels)
-            {
-                each.Badge = NewBadge;
-                _badgeRepository.SaveOrUpdateLevel(each);
-            }
+            _badgeRepository.SaveBadge(NewBadge);
         }
     }
 }
