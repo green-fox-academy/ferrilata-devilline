@@ -1,7 +1,6 @@
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services;
 using ferrilata_devilline.Services.Helpers;
-using ferrilata_devilline.Services.Helpers.Extensions;
 using ferrilata_devilline.Services.Interfaces;
 using ferrilata_devilline.Services.SlackIntegration;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -19,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+using ferrilata_devilline.Services.Helpers.AutoMapper;
 using Newtonsoft.Json.Linq;
 
 namespace ferrilata_devilline
