@@ -131,11 +131,11 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
-            var responseString = await response.Content.ReadAsStringAsync();
+            string responseString = await response.Content.ReadAsStringAsync();
 
             //Assert
-            Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }),
-                "{" + responseString.Substring(4, 23).Replace(" ", "") + "\"}");
+            Assert.Equal("Unauthorized",
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
         }
 
         [Theory]

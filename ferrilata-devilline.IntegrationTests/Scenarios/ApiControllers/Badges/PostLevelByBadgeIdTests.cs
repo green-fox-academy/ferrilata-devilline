@@ -3,6 +3,7 @@ using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -106,10 +107,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
-            var responseString = await response.Content.ReadAsStringAsync();
+            string responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }),
-                "{" + responseString.Substring(4, 23).Replace(" ", "") + "\"}");
+            Assert.Equal("Unauthorized",
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
         }
 
         [Fact]
