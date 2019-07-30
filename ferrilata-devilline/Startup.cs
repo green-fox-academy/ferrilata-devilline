@@ -16,8 +16,6 @@ using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Linq;
 

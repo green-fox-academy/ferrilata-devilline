@@ -54,8 +54,6 @@ namespace ferrilata_devilline.Controllers
 
             _levelService.AddLevel(badgeId, newLevel);
             return Created("", new { message = "Created" });
-
-
         }
     }
 }
