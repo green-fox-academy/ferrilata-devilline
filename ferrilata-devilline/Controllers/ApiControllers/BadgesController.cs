@@ -91,7 +91,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             {
                 return NotFound(new { error = "Please provide an existing Badge Id" });
             }
-            return Ok(_badgeService.FinDTOById(badgeId));
+            return Ok(_badgeService.FindDTOById(badgeId));
         }
     }
 }
