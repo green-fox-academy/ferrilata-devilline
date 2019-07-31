@@ -12,5 +12,6 @@ namespace ferrilata_devilline.Services.Interfaces
         List<Badge> GetAll();
         void AddBadge(BadgeInDTO IncomingBadge);
         void DeleteById(long id);
+        List<LevelOutDTO> FinLevelsDTOByBadgeId(long id);
     }
 }

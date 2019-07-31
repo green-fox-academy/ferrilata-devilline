@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.TestHost;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Helpers;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
 namespace ferrilata_devilline.IntegrationTests.Fixtures
 {
@@ -15,6 +16,7 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
         private TestServer server;
         public HttpClient Client { get; set; }
         public ITokenService TokenService { get; set; }
+        public IMapper testMapper;
 
         public ApplicationContext Context { get; set; }
 
@@ -28,6 +30,8 @@ namespace ferrilata_devilline.IntegrationTests.Fixtures
             Client = server.CreateClient();
             TokenService = server.Host.Services.GetRequiredService<ITokenService>();
             Context = server.Host.Services.GetRequiredService<ApplicationContext>();
+            testMapper = server.Host.Services.GetRequiredService<IMapper>();
+
             Context.SeedWithData();
         }
 

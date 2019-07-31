@@ -18,7 +18,8 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpGet("/badgelibrary")]
         public IActionResult GetBadgeLibrary()
         {
-            return View(_badgeService.GetAllDTO());
+            var listsDTOs = _badgeService.GetAllDTO();
+            return View(listsDTOs);
         }
     }
 }

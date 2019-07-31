@@ -15,6 +15,8 @@ namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
             CreateMap<User, PersonDTO>().ForMember(x => x.PersonId, x => x.MapFrom(y => y.UserId));
             CreateMap<Level, LevelOutDTO>().ForMember(x => x.Holders,
                 x => x.MapFrom(y => y.UserLevels.Select(z => z.User)));
+
+            CreateMap<LevelInDTO, Level>();
         }
     }
 }
