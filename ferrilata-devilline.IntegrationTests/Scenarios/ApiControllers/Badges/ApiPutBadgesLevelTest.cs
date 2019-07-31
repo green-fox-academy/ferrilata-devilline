@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
+using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using Newtonsoft.Json;
 using Xunit;
@@ -65,15 +66,22 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         {
             var input = createTestLevelInDTO();
             string inputString = JsonConvert.SerializeObject(input);
-            var request = new HttpRequestMessage(HttpMethod.Post, $"/api/badges/{badgeId}/levels/{levelId}");
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/badges/{badgeId}/levels/{levelId}");
             request.Headers.Add("Authorization", token);
             request.Content = new StringContent(inputString,
                 Encoding.UTF8,
                 "application/json");
-            var expected = _testContext.Context.Levels.Find(levelId);
-            expected.Weight = input.Weight;
-            expected.Description = input.Description;
-            expected.LevelNumber = input.LevelNumber;
+            var levelToChange = _testContext.Context.Levels.Find(levelId);
+            var expected = new Level
+            {
+                Weight = input.Weight,
+                Description = input.Description,
+                LevelNumber = input.LevelNumber,
+                Badge = levelToChange.Badge,
+                LevelId = levelToChange.LevelId,
+                Pitches = levelToChange.Pitches,
+                UserLevels = levelToChange.UserLevels
+            };
             var response = await _testContext.Client.SendAsync(request);
             var actual = _testContext.Context.Badges.SelectMany(b => b.Levels)
                 .FirstOrDefault(l => l.LevelId == levelId);
