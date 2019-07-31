@@ -3,6 +3,7 @@ using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace ferrilata_devilline.Controllers.ApiControllers
 {
@@ -50,6 +51,18 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         {
             _badgeService.DeleteById(badgeId);
             return Ok("Deleted");
+        }
+
+        [HttpGet]
+        [Route("/api/badges/{badgeId}/levels/{levelId}")]
+        public IActionResult GetLevelByIds(long badgeId, long levelId)
+        {
+            if (_badgeService.FindBadge(badgeId).Levels.Where(l => l.LevelId == levelId) == null)
+            {
+                return BadRequest(new { error = "Please provide an existing Id pair!" });
+            }
+
+            return Ok(_badgeService.FindBadge(badgeId).Levels.FirstOrDefault(l => l.LevelId == levelId));
         }
     }
 }
