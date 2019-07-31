@@ -75,7 +75,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/badges/{badgeId}/levels/{levelId}")]
         public IActionResult GetLevelByIds(long badgeId, long levelId)
         {
-            if (_badgeService.FindBadge(badgeId).Levels.Where(l => l.LevelId == levelId) == null)
+            if (_badgeService.FindBadge(badgeId).Levels.FirstOrDefault(l => l.LevelId == levelId) == null)
             {
                 return BadRequest(new { error = "Please provide an existing Id pair!" });
             }
