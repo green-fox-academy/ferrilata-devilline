@@ -14,18 +14,21 @@ namespace ferrilata_devilline.Repositories
             _applicationContext = applicationContext;
         }
 
-        public void SaveOrUpdate(Badge badge)
+        public void Save(Badge badge)
         {
-            if (_applicationContext.Badges.Find(badge.BadgeId) == null)
-            {
-                _applicationContext.Badges.Add(badge);
-            }
-            else
-            {
-                _applicationContext.Update(badge);
-            }
 
+            _applicationContext.Badges.Add(badge);
             _applicationContext.SaveChanges();
+        }
+
+        public void Update()
+        {
+            _applicationContext.SaveChanges();
+        }
+
+        public bool CheckBadge(long id)
+        {
+            return _applicationContext.Badges.Contains(FindBadgeById(id));
         }
 
         public List<Badge> RetrieveBadgesFromDB()

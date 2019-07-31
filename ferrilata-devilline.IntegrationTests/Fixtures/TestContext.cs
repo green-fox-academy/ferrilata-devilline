@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using AutoMapper;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
