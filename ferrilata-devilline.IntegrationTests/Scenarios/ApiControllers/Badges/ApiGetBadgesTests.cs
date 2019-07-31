@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AutoMapper;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
@@ -16,12 +17,14 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         private readonly TestContext testContext;
         private readonly ITokenService _tokenService;
         private readonly string email;
+        private readonly IMapper _mapper;
 
         public ApiBadgesTest(TestContext testContext)
         {
             this.testContext = testContext;
             _tokenService = this.testContext.TokenService;
             email = "useremail@ferillata.com";
+            _mapper = testContext.testMapper;
         }
 
         [Fact]

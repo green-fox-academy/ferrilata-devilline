@@ -1,16 +1,11 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.Models;
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -115,10 +110,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios
                                     Encoding.UTF8,
                                     "application/json");
             var response = await client.SendAsync(request);
-            string ResponseBody = await response.Content.ReadAsStringAsync();
+            string responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new { error = "Unauthorized" }),
-               "{" + ResponseBody.Substring(4, 23).Replace(" ", "") + "}");
+            Assert.Equal("Unauthorized",
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
         }
 
         [Theory]

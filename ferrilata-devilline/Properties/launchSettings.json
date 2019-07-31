@@ -1,13 +1,25 @@
 {
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:56788",
+      "sslPort": 44329
+    }
+  },
   "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "FDTOKENSECRET": "6c07d2e1-3395-4780-8c4a-900f58202043",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
     "ferrilata_devilline": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "FDUSERNAME": "root",
-        "FDDATABASE": "ProjectDB",
-        "FDPASSWORD": "",
-        "FDHOST": "localhost",
         "FDTOKENSECRET": "6c07d2e1-3395-4780-8c4a-900f58202043",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

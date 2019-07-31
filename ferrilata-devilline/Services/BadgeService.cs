@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
@@ -39,6 +40,16 @@ namespace ferrilata_devilline.Services
         {
             Badge NewBadge = _mapper.Map<Badge>(IncomingBadge);
             _badgeRepository.SaveBadge(NewBadge);
+        }
+
+        public BadgeDTO FinDTOById(long id)
+        {
+            return GetAllDTO().SingleOrDefault(x => x.BadgeId == id);
+        }
+
+        public List<LevelOutDTO> FinLevelsDTOByBadgeId(long id)
+        {
+            return FinDTOById(id).Levels;
         }
 
         public void DeleteById(long id)

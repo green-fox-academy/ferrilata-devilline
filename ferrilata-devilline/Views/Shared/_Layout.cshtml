@@ -4,20 +4,20 @@
     <meta name="viewport" content="width=device-width" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="IE-edge" />
-    <link rel="stylesheet" href="styles.css" type="text/css" />
+    <link rel="stylesheet" href="/styles.css" type="text/css" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a asp-action="Index" asp-controller="Home" class="navbar-brand">Brand name</a>
+            <a asp-action="Index" asp-controller="Home" class="navbar-brand">Level-up</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-intem">
-                        <a asp-action="Index" asp-controller="Home" class="nav-link">Library</a>
+                        <a asp-action="GetBadgeLibrary" asp-controller="ViewBadges" class="nav-link">Library</a>
                     </li>
                     <li class="nav-intem">
                         <a asp-action="Add" asp-controller="Home" class="nav-link">Pitches</a>
@@ -28,8 +28,8 @@
                                 @User.Identity.Name
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" asp-action="Index" asp-controller="Assignee" class="nav-link">My Pitches</a>
-                                <a class="dropdown-item" asp-action="AddAssignee" asp-controller="Assignee" class="nav-link">My Reviews</a>
+                                <a class="dropdown-item" asp-action="#" asp-controller="#" class="nav-link">My Pitches</a>
+                                <a class="dropdown-item" asp-action="#" asp-controller="#" class="nav-link">My Reviews</a>
                             </div>
                         </div>
                     </li>
