@@ -1,16 +1,11 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
-using ferrilata_devilline.Models;
 using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Xunit;
 

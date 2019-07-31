@@ -26,7 +26,15 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         {
             return Ok(_badgeService.GetAllDTO());
         }
-        
+
+        [HttpDelete]
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult DeleteBadge(long badgeId)
+        {
+            _badgeService.DeleteById(badgeId);
+            return Ok("Deleted");
+        }
+
         [HttpPost]
         [Route("/api/badges/{badgeId}/levels")]
         public IActionResult PostLevelByBadgeId([FromBody] LevelInDTO newLevel, long badgeId)
@@ -63,12 +71,15 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Created("", new { message = "Created" });
         }
 
-        [HttpDelete]
-        [Route("/api/badges/{badgeId}")]
-        public IActionResult DeleteBadge(long badgeId)
+        [HttpGet]
+        [Route("/api/badges/{badgeId}/levels")]
+        public IActionResult GetLevelsBadgeById(long badgeId)
         {
-            _badgeService.DeleteById(badgeId);
-            return Ok(new {message = "Deleted"});
+            if (_badgeService.FindBadge(badgeId) == null)
+            {
+                return NotFound(new { error = "Please provide an existing Badge Id" });
+            }
+            return Ok(_badgeService.FinLevelsDTOByBadgeId(badgeId));
         }
 
         [HttpPut]
@@ -77,12 +88,12 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         {
             if (!_badgeService.FindBadge(badgeId).Levels.Contains(_levelService.FindById(levelId)))
             {
-                return NotFound(new {error = "No such level found for the selected badge"});
+                return NotFound(new { error = "No such level found for the selected badge" });
             }
             
             _levelService.UpdateLevel(levelId, levelInDTO);
 
-            return Ok(new {message = "Updated"});
+            return Ok(new { message = "Updated" });
         }
     }
 }

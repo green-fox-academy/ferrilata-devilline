@@ -1,8 +1,5 @@
-
-using ferrilata_devilline.Services.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-
 using ferrilata_devilline.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

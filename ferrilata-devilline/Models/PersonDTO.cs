@@ -9,5 +9,12 @@ namespace ferrilata_devilline.Models.DTOs
 
         [JsonProperty(PropertyName = "name", Required = Required.Always)]
         public string Name { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is PersonDTO dTO &&
+                   PersonId == dTO.PersonId &&
+                   Name == dTO.Name;
+        }
     }
 }
