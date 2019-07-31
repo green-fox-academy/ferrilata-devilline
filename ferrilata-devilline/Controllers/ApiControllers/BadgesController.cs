@@ -80,8 +80,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
                 return BadRequest(new { error = "Please provide an existing Id pair!" });
             }
 
-            return Ok(_badgeService.FindBadge(badgeId).Levels.FirstOrDefault(l => l.LevelId == levelId));
-
+            return Ok(_levelService.GetLevelOutDTO(levelId));
         }
     }
 }

@@ -39,5 +39,10 @@ namespace ferrilata_devilline.Services
         {
             return _levelRepository.FindLevelById(id);
         }
+
+        public LevelOutDTO GetLevelOutDTO(long id)
+        {
+            return _mapper.Map<Level, LevelOutDTO>(_levelRepository.FindLevelById(id));
+        }
     }
 }
