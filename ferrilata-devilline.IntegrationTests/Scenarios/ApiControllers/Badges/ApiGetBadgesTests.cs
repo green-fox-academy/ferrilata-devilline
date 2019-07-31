@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AutoMapper;
-
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;

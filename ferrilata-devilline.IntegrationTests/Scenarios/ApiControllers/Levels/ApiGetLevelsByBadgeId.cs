@@ -1,7 +1,5 @@
-﻿using System;
-using ferrilata_devilline.IntegrationTests.Fixtures;
+﻿using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Services.Interfaces;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
@@ -19,7 +17,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Levels
     public class ApiGetLevelsByBadgeId
     {
         private readonly TestContext _testContext;
-        private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
         private string token;
@@ -27,8 +24,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Levels
         public ApiGetLevelsByBadgeId(TestContext testContext)
         {
             _testContext = testContext;
-            _tokenService = _testContext.TokenService;
-            token = "Bearer " + _tokenService.GenerateToken("useremail@ferillata.com", true);
+            token = "Bearer " + _testContext.TokenService.GenerateToken("useremail@ferillata.com", true);
             _mapper = testContext.testMapper;
         }
 
@@ -55,12 +51,12 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Levels
         [Fact]
         public async Task GetLevelsByBadgeIdApi_CorrectAuthentication_ShouldReturn_BadgeLevels()
         {
-            var BadgeLevels = _testContext
+            var badgeLevels = _testContext
                 .Context
                 .Badges
                 .Include(b => b.Levels)
                 .ToList().Find(b => b.BadgeId == 1).Levels;
-            var BadgeLevelsOutDTO = _mapper.Map<List<Level>, List<LevelOutDTO>>(BadgeLevels);
+            var badgeLevelsOutDTO = _mapper.Map<List<Level>, List<LevelOutDTO>>(badgeLevels);
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
             var response = await _testContext.Client.SendAsync(request);
@@ -68,7 +64,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Levels
             var actual = JsonConvert.DeserializeObject<List<LevelOutDTO>>(responseString);
             for (int i = 0; i < actual.Count(); i++)
             {
-                Assert.True(actual[i].Equals(BadgeLevelsOutDTO[i]));
+                Assert.True(actual[i].Equals(badgeLevelsOutDTO[i]));
             }
         }
 
