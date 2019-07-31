@@ -21,8 +21,11 @@ namespace ferrilata_devilline.Repositories
             {
                 _applicationContext.Levels.Add(level);
             }
+            else
+            {
+                _applicationContext.Update(level);
+            }
 
-            _applicationContext.Update(level);
             _applicationContext.SaveChanges();
         }
 
@@ -38,7 +41,8 @@ namespace ferrilata_devilline.Repositories
 
         public void DeleteLevelById(long id)
         {
-            _applicationContext.Levels.Remove(FindLevelById(id));
+            var level = FindLevelById(id);
+            _applicationContext.Levels.Remove(level);
             _applicationContext.SaveChanges();
         }
     }

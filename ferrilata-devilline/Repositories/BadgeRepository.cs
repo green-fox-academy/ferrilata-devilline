@@ -20,6 +20,10 @@ namespace ferrilata_devilline.Repositories
             {
                 _applicationContext.Badges.Add(badge);
             }
+            else
+            {
+                _applicationContext.Update(badge);
+            }
 
             _applicationContext.SaveChanges();
         }
@@ -27,7 +31,7 @@ namespace ferrilata_devilline.Repositories
         public List<Badge> RetrieveBadgesFromDB()
         {
             return _applicationContext.Badges.Include(badge => badge.Levels)
-                .ThenInclude(x => x.UserLevels).ThenInclude(x => x.User).ToList();
+            .ThenInclude(Level => Level.UserLevels).ThenInclude(UserLevel => UserLevel.User).ToList();
         }
 
         public Badge FindBadgeById(long id)

@@ -18,7 +18,6 @@ namespace ferrilata_devilline.Services
             _badgeRepository = badgeRepository;
             _mapper = mapper;
         }
-
         public Badge FindBadge(long id)
         {
             return _badgeRepository.FindBadgeById(id);
@@ -42,14 +41,14 @@ namespace ferrilata_devilline.Services
             _badgeRepository.SaveBadge(NewBadge);
         }
 
-        public BadgeDTO FinDTOById(long id)
+        public BadgeDTO FindDTOById(long id)
         {
             return GetAllDTO().SingleOrDefault(x => x.BadgeId == id);
         }
 
         public List<LevelOutDTO> FinLevelsDTOByBadgeId(long id)
         {
-            return FinDTOById(id).Levels;
+            return FindDTOById(id).Levels;
         }
 
         public void DeleteById(long id)
