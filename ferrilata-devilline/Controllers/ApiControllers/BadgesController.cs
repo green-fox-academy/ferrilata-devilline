@@ -51,6 +51,18 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Created("", new { message = "Created" });
         }
 
+        [Route("/api/post/badges")]
+        public IActionResult PostBadge([FromBody] BadgeInDTO IncomingBadge)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound(new { error = "Please provide all files" });
+            }
+            _badgeService.AddBadge(IncomingBadge);
+
+            return Created("", new { message = "Created" });
+        }
+
         [HttpDelete]
         [Route("/api/badges/{badgeId}")]
         public IActionResult DeleteBadge(long badgeId)
