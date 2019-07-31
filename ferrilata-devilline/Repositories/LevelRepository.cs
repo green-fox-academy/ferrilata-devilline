@@ -40,7 +40,8 @@ namespace ferrilata_devilline.Repositories
 
         public void DeleteLevelById(long id)
         {
-            _applicationContext.Levels.Remove(FindLevelById(id));
+            var level = FindLevelById(id);
+            _applicationContext.Levels.Remove(level);
             _applicationContext.SaveChanges();
         }
     }
