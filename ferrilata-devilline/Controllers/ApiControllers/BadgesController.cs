@@ -70,6 +70,19 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             _badgeService.DeleteById(badgeId);
             return Ok(new {message = "Deleted"});
         }
+        
+        [HttpPut]
+        [Route("api/badges/{badgeId}")]
+        public IActionResult UpdateBadge([FromBody] BadgeInDTO badgeInDTO, long badgeId)
+        {
+            if (_badgeService.FindBadge(badgeId) != null)
+            {
+                return NotFound(new {error = "No badge with the provided id exists"});
+            }
+
+            return Ok(new {message = "Updated"});
+        }
+        
 
         [HttpPut]
         [Route("/api/badges/{badgeId}/levels/{levelId}")]
