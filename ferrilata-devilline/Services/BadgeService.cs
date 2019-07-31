@@ -18,6 +18,7 @@ namespace ferrilata_devilline.Services
             _badgeRepository = badgeRepository;
             _mapper = mapper;
         }
+
         public Badge FindBadge(long id)
         {
             return _badgeRepository.FindBadgeById(id);
@@ -25,8 +26,8 @@ namespace ferrilata_devilline.Services
 
         public List<BadgeDTO> GetAllDTO()
         {
-            var BadgeDTOList = _mapper.Map<List<Badge>, List<BadgeDTO>>(_badgeRepository.RetrieveBadgesFromDB());
-            return BadgeDTOList;
+            var badgeDTOList = _mapper.Map<List<Badge>, List<BadgeDTO>>(_badgeRepository.RetrieveBadgesFromDB());
+            return badgeDTOList;
         }
 
         public List<Badge> GetAll()
@@ -54,7 +55,16 @@ namespace ferrilata_devilline.Services
         public void DeleteById(long id)
         {
             _badgeRepository.DeleteBadgeById(id);
+        }
 
+        public void UpdateBadge(long badgeId, BadgeInDTO inputBadge)
+        {
+            var badgeToUpdate = FindBadge(badgeId);
+
+            badgeToUpdate.Name = inputBadge.Name ?? badgeToUpdate.Name;
+            badgeToUpdate.Version = inputBadge.Version > 0 ? inputBadge.Version : badgeToUpdate.Version;
+            badgeToUpdate.Tag = inputBadge.Tag ?? badgeToUpdate.Name;
+            _badgeRepository.Update();
         }
     }
 }

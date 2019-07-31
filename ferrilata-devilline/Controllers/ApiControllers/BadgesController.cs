@@ -90,6 +90,8 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             {
                 return NotFound(new {error = "No badge with the provided id exists"});
             }
+            
+            _badgeService.UpdateBadge(badgeId, badgeInDTO);
 
             return Ok(new {message = "Updated"});
         }
