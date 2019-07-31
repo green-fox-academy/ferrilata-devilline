@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ferrilata_devilline.Models.DAOs;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +13,14 @@ namespace ferrilata_devilline.Repositories
         {
             _applicationContext = applicationContext;
         }
+
         public void SaveOrUpdate(Level level)
         {
             if (_applicationContext.Levels.Find(level.LevelId) == null)
             {
                 _applicationContext.Levels.Add(level);
-            } else
+            }
+            else
             {
                 _applicationContext.Update(level);
             }
