@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using ferrilata_devilline.IntegrationTests.Fixtures;
 using ferrilata_devilline.Models.DTOs;
-using ferrilata_devilline.Services.Interfaces;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -17,167 +14,122 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
     public class ApiPutBadgesLevelTest
     {
         private readonly TestContext _testContext;
-        private readonly ITokenService _tokenService;
         private string token;
 
         public ApiPutBadgesLevelTest(TestContext testContext)
         {
             _testContext = testContext;
-            _tokenService = _testContext.TokenService;
-            token = "Bearer " + _tokenService.GenerateToken("useremail@ferillata.com", true);
+            token = "Bearer " + _testContext.TokenService.GenerateToken("useremail@ferillata.com", true);
         }
 
-        [Fact]
-        public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldReturnCreated()
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(2, 2)]
+        public async Task PutLevelById_CorrectAuthentication_CorrectLevelByBadge_ShouldReturnStatusOk(
+            long badgeId, long levelId)
         {
-            string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
+            string input = JsonConvert.SerializeObject(createTestLevelInDTO());
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/badges/{badgeId}/levels/{levelId}");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(input,
                 Encoding.UTF8,
                 "application/json");
             var response = await _testContext.Client.SendAsync(request);
-            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
-        [Fact]
-        public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldReturnMessage_Created()
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(2, 2)]
+        public async Task
+            PutLevelById_CorrectAuthentication_CorrectLevelByBadge_ShouldReturnMessage_Updated(long badgeId,
+                long levelId)
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
+            string input = JsonConvert.SerializeObject(createTestLevelInDTO());
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/badges/{badgeId}/levels/{levelId}");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(input,
                 Encoding.UTF8,
                 "application/json");
             var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new {message = "Created"}), responseString);
+            Assert.Equal(JsonConvert.SerializeObject(new {message = "Updated"}), responseString);
         }
 
-        [Fact]
-        public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldCreateNewLevel()
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(2, 2)]
+        public async Task PutLevelById_CorrectAuthentication_CorrectLevelByBadge_ShouldUpdateLevel(
+            long badgeId, long levelId)
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
+            var input = createTestLevelInDTO();
+            string inputString = JsonConvert.SerializeObject(input);
+            var request = new HttpRequestMessage(HttpMethod.Post, $"/api/badges/{badgeId}/levels/{levelId}");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(inputString,
                 Encoding.UTF8,
                 "application/json");
+            var expected = _testContext.Context.Levels.Find(levelId);
+            expected.Weight = input.Weight;
+            expected.Description = input.Description;
+            expected.LevelNumber = input.LevelNumber;
             var response = await _testContext.Client.SendAsync(request);
-
-            Assert.True(_testContext.Context.Badges.Where(l => l.BadgeId == 3) != null);
+            var actual = _testContext.Context.Badges.SelectMany(b => b.Levels)
+                .FirstOrDefault(l => l.LevelId == levelId);
+            Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldAddNewLevel_ToBadgeWithId_1()
+        [Theory]
+        [InlineData(1, 2)]
+        [InlineData(2, 1)]
+        public async Task PutLevelById_CorrectAuthentication_IncorrectLevelByBadge_ShouldReturnErrorMessage(long badgeId, long levelId)
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
+            string inputString = JsonConvert.SerializeObject(createTestLevelInDTO());
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/badges/{badgeId}/levels/{levelId}");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(inputString,
                 Encoding.UTF8,
                 "application/json");
             var response = await _testContext.Client.SendAsync(request);
+            var responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.True(
-                _testContext.Context.Badges.First(b => b.BadgeId == 1).Levels.Where(l => l.LevelId == 3) != null);
+            Assert.Equal(JsonConvert.SerializeObject(new {error = "No such level found for the selected badge"}), responseString);
+        }
+
+        [Theory]
+        [InlineData(1, 2)]
+        [InlineData(2, 1)]
+        public async Task PutLevelById_CorrectAuthentication_IncorrectLevelByBadge_ShouldReturnNotFound(long badgeId, long levelId)
+        {
+            string input = JsonConvert.SerializeObject(createTestLevelInDTO());
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/badges/{badgeId}/levels/{levelId}");
+            request.Headers.Add("Authorization", token);
+            request.Content = new StringContent(input,
+                Encoding.UTF8,
+                "application/json");
+            var response = await _testContext.Client.SendAsync(request);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Fact]
-        public async Task PostLevelById_InCorrectAuthentication_ShouldReturnUnauthorized()
+        public async Task PutLevelById_InCorrectAuthentication_ShouldReturnUnauthorized()
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
-            request.Headers.Add("Authorization", token.Substring(0, 20));
-            request.Content = new StringContent(PostingJson,
+            string input = JsonConvert.SerializeObject(createTestLevelInDTO());
+            var request = new HttpRequestMessage(HttpMethod.Put, "/api/badges/1/levels/1");
+            request.Headers.Add("Authorization", "test");
+            request.Content = new StringContent(input,
                 Encoding.UTF8,
                 "application/json");
             var response = await _testContext.Client.SendAsync(request);
+
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
 
-        [Fact]
-        public async Task PostLevelById_InCorrectAuthentication_ShouldReturnMessage_Unauthorized()
+
+        private LevelInDTO createTestLevelInDTO()
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
-            request.Headers.Add("Authorization", token.Substring(0, 20));
-            request.Content = new StringContent(PostingJson,
-                Encoding.UTF8,
-                "application/json");
-            var response = await _testContext.Client.SendAsync(request);
-            string responseString = await response.Content.ReadAsStringAsync();
-
-            Assert.Equal("Unauthorized",
-                JsonConvert.DeserializeObject<Dictionary<string, string>>(responseString)["error"]);
-        }
-
-        [Fact]
-        public async Task PostLevelById_InCorrectBody_ShouldReturnNotFound()
-        {
-            string PostingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
-            request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
-                Encoding.UTF8,
-                "application/json");
-            var response = await _testContext.Client.SendAsync(request);
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task PostLevelById_InCorrectBody_ShouldReturnMessage()
-        {
-            string PostingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
-            request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
-                Encoding.UTF8,
-                "application/json");
-            var response = await _testContext.Client.SendAsync(request);
-            var responseString = await response.Content.ReadAsStringAsync();
-
-            Assert.Equal(JsonConvert.SerializeObject(new {error = "Please provide all fields"}), responseString);
-        }
-
-        [Fact]
-        public async Task PostLevelById_IncorrectUrl_ShouldReturnNotFound()
-        {
-            string PostingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/3/levels");
-            request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
-                Encoding.UTF8,
-                "application/json");
-            var response = await _testContext.Client.SendAsync(request);
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task PostLevelById_IncorrectUrl_ShouldReturnMessage()
-        {
-            string PostingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
-            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/3/levels");
-            request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
-                Encoding.UTF8,
-                "application/json");
-            var response = await _testContext.Client.SendAsync(request);
-            var responseString = await response.Content.ReadAsStringAsync();
-
-            Assert.Equal(JsonConvert.SerializeObject(new {error = "Please provide an existing Badge Id"}),
-                responseString);
-        }
-
-        public LevelInDTO createCorrectLevelInDTO()
-        {
-            return new LevelInDTO() {Weight = "test", LevelNumber = 2, Description = "test"};
-        }
-
-        public Object createIncorrectLevelInDTO()
-        {
-            return new {LevelNumber = 2, Description = "test"};
+            return new LevelInDTO {Weight = "test", LevelNumber = 2, Description = "test"};
         }
     }
 }

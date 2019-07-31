@@ -10,6 +10,7 @@ namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
         public LevelProfile()
         {
             CreateMap<LevelInDTO, Level>();
+            CreateMap<Level, LevelInDTO>();
         }
     }
 }

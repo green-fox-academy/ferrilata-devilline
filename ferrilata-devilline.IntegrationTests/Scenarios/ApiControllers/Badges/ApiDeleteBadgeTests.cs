@@ -22,8 +22,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         public ApiDeleteBadgeTests()
         {
             testContext = new TestContext();
-            _tokenService = testContext.TokenService;
-            token = "Bearer " + _tokenService.GenerateToken("useremail@ferillata.com", true);
+            token = "Bearer " + testContext.TokenService.GenerateToken("useremail@ferillata.com", true);
         }
 
         [Fact]
