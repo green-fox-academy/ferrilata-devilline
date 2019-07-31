@@ -19,20 +19,21 @@ namespace ferrilata_devilline.Repositories
             if (_applicationContext.Badges.Find(badge.BadgeId) == null)
             {
                 _applicationContext.Badges.Add(badge);
+            } else
+            {
+                _applicationContext.Update(badge);
             }
-
             _applicationContext.SaveChanges();
         }
 
         public List<Badge> RetrieveBadgesFromDB()
         {
-            return _applicationContext.Badges.Include(badge => badge.Levels)
-                .ThenInclude(x => x.UserLevels).ThenInclude(x => x.User).ToList();
+            return _applicationContext.Badges.Include(badge => badge.Levels).ThenInclude(Level => Level.UserLevels).ThenInclude(UserLevel => UserLevel.User).ToList();
         }
 
         public Badge FindBadgeById(long id)
         {
-            return RetrieveBadgesFromDB().Find(x => x.BadgeId == id);
+            return RetrieveBadgesFromDB().SingleOrDefault(x => x.BadgeId == id);
         }
 
         public void DeleteBadgeById(long id)

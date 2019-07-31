@@ -1,20 +1,23 @@
-using ferrilata_devilline.Models.DTOs;
+﻿using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace ferrilata_devilline.Controllers.ApiControllers
 {
     [Authorize(AuthenticationSchemes =
-        JwtBearerDefaults.AuthenticationScheme)]
+    JwtBearerDefaults.AuthenticationScheme)]
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
+        private readonly ILevelService _levelService;
 
-        public BadgesController(IBadgeService badgeService)
+        public BadgesController(IBadgeService badgeService, ILevelService levelService)
         {
             _badgeService = badgeService;
+            _levelService = levelService;
         }
 
         [HttpGet]
@@ -25,6 +28,29 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         }
 
         [HttpPost]
+        [Route("/api/badges/{badgeId}/levels")]
+        public IActionResult PostLevelByBadgeId([FromBody] LevelInDTO newLevel, long badgeId)
+        {
+            if (_badgeService.FindBadge(badgeId) == null)
+            {
+                return BadRequest(new { error = "Please provide an existing Badge Id" });
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { error = "Please provide all fields" });
+            }
+
+            bool isLevelNumberNew = _badgeService.FindBadge(badgeId).Levels.FirstOrDefault(l => l.LevelNumber == newLevel.LevelNumber) == null;
+
+            if (!isLevelNumberNew)
+            {
+                return BadRequest(new { error = "This badge already has a level of this number" });
+            }
+            _levelService.AddLevel(badgeId, newLevel);
+            return Created("", new { message = "Created" });
+        }
+
         [Route("/api/post/badges")]
         public IActionResult PostBadge([FromBody] BadgeInDTO IncomingBadge)
         {
