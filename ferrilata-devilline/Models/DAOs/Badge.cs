@@ -15,8 +15,7 @@ namespace ferrilata_devilline.Models.DAOs
         public string Name { get; set; }
 
         public string Tag { get; set; }
-        
-        [ForeignKey("levels")]
+
         public List<Level> Levels { get; set; }
     }
 }

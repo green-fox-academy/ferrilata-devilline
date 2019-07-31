@@ -52,7 +52,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new { message = "Created" }), responseString);
+            Assert.Equal(JsonConvert.SerializeObject(new {message = "Created"}), responseString);
         }
 
         [Fact]
@@ -165,7 +165,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields" }), responseString);
+            Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide all fields"}), responseString);
         }
 
         [Fact]
@@ -193,12 +193,12 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new { error = "Please provide an existing Badge Id" }), responseString);
+            Assert.Equal(JsonConvert.SerializeObject(new {error = "Please provide an existing Badge Id"}), responseString);
         }
 
         public LevelInDTO createCorrectLevelInDTO()
         {
-            return new LevelInDTO() { Weight = "test", LevelNumber = 3, Description = "test" };
+            return new LevelInDTO() {Weight = "test", LevelNumber = 3, Description = "test"};
         }
 
         public LevelInDTO createExistingInCorrectLevelInDTO()
@@ -208,7 +208,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
 
         public Object createIncorrectLevelInDTO()
         {
-            return new { LevelNumber = 2, Description = "test" };
+            return new {LevelNumber = 2, Description = "test"};
         }
     }
 }

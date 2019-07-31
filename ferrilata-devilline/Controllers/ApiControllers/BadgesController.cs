@@ -28,17 +28,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Ok(_badgeService.GetAllDTO());
         }
 
-        [HttpGet]
-        [Route("/api/badges/{badgeId}")]
-        public IActionResult GetBadgeById(long badgeId)
-        {
-            if (_badgeService.FindBadge(badgeId) == null)
-            {
-                return NotFound(new { error = "Please provide an existing Badge Id" });
-            }
-            return Ok(_badgeService.FindDTOById(badgeId));
-        }
-
         [HttpDelete]
         [Route("/api/badges/{badgeId}")]
         public IActionResult DeleteBadge(long badgeId)
@@ -81,6 +70,18 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             }
 
             return Ok(_levelService.GetLevelOutDTO(levelId));
+        }
+
+        [Route("/api/post/badges")]
+        public IActionResult PostBadge([FromBody] BadgeInDTO IncomingBadge)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound(new { error = "Please provide all files" });
+            }
+            _badgeService.AddBadge(IncomingBadge);
+
+            return Created("", new { message = "Created" });
         }
     }
 }

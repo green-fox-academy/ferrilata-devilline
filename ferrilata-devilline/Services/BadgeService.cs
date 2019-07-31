@@ -40,9 +40,16 @@ namespace ferrilata_devilline.Services
             return GetAllDTO().SingleOrDefault(x => x.BadgeId == id);
         }
 
+        public void AddBadge(BadgeInDTO IncomingBadge)
+        {
+            Badge NewBadge = _mapper.Map<Badge>(IncomingBadge);
+            _badgeRepository.SaveBadge(NewBadge);
+        }
+
         public void DeleteById(long id)
         {
             _badgeRepository.DeleteBadgeById(id);
+
         }
     }
 }

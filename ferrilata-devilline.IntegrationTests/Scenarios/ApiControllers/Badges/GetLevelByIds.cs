@@ -56,7 +56,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         }
 
         [Fact]
-        public async Task GetBadgesByIdApi_Unexistingid_CorrectAuthentication_ShouldReturnMessage_NotFound()
+        public async Task GetBadgesByIdApi_Unexistingid_CorrectAuthentication_ShouldReturnMessage_BadRequest()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/badges/2/levels/1");
             request.Headers.Add("Authorization", token);
