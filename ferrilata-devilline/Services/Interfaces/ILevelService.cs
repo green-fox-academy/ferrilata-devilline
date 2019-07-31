@@ -1,9 +1,6 @@
 ﻿using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ferrilata_devilline.Services.Interfaces
 {

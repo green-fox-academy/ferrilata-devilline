@@ -34,7 +34,7 @@ namespace ferrilata_devilline.Repositories
 
         public Badge FindBadgeById(long id)
         {
-            return RetrieveBadgesFromDB().Find(x => x.BadgeId == id);
+            return RetrieveBadgesFromDB().SingleOrDefault(x => x.BadgeId == id);
         }
 
         public void DeleteBadgeById(long id)
@@ -51,7 +51,7 @@ namespace ferrilata_devilline.Repositories
 
         public Level FindLevelById(long levelId)
         {
-            return RetrieveLevelsFromDB().Find(x => x.LevelId == levelId);
+            return RetrieveLevelsFromDB().SingleOrDefault(x => x.LevelId == levelId);
         }
 
         public List<Level> RetrieveLevelsFromDB()
