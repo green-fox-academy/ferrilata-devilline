@@ -18,12 +18,11 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
     {
         private readonly TestContext _testContext;
         private readonly ITokenService _tokenService;
-        
         private string token;
 
-        public PostLevelByBadgeIdTests(TestContext testContext)
+        public PostLevelByBadgeIdTests()
         {
-            _testContext = testContext;
+            _testContext = new TestContext();
             _tokenService = _testContext.TokenService;
             token = "Bearer " + _tokenService.GenerateToken("useremail@ferillata.com", true);
         }
@@ -31,10 +30,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         [Fact]
         public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldReturnCreated()
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -44,10 +43,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         [Fact]
         public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldReturnMessage_Created()
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -57,12 +56,40 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         }
 
         [Fact]
-        public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldCreateNewLevel()
+        public async Task PostLevelById_CorrectAuthentication_ExistingLevelBody_ShouldReturnBadRequest()
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createExistingInCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            var response = await _testContext.Client.SendAsync(request);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task PostLevelById_CorrectAuthentication_ExistingLevelBody_ShouldReturnMessage_BadRequest()
+        {
+            string postingJson = JsonConvert.SerializeObject(createExistingInCorrectLevelInDTO());
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
+            request.Headers.Add("Authorization", token);
+            request.Content = new StringContent(postingJson,
+                                    Encoding.UTF8,
+                                    "application/json");
+            var response = await _testContext.Client.SendAsync(request);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal(JsonConvert.SerializeObject(new { error = "This badge already has a level of this number" }), responseString);
+        }
+
+        [Fact]
+        public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldCreateNewLevel()
+        {
+            string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
+            request.Headers.Add("Authorization", token);
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -73,10 +100,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         [Fact]
         public async Task PostLevelById_CorrectAuthentication_CorrectBody_ShouldAddNewLevel_ToBadgeWithId_1()
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -87,10 +114,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         [Fact]
         public async Task PostLevelById_InCorrectAuthentication_ShouldReturnUnauthorized()
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token.Substring(0, 20));
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -100,10 +127,10 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         [Fact]
         public async Task PostLevelById_InCorrectAuthentication_ShouldReturnMessage_Unauthorized()
         {
-            string PostingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createCorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token.Substring(0, 20));
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -114,25 +141,25 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         }
 
         [Fact]
-        public async Task PostLevelById_InCorrectBody_ShouldReturnNotFound()
+        public async Task PostLevelById_InCorrectBody_ShouldReturnBadRequest()
         {
-            string PostingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [Fact]
         public async Task PostLevelById_InCorrectBody_ShouldReturnMessage()
         {
-            string PostingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/1/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -142,25 +169,25 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         }
 
         [Fact]
-        public async Task PostLevelById_IncorrectUrl_ShouldReturnNotFound()
+        public async Task PostLevelById_IncorrectUrl_ShouldReturnBadRequest()
         {
-            string PostingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/3/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [Fact]
         public async Task PostLevelById_IncorrectUrl_ShouldReturnMessage()
         {
-            string PostingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
+            string postingJson = JsonConvert.SerializeObject(createIncorrectLevelInDTO());
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/badges/3/levels");
             request.Headers.Add("Authorization", token);
-            request.Content = new StringContent(PostingJson,
+            request.Content = new StringContent(postingJson,
                                     Encoding.UTF8,
                                     "application/json");
             var response = await _testContext.Client.SendAsync(request);
@@ -171,7 +198,12 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
 
         public LevelInDTO createCorrectLevelInDTO()
         {
-            return new LevelInDTO() {Weight = "test", LevelNumber = 2, Description = "test"};
+            return new LevelInDTO() {Weight = "test", LevelNumber = 3, Description = "test"};
+        }
+
+        public LevelInDTO createExistingInCorrectLevelInDTO()
+        {
+            return new LevelInDTO() { Weight = "test", LevelNumber = 1, Description = "test" };
         }
 
         public Object createIncorrectLevelInDTO()
