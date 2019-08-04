@@ -4,28 +4,114 @@
     ViewData["Title"] = "Badge Library";
 }
 
-    <div class="page-header">
-        <h1>Badges</h1>
-    </div>
-<div>
-    <table class="table table-condensed table-hover" style="border-collapse:collapse;">
-        <thead>
-            <tr class="table-info">
-                <th scope="col">Version</th>
-                <th scope="col">Name</th>
-                <th scope="col">Tag</th>
-                <th scope="col">Levels</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="page-header">
+    <h1>Badges</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             @foreach (var badge in Model)
             {
-                <tr data-toggle="collapse" data-target="#@("a" + badge.BadgeId)" class="accordion-toggle badgeObject">
-                    <td>@badge.Version</td>
-                    <td>@badge.Name</td>
-                    <td>@badge.Tag</td>
-                    <td><div class="arrow-down" onclick="this.classList.toggle('active')"></div></td>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="@("heading" + badge.BadgeId)">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#@("a" + badge.BadgeId)" aria-expanded="true" aria-controls="@("a" + badge.BadgeId)">
+                                @badge.Name
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
+                        <div class="panel-body">
+                            <div class="row">
+                                @foreach (var level in badge.Levels)
+                                {
+                                    <div class="col-sm-4">
+                                        <div class="card border-info mb-3" style="max-width: 20rem;">
+                                            <div class="card-header">Level @level.LevelNumber</div>
+                                            <div class="card-body">
+                                                @*<h4 class="card-title">@level.LevelNumber</h4>*@
+                                                <h5 class="card-text">@level.Description</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                }
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            }
+
+            
+
+            @*<div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Section-1
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et facilisis mi. Nunc vitae pretium est, aliquet sagittis enim. Duis fringilla ipsum at velit gravida, ac luctus lorem euismod. Vivamus placerat dolor mi, vel feugiat dui egestas a. Fusce congue. </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Section-2
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et facilisis mi. Nunc vitae pretium est, aliquet sagittis enim. Duis fringilla ipsum at velit gravida, ac luctus lorem euismod. Vivamus placerat dolor mi, vel feugiat dui egestas a. Fusce congue. </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Section-3
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et facilisis mi. Nunc vitae pretium est, aliquet sagittis enim. Duis fringilla ipsum at velit gravida, ac luctus lorem euismod. Vivamus placerat dolor mi, vel feugiat dui egestas a. Fusce congue. </p>
+                </div>
+            </div>
+        </div> *@
+        </div>
+    </div>
+</div>
+
+
+@*<div>
+        <table class="table table-condensed table-hover" style="border-collapse:collapse;">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">Version</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Tag</th>
+                    <th scope="col">Levels</th>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var badge in Model)
+                {
+                    <tr data-toggle="collapse" data-target="#@("a" + badge.BadgeId)" class="accordion-toggle badgeObject">
+                        <td>@badge.Version</td>
+                        <td>@badge.Name</td>
+                        <td>@badge.Tag</td>
+                        <td><div class="arrow-down" onclick="this.classList.toggle('active')"></div></td>
+                    </tr>
                     <tr>
                         <td colspan="6" class="hiddenRow">
                             <div class="accordian-body collapse" id="@("a" + badge.BadgeId)">
@@ -74,7 +160,9 @@
                             </div>
                         </td>
                     </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                }
+            </tbody>
+        </table>
+    </div>*@
+
+
