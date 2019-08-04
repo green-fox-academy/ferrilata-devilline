@@ -5,7 +5,7 @@
 }
 
 <div class="page-header">
-    <h1>Badges</h1>
+    <h1 class="display-3">Badges</h1>
 </div>
 
 <div class="row">
@@ -13,7 +13,7 @@
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             @foreach (var badge in Model)
             {
-                <div class="panel panel-default">
+                <div class="panel panel-info">
                     <div class="panel-heading" role="tab" id="@("heading" + badge.BadgeId)">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#@("a" + badge.BadgeId)" aria-expanded="true" aria-controls="@("a" + badge.BadgeId)">
@@ -30,8 +30,8 @@
                                         <div class="card border-info mb-3" style="max-width: 20rem;">
                                             <div class="card-header">Level @level.LevelNumber</div>
                                             <div class="card-body">
-                                                @*<h4 class="card-title">@level.LevelNumber</h4>*@
-                                                <h5 class="card-text">@level.Description</h5>
+                                                
+                                                <p class="lead text-primary">@level.Description</p>
                                             </div>
                                         </div>
                                     </div>
