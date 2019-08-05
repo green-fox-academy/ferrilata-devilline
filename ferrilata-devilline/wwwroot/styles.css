@@ -20,6 +20,12 @@
     background-color: #F0ECEF;
     padding: 10px;
 }
+
+.jumbotron {
+    word-wrap: break-word;
+    color: black;
+}
+
 /*a:hover, a:focus {
     outline: none;
     text-decoration: none;
