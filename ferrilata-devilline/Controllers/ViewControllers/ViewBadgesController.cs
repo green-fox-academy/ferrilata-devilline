@@ -21,12 +21,17 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             var listsDTOs = _badgeService.GetAllDTO();
             return View(listsDTOs);
         }
-        
+
         [HttpDelete("/badgelibrary/delete/{badgeId}")]
         public IActionResult DeleteBadgeFromLibrary(long badgeId)
         {
             _badgeService.DeleteById(badgeId);
-            return Redirect("/badgelibrary");
+            return RedirectToAction("Success");
+        }
+        
+        public IActionResult Success()
+        {
+            return View("GetBadgeLibrary");
         }
     }
 }
