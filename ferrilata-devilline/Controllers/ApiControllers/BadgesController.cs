@@ -41,22 +41,24 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         {
             if (_badgeService.FindBadge(badgeId) == null)
             {
-                return BadRequest(new { error = "Please provide an existing Badge Id" });
+                return BadRequest(new {error = "Please provide an existing Badge Id"});
             }
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(new { error = "Please provide all fields" });
+                return BadRequest(new {error = "Please provide all fields"});
             }
 
-            bool isLevelNumberNew = _badgeService.FindBadge(badgeId).Levels.FirstOrDefault(l => l.LevelNumber == newLevel.LevelNumber) == null;
+            bool isLevelNumberNew = _badgeService.FindBadge(badgeId).Levels
+                                        .FirstOrDefault(l => l.LevelNumber == newLevel.LevelNumber) == null;
 
             if (!isLevelNumberNew)
             {
-                return BadRequest(new { error = "This badge already has a level of this number" });
+                return BadRequest(new {error = "This badge already has a level of this number"});
             }
+
             _levelService.AddLevel(badgeId, newLevel);
-            return Created("", new { message = "Created" });
+            return Created("", new {message = "Created"});
         }
 
         [Route("/api/post/badges")]
@@ -64,11 +66,12 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         {
             if (!ModelState.IsValid)
             {
-                return NotFound(new { error = "Please provide all files" });
+                return NotFound(new {error = "Please provide all files"});
             }
+
             _badgeService.AddBadge(IncomingBadge);
 
-            return Created("", new { message = "Created" });
+            return Created("", new {message = "Created"});
         }
 
         [HttpGet]
@@ -77,25 +80,30 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         {
             if (_badgeService.FindBadge(badgeId) == null)
             {
-                return NotFound(new { error = "Please provide an existing Badge Id" });
+                return NotFound(new {error = "Please provide an existing Badge Id"});
             }
+
             return Ok(_badgeService.FinLevelsDTOByBadgeId(badgeId));
         }
-        
+
         [HttpPut]
         [Route("api/badges/{badgeId}")]
         public IActionResult UpdateBadge([FromBody] BadgeInDTO badgeInDTO, long badgeId)
         {
-            if (_badgeService.FindBadge(badgeId) != null)
+            if (_badgeService.FindBadge(badgeId) == null)
             {
                 return NotFound(new {error = "No badge with the provided id exists"});
             }
-            
+
             _badgeService.UpdateBadge(badgeId, badgeInDTO);
+            if (badgeInDTO.Levels != null)
+            {
+                _badgeService.UpdateBadgeLevels(badgeId, badgeInDTO);
+            }
 
             return Ok(new {message = "Updated"});
         }
-        
+
 
         [HttpPut]
         [Route("/api/badges/{badgeId}/levels/{levelId}")]
@@ -103,12 +111,12 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         {
             if (!_badgeService.FindBadge(badgeId).Levels.Contains(_levelService.FindById(levelId)))
             {
-                return NotFound(new { error = "No such level found for the selected badge" });
+                return NotFound(new {error = "No such level found for the selected badge"});
             }
-            
+
             _levelService.UpdateLevel(levelId, levelInDTO);
 
-            return Ok(new { message = "Updated" });
+            return Ok(new {message = "Updated"});
         }
 
         [HttpGet]
@@ -117,8 +125,9 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         {
             if (_badgeService.FindBadge(badgeId) == null)
             {
-                return NotFound(new { error = "Please provide an existing Badge Id" });
+                return NotFound(new {error = "Please provide an existing Badge Id"});
             }
+
             return Ok(_badgeService.FindDTOById(badgeId));
         }
     }

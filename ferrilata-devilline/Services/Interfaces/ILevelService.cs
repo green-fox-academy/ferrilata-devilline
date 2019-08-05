@@ -13,5 +13,6 @@ namespace ferrilata_devilline.Services.Interfaces
         void AddLevel(long badgeId, LevelInDTO inputLevel);
         void UpdateLevel(long levelId, LevelInDTO inputLevel);
         List<Level> GetAll();
+        void DeleteLevel(long id);
     }
 }

@@ -12,11 +12,13 @@ namespace ferrilata_devilline.Services
     {
         private readonly IBadgeRepository _badgeRepository;
         private readonly IMapper _mapper;
+        private readonly ILevelRepository _levelRepository;
 
-        public BadgeService(IBadgeRepository badgeRepository, IMapper mapper)
+        public BadgeService(IBadgeRepository badgeRepository, IMapper mapper, ILevelRepository levelRepository)
         {
             _badgeRepository = badgeRepository;
             _mapper = mapper;
+            _levelRepository = levelRepository;
         }
 
         public Badge FindBadge(long id)
@@ -64,6 +66,25 @@ namespace ferrilata_devilline.Services
             badgeToUpdate.Name = inputBadge.Name ?? badgeToUpdate.Name;
             badgeToUpdate.Version = inputBadge.Version > 0 ? inputBadge.Version : badgeToUpdate.Version;
             badgeToUpdate.Tag = inputBadge.Tag ?? badgeToUpdate.Name;
+            _badgeRepository.Update();
+        }
+
+        public void UpdateBadgeLevels(long badgeId, BadgeInDTO inputBadge)
+        {
+            var badgeToUpdate = FindBadge(badgeId);
+            var badgeLevels = badgeToUpdate.Levels;
+            foreach (var level in badgeLevels)
+            {
+                _levelRepository.DeleteLevelById(level.LevelId);
+            }
+
+            var newLevels = _mapper.Map<List<LevelInDTO>, List<Level>>(inputBadge.Levels);
+            foreach (var level in newLevels)
+            {
+                level.Badge = badgeToUpdate;
+                _levelRepository.SaveOrUpdate(level);
+            }
+
             _badgeRepository.Update();
         }
     }
