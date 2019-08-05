@@ -3,10 +3,7 @@ using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
 using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ferrilata_devilline.Services
 {
@@ -38,13 +35,23 @@ namespace ferrilata_devilline.Services
         public void UpdateLevel(long levelId, LevelInDTO inputLevel)
         {
             var levelToUpdate = FindById(levelId);
-            levelToUpdate = _mapper.Map<LevelInDTO, Level>(inputLevel);
+
+            levelToUpdate.Weight = inputLevel.Weight ?? levelToUpdate.Weight;
+            levelToUpdate.Description = inputLevel.Description ?? levelToUpdate.Description;
+            levelToUpdate.LevelNumber = inputLevel.LevelNumber != 0 
+                                            ? inputLevel.LevelNumber 
+                                            : levelToUpdate.LevelNumber;
             _levelRepository.SaveOrUpdate(levelToUpdate);
         }
 
         public Level FindById(long id)
         {
             return _levelRepository.FindLevelById(id);
+        }
+
+        public LevelOutDTO GetLevelOutDTO(long id)
+        {
+            return _mapper.Map<Level, LevelOutDTO>(_levelRepository.FindLevelById(id));
         }
     }
 }
