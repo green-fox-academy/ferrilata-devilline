@@ -35,7 +35,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Ok("Deleted");
         }
 
-       [HttpPost]
+        [HttpPost]
         [Route("/api/badges/{badgeId}/levels")]
         public IActionResult PostLevelByBadgeId([FromBody] LevelInDTO newLevel, long badgeId)
         {
@@ -59,18 +59,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Created("", new { message = "Created" });
         }
 
-        [HttpGet]
-        [Route("/api/badges/{badgeId}/levels/{levelId}")]
-        public IActionResult GetLevelByIds(long badgeId, long levelId)
-        {
-            if (_badgeService.FindBadge(badgeId).Levels.FirstOrDefault(l => l.LevelId == levelId) == null)
-            {
-                return BadRequest(new { error = "Please provide an existing Id pair!" });
-            }
-
-            return Ok(_levelService.GetLevelOutDTO(levelId));
-        }
-
         [Route("/api/post/badges")]
         public IActionResult PostBadge([FromBody] BadgeInDTO IncomingBadge)
         {
@@ -81,6 +69,53 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             _badgeService.AddBadge(IncomingBadge);
 
             return Created("", new { message = "Created" });
+        }
+
+        [HttpGet]
+        [Route("/api/badges/{badgeId}/levels")]
+        public IActionResult GetLevelsBadgeById(long badgeId)
+        {
+            if (_badgeService.FindBadge(badgeId) == null)
+            {
+                return NotFound(new { error = "Please provide an existing Badge Id" });
+            }
+            return Ok(_badgeService.FinLevelsDTOByBadgeId(badgeId));
+        }
+
+        [HttpPut]
+        [Route("/api/badges/{badgeId}/levels/{levelId}")]
+        public IActionResult UpdateBadgeLevel([FromBody] LevelInDTO levelInDTO, long badgeId, long levelId)
+        {
+            if (!_badgeService.FindBadge(badgeId).Levels.Contains(_levelService.FindById(levelId)))
+            {
+                return NotFound(new { error = "No such level found for the selected badge" });
+            }
+
+            return Ok(new { message = "Updated" });
+        }
+
+        [HttpGet]
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult GetBadgeById(long badgeId)
+        {
+            if (_badgeService.FindBadge(badgeId) == null)
+            {
+                return NotFound(new { error = "Please provide an existing Badge Id" });
+            }
+            return Ok(_badgeService.FindDTOById(badgeId));
+        }
+
+
+        [HttpGet]
+        [Route("/api/badges/{badgeId}/levels/{levelId}")]
+        public IActionResult GetLevelByIds(long badgeId, long levelId)
+        {
+            if (_badgeService.FindBadge(badgeId).Levels.FirstOrDefault(l => l.LevelId == levelId) == null)
+            {
+                return BadRequest(new { error = "Please provide an existing Id pair!" });
+            }
+
+            return Ok(_levelService.GetLevelOutDTO(levelId));
         }
     }
 }
