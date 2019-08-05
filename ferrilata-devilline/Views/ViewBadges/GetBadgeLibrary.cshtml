@@ -14,13 +14,21 @@
             @foreach (var badge in Model)
             {
                 <div class="panel panel-info">
-                    <div class="panel-heading" role="tab" id="@("heading" + badge.BadgeId)">
+                    
+                    <div class="panel-heading row" role="tab" id="@("heading" + badge.BadgeId)">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#@("a" + badge.BadgeId)" aria-expanded="true" aria-controls="@("a" + badge.BadgeId)">
                                 @badge.Name
                             </a>
                         </h4>
+                        
+                        <form asp-controller="ViewBadges" asp-action="UpdateBadge" asp-route-badgeId="@badge.BadgeId" method="post">
+                            <button type="submit" class="btn btn-primary update">Update</button>
+                        </form>
+                        
                     </div>
+
+
                     <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
                         <div class="panel-body">
                             <div class="row">
@@ -30,17 +38,18 @@
                                         <div class="card border-info mb-3" style="max-width: 20rem;">
                                             <div class="card-header">Level @level.LevelNumber</div>
                                             <div class="card-body">
-                                                
+
                                                 <p class="lead text-primary">@level.Description</p>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 }
                             </div>
                         </div>
                     </div>
                 </div>
+                
             }
         </div>
     </div>
