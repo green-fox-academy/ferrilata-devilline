@@ -59,6 +59,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Created("", new { message = "Created" });
         }
 
+        [HttpPost]
         [Route("/api/post/badges")]
         public IActionResult PostBadge([FromBody] BadgeInDTO IncomingBadge)
         {
@@ -90,7 +91,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             {
                 return NotFound(new { error = "No such level found for the selected badge" });
             }
-            
+
             _levelService.UpdateLevel(levelId, levelInDTO);
 
             return Ok(new { message = "Updated" });

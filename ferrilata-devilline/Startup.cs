@@ -75,6 +75,9 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Level-Up", Version = "v1" })
+            );
             services.AddDbContext<ApplicationContext>(builder => builder
                 .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")}; " +
                           $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
@@ -103,6 +106,11 @@ namespace ferrilata_devilline
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Level-Up v1")
+            );
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -123,7 +131,9 @@ namespace ferrilata_devilline
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Level-Up", Version = "v1" })
+            );
             services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"));
         }
 
@@ -137,7 +147,9 @@ namespace ferrilata_devilline
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Level-Up", Version = "v1" })
+            );
             services.SetUpAutoMapper();
 
             services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"),
