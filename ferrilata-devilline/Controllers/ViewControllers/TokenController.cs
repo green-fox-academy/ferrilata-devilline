@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ferrilata_devilline.Controllers
+namespace ferrilata_devilline.Controllers.ViewControllers
 {
     public class TokenController : Controller
     {
@@ -20,11 +20,13 @@ namespace ferrilata_devilline.Controllers
 
         [Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
         [HttpGet("/token")]
-        public IActionResult PostPitch()
+        public IActionResult GetToken()
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
-
-            return Ok(_tokenService.GenerateToken(email, false));
+            string token = _tokenService.GenerateToken(email, false);
+            List<String> tokens = new List<String>();
+            tokens.Add(token);
+            return View(tokens);
         }
     }
 }
