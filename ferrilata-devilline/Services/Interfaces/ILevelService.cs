@@ -1,9 +1,6 @@
 ﻿using ferrilata_devilline.Models.DAOs;
 using ferrilata_devilline.Models.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ferrilata_devilline.Services.Interfaces
 {
@@ -13,5 +10,6 @@ namespace ferrilata_devilline.Services.Interfaces
         void AddLevel(long badgeId, LevelInDTO inputLevel);
         void UpdateLevel(long levelId, LevelInDTO inputLevel);
         List<Level> GetAll();
+        LevelOutDTO GetLevelOutDTO(long id);
     }
 }

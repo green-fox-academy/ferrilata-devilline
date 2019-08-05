@@ -33,8 +33,6 @@ namespace ferrilata_devilline.Services
         {
             return _badgeRepository.RetrieveBadgesFromDB();
         }
-
-
         public void AddBadge(BadgeInDTO IncomingBadge)
         {
             Badge NewBadge = _mapper.Map<Badge>(IncomingBadge);
@@ -45,7 +43,6 @@ namespace ferrilata_devilline.Services
         {
             return GetAllDTO().SingleOrDefault(x => x.BadgeId == id);
         }
-
         public List<LevelOutDTO> FinLevelsDTOByBadgeId(long id)
         {
             return FindDTOById(id).Levels;
