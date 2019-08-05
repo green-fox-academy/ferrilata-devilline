@@ -20,7 +20,7 @@
                                 @badge.Name
                             </a>
                         </h4>
-                        <form asp-controller="ViewBadges" asp-action="DeleteBadgeFromLibrary" asp-route-id="@badge.BadgeId" method="post" class="float-right">
+                        <form asp-controller="ViewBadges" asp-action="DeleteBadgeFromLibrary" asp-route-badgeId="@badge.BadgeId" method="post" class="float-right">
                             <button type="submit" class="btn btn-info">Delete</button>
                         </form>
                     </div>
