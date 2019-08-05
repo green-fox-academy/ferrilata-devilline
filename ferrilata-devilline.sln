@@ -1,13 +1,12 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ferrilata-devilline.UnitTests", "ferrilata-devilline.UnitTests\ferrilata-devilline.UnitTests.csproj", "{9D029518-E5FD-4C97-A66C-D51E5519569B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ferrilata-devilline.UnitTests", "ferrilata-devilline.UnitTests\ferrilata-devilline.UnitTests.csproj", "{9D029518-E5FD-4C97-A66C-D51E5519569B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ferrilata-devilline", "ferrilata-devilline\ferrilata-devilline.csproj", "{D153447A-8076-40C3-90E9-BABB124F917E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ferrilata-devilline", "ferrilata-devilline\ferrilata-devilline.csproj", "{D153447A-8076-40C3-90E9-BABB124F917E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ferrilata-devilline.IntegrationTests", "ferrilata-devilline.IntegrationTests\ferrilata-devilline.IntegrationTests.csproj", "{AA3C29B0-B245-492B-83EB-24E1F1A4F86E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ferrilata-devilline.IntegrationTests", "ferrilata-devilline.IntegrationTests\ferrilata-devilline.IntegrationTests.csproj", "{AA3C29B0-B245-492B-83EB-24E1F1A4F86E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
