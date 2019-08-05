@@ -8,7 +8,7 @@ using System.Linq;
 namespace ferrilata_devilline.Controllers.ApiControllers
 {
     [Authorize(AuthenticationSchemes =
-        JwtBearerDefaults.AuthenticationScheme)]
+    JwtBearerDefaults.AuthenticationScheme)]
     public class BadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
@@ -119,6 +119,18 @@ namespace ferrilata_devilline.Controllers.ApiControllers
                 return NotFound(new { error = "Please provide an existing Badge Id" });
             }
             return Ok(_badgeService.FindDTOById(badgeId));
+        }
+
+
+        [HttpGet]
+        [Route("/api/badges/{badgeId}/levels/{levelId}")]
+        public IActionResult GetLevelByIds(long badgeId, long levelId)
+        {
+            if (_badgeService.FindBadgeById(badgeId).Levels.FirstOrDefault(l => l.LevelId == levelId) == null)
+            {
+                return BadRequest(new { error = "Please provide an existing Id pair!" });
+            }
+            return Ok(_levelService.GetLevelOutDTO(levelId));
         }
     }
 }
