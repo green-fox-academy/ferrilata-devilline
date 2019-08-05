@@ -90,6 +90,8 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             {
                 return NotFound(new { error = "No such level found for the selected badge" });
             }
+            
+            _levelService.UpdateLevel(levelId, levelInDTO);
 
             return Ok(new { message = "Updated" });
         }
