@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,5 +18,31 @@ namespace ferrilata_devilline.Models.DAOs
         public string Tag { get; set; }
 
         public List<Level> Levels { get; set; }
+
+        protected bool Equals(Badge other)
+        {
+            var nonLevelFieldsEqual = BadgeId == other.BadgeId && Math.Abs(Version - other.Version) < 0.001 &&
+                                      string.Equals(Name, other.Name) && string.Equals(Tag, other.Tag);
+            var levelsEqual = true;
+
+            for (int i = 0; i < Levels.Count; i++)
+            {
+                if (!Levels[i].EqualsIgnoringBadge(other.Levels[i]))
+                {
+                    levelsEqual = false;
+                    break;
+                }
+            }
+
+            return nonLevelFieldsEqual && levelsEqual;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Badge) obj);
+        }
     }
 }

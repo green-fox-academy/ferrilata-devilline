@@ -72,7 +72,7 @@ namespace ferrilata_devilline.Services
         public void UpdateBadgeLevels(long badgeId, BadgeInDTO inputBadge)
         {
             var badgeToUpdate = FindBadge(badgeId);
-            var badgeLevels = badgeToUpdate.Levels;
+            var badgeLevels = badgeToUpdate.Levels.ToList();
             foreach (var level in badgeLevels)
             {
                 _levelRepository.DeleteLevelById(level.LevelId);
