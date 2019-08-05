@@ -37,7 +37,8 @@ namespace ferrilata_devilline.Repositories
 
         public void DeleteBadgeById(long id)
         {
-            _applicationContext.Badges.Remove(FindBadgeById(id));
+            Badge badgeToDelete = FindBadgeById(id);
+            _applicationContext.Badges.Remove(badgeToDelete);
             _applicationContext.SaveChanges();
         }
 

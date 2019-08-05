@@ -110,5 +110,16 @@ namespace ferrilata_devilline.Controllers.ApiControllers
 
             return Ok(new { message = "Updated" });
         }
+
+        [HttpGet]
+        [Route("/api/badges/{badgeId}")]
+        public IActionResult GetBadgeById(long badgeId)
+        {
+            if (_badgeService.FindBadge(badgeId) == null)
+            {
+                return NotFound(new { error = "Please provide an existing Badge Id" });
+            }
+            return Ok(_badgeService.FindDTOById(badgeId));
+        }
     }
 }
