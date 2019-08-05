@@ -9,6 +9,7 @@ namespace ferrilata_devilline.Models.DAOs
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long LevelId { get; set; }
+
         public int LevelNumber { get; set; }
         public string Description { get; set; }
         public string Weight { get; set; }
@@ -20,7 +21,8 @@ namespace ferrilata_devilline.Models.DAOs
         {
             return LevelId == other.LevelId && LevelNumber == other.LevelNumber &&
                    string.Equals(Description, other.Description) && string.Equals(Weight, other.Weight) &&
-                   Equals(Badge, other.Badge) && Equals(UserLevels, other.UserLevels) && Equals(Pitches, other.Pitches);
+                   Equals(Badge,
+                       other.Badge) && Equals(UserLevels, other.UserLevels) && Equals(Pitches, other.Pitches);
         }
 
         public override bool Equals(object obj)
@@ -29,31 +31,6 @@ namespace ferrilata_devilline.Models.DAOs
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
             return Equals((Level) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = LevelId.GetHashCode();
-                hashCode = (hashCode * 397) ^ LevelNumber;
-                hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Weight != null ? Weight.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Badge != null ? Badge.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (UserLevels != null ? UserLevels.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Pitches != null ? Pitches.GetHashCode() : 0);
-                return hashCode;
-            }
-        }
-
-        public static bool operator ==(Level left, Level right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(Level left, Level right)
-        {
-            return !Equals(left, right);
         }
     }
 }
