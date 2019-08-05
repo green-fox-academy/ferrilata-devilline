@@ -37,14 +37,19 @@ namespace ferrilata_devilline.Services
 
         public void UpdateLevel(long levelId, LevelInDTO inputLevel)
         {
-            var levelToUpdate = FindById(levelId);
+            var levelToUpdate = FindLevelById(levelId);
             levelToUpdate = _mapper.Map<LevelInDTO, Level>(inputLevel);
             _levelRepository.SaveOrUpdate(levelToUpdate);
         }
 
-        public Level FindById(long id)
+        public Level FindLevelById(long id)
         {
             return _levelRepository.FindLevelById(id);
+        }
+
+        public void DeleteById(long id)
+        {
+            _levelRepository.DeleteLevelById(id);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ferrilata_devilline.Services
             _badgeRepository = badgeRepository;
             _mapper = mapper;
         }
-        public Badge FindBadge(long id)
+        public Badge FindBadgeById(long id)
         {
             return _badgeRepository.FindBadgeById(id);
         }

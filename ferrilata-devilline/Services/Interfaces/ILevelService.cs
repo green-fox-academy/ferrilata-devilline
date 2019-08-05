@@ -9,9 +9,10 @@ namespace ferrilata_devilline.Services.Interfaces
 {
     public interface ILevelService
     {
-        Level FindById(long id);
+        Level FindLevelById(long id);
         void AddLevel(long badgeId, LevelInDTO inputLevel);
         void UpdateLevel(long levelId, LevelInDTO inputLevel);
         List<Level> GetAll();
+        void DeleteById(long id);
     }
 }
