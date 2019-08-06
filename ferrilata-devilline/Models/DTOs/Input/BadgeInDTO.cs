@@ -14,8 +14,7 @@ namespace ferrilata_devilline.Models.DTOs
 
         [Required]
         public string Tag { get; set; }
-
-        [Required]
+        
         public List<LevelInDTO> Levels { get; set; }
     }
 }

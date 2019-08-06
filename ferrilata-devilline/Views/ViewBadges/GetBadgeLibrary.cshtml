@@ -11,29 +11,29 @@
         <div class="modal fade" id="Badge">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="needs-validation" novalidate>
+                    <form id="needs-validation" novalidate asp-controller="ViewBadges" asp-action="CreateAndAddBadge" method="post">
                         <div class="modal-header">
                             <h5 class="modal-title text-uppercase text-center">New Badge</h5>
                         </div>
                         <div class="modal-body">
 
                             <div class="form-row">
-                                <label for="name">Name</label>
-                                <input id="name" type="text"  class="form-control" aria-describedby="inputGroupPrepend" required/>
+                                <label for="Name">Name</label>
+                                <input id="Name" name="Name" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
                                 <div class="invalid-feedback">
                                     Please enter the badge name.
                                 </div>
                             </div>
                             <div class="form-row">
-                                <label for="version">Version</label>
-                                <input id="version" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
+                                <label for="Version">Version</label>
+                                <input id="Version" name="Version" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
                                 <div class="invalid-feedback">
                                     Please enter badge version.
                                 </div>
                             </div>
                             <div class="form-row">
-                                <label for="tag">Tag</label>
-                                <input id="tag" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
+                                <label for="Tag">Tag</label>
+                                <input id="Tag" name="Tag" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
                                 <div class="invalid-feedback">
                                     Please add a tag.
                                 </div>
@@ -68,13 +68,18 @@
                     <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
                         <div class="panel-body">
                             <div class="row">
+                                @if (badge.Levels.Count < 1)
+                                {
+                                    <div class="col-sm-4">
+                                        <p class="lead text-primary">No levels yet</p>
+                                    </div>
+                                }
                                 @foreach (var level in badge.Levels)
                                 {
                                     <div class="col-sm-4">
                                         <div class="card border-info mb-3" style="max-width: 20rem;">
                                             <div class="card-header">Level @level.LevelNumber</div>
                                             <div class="card-body">
-
                                                 <p class="lead text-primary">@level.Description</p>
                                             </div>
                                         </div>

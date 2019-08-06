@@ -29,18 +29,12 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             _badgeService.DeleteById(badgeId);
             return Redirect("/badgelibrary");
         }
-        
+
         [HttpPost("/badgelibrary/add")]
         public IActionResult CreateAndAddBadge(BadgeInDTO newBadge)
         {
             _badgeService.AddBadge(newBadge);
             return Redirect("/badgelibrary");
-        }
-        
-        [HttpGet("/modal")]
-        public IActionResult ModalTest()
-        {
-            return View();
         }
     }
 }
