@@ -62,24 +62,19 @@
                             </a>
                         </h4>
                         <form asp-controller="ViewBadges" asp-action="DeleteBadgeFromLibrary" asp-route-badgeId="@badge.BadgeId" method="post" class="float-right">
-                            <button type="submit" class="btn btn-primary rounded-0">Delete</button>
+                            <button type="submit" class="btn btn-info">Delete</button>
                         </form>
                     </div>
                     <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
                         <div class="panel-body">
                             <div class="row">
-                                @if (badge.Levels.Count < 1)
-                                {
-                                    <div class="col-sm-4">
-                                        <p class="lead text-primary">No levels yet</p>
-                                    </div>
-                                }
                                 @foreach (var level in badge.Levels)
                                 {
                                     <div class="col-sm-4">
                                         <div class="card border-info mb-3" style="max-width: 20rem;">
                                             <div class="card-header">Level @level.LevelNumber</div>
                                             <div class="card-body">
+
                                                 <p class="lead text-primary">@level.Description</p>
                                             </div>
                                         </div>
