@@ -10,12 +10,15 @@ namespace ferrilata_devilline.Controllers.ViewControllers
     public class ViewBadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
+        private readonly ILevelService _levelService;
         private readonly ISlackMessagingService _slackMessagingService;
 
-        public ViewBadgesController(IBadgeService badgeService, ISlackMessagingService slackMessagingService)
+        public ViewBadgesController(IBadgeService badgeService, ISlackMessagingService slackMessagingService,
+            ILevelService levelService)
         {
             _badgeService = badgeService;
             _slackMessagingService = slackMessagingService;
+            _levelService = levelService;
         }
 
         [HttpGet("/badgelibrary")]
@@ -36,8 +39,17 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         public IActionResult CreateAndAddBadge(BadgeInDTO newBadge)
         {
             _badgeService.AddBadge(newBadge);
-            string testMessage = _slackMessagingService.BuildMessage("A new badge has been added by ", User.Identity.Name);
-            _slackMessagingService.SendMessage(testMessage);
+            string message = _slackMessagingService.BuildMessage("A new badge has been added by ", User.Identity.Name);
+            _slackMessagingService.SendMessage(message);
+            return Redirect("/badgelibrary");
+        }
+
+        [HttpPost("/badgelibrary/{badgeId}/levels/add")]
+        public IActionResult CreateAndAddLevel(long badgeId, LevelInDTO newLevel)
+        {
+            _levelService.AddLevel(badgeId, newLevel);
+            string message = _slackMessagingService.BuildMessage("A new level has been added by ", User.Identity.Name);
+            _slackMessagingService.SendMessage(message);
             return Redirect("/badgelibrary");
         }
     }
