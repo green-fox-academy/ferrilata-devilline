@@ -26,6 +26,11 @@
     color: black;
 }
 
+#add-badge {
+    width: 108px;
+    height: 48px;
+}
+
 /*a:hover, a:focus {
     outline: none;
     text-decoration: none;
