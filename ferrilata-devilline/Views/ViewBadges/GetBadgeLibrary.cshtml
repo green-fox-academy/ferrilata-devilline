@@ -69,9 +69,9 @@
                         <div class="panel-body">
                             <div class="row">
                                 @if (badge.Levels.Count < 1)
-                                    {
+                                {
                                     <p class ="col-sm-4">There are no levels yet.</p>
-                                    }
+                                }
                                 @foreach (var level in badge.Levels)
                                 {
                                     <div class="col-sm-4">
@@ -84,6 +84,48 @@
                                         </div>
                                     </div>
                                 }
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-info" id="add-level" data-toggle="modal" data-target="#Level">New Level</button>
+                                <div class="modal fade" id="Level">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form id="needs-validation" novalidate asp-controller="ViewBadges" asp-action="CreateAndAddLevel" asp-route-badgeId="@badge.BadgeId" method="post">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title text-uppercase text-center">New Level</h5>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="form-row">
+                                                        <label for="LevelNumber">LevelNumber</label>
+                                                        <input id="LevelNumber" name="LevelNumber" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
+                                                        <div class="invalid-feedback">
+                                                            Please enter the level number.
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <label for="Weight">Weight</label>
+                                                        <input id="Weight" name="Weight" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
+                                                        <div class="invalid-feedback">
+                                                            Please enter level weight.
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <label for="Description">Description</label>
+                                                        <input id="Description" name="Description" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
+                                                        <div class="invalid-feedback">
+                                                            Please add a description.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-success rounded-0">Create</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
