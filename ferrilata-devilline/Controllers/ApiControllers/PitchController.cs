@@ -30,7 +30,7 @@ namespace ferrilata_devilline.Controllers
             return Created("", new { message = "Created" });
         }
 
-        [Route("pitches")]
+        [HttpGet("pitches")]
         public IActionResult ReturnPitches()
         {
             if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString().Length != 0)

@@ -20,6 +20,9 @@
                                 @badge.Name
                             </a>
                         </h4>
+                        <form asp-controller="ViewBadges" asp-action="DeleteBadgeFromLibrary" asp-route-badgeId="@badge.BadgeId" method="post" class="float-right">
+                            <button type="submit" class="btn btn-info">Delete</button>
+                        </form>
                     </div>
                     <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
                         <div class="panel-body">
@@ -30,12 +33,11 @@
                                         <div class="card border-info mb-3" style="max-width: 20rem;">
                                             <div class="card-header">Level @level.LevelNumber</div>
                                             <div class="card-body">
-                                                
+
                                                 <p class="lead text-primary">@level.Description</p>
                                             </div>
                                         </div>
                                     </div>
-                                    
                                 }
                             </div>
                         </div>
@@ -45,6 +47,3 @@
         </div>
     </div>
 </div>
-
-
-

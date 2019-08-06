@@ -21,7 +21,7 @@ namespace ferrilata_devilline.Services
             _levelRepository = levelRepository;
         }
 
-        public Badge FindBadge(long id)
+        public Badge FindBadgeById(long id)
         {
             return _badgeRepository.FindBadgeById(id);
         }
@@ -36,6 +36,7 @@ namespace ferrilata_devilline.Services
         {
             return _badgeRepository.RetrieveBadgesFromDB();
         }
+
         public void AddBadge(BadgeInDTO IncomingBadge)
         {
             Badge NewBadge = _mapper.Map<Badge>(IncomingBadge);
@@ -46,6 +47,7 @@ namespace ferrilata_devilline.Services
         {
             return GetAllDTO().SingleOrDefault(x => x.BadgeId == id);
         }
+
         public List<LevelOutDTO> FinLevelsDTOByBadgeId(long id)
         {
             return FindDTOById(id).Levels;
@@ -58,7 +60,7 @@ namespace ferrilata_devilline.Services
 
         public void UpdateBadge(long badgeId, BadgeInDTO inputBadge)
         {
-            var badgeToUpdate = FindBadge(badgeId);
+            var badgeToUpdate = FindBadgeById(badgeId);
 
             badgeToUpdate.Name = inputBadge.Name ?? badgeToUpdate.Name;
             badgeToUpdate.Version = inputBadge.Version > 0 ? inputBadge.Version : badgeToUpdate.Version;
@@ -68,7 +70,7 @@ namespace ferrilata_devilline.Services
 
         public void UpdateBadgeLevels(long badgeId, BadgeInDTO inputBadge)
         {
-            var badgeToUpdate = FindBadge(badgeId);
+            var badgeToUpdate = FindBadgeById(badgeId);
             var badgeLevels = badgeToUpdate.Levels.ToList();
             foreach (var level in badgeLevels)
             {
