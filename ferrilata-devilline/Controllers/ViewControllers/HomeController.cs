@@ -10,19 +10,17 @@ namespace ferrilata_devilline.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ISlackMessagingService _slackMessagingService;
+//        private readonly ISlackMessagingService _slackMessagingService;
 
-        public HomeController(ISlackMessagingService slackMessagingService)
-        {
-            _slackMessagingService = slackMessagingService;
-        }
+//        public HomeController(ISlackMessagingService slackMessagingService)
+//        {
+//            _slackMessagingService = slackMessagingService;
+//        }
 
         [Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
         [HttpGet("/index")]
         public IActionResult Index()
         {
-            string testMessage = _slackMessagingService.BuildMessage();
-            _slackMessagingService.SendMessage(testMessage);
             return View(User.Identity.IsAuthenticated ? "Index" : "Error");
         }
 

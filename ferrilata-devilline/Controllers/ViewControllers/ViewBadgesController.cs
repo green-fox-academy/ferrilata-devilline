@@ -10,10 +10,12 @@ namespace ferrilata_devilline.Controllers.ViewControllers
     public class ViewBadgesController : Controller
     {
         private readonly IBadgeService _badgeService;
+        private readonly ISlackMessagingService _slackMessagingService;
 
-        public ViewBadgesController(IBadgeService badgeService)
+        public ViewBadgesController(IBadgeService badgeService, ISlackMessagingService slackMessagingService)
         {
             _badgeService = badgeService;
+            _slackMessagingService = slackMessagingService;
         }
 
         [HttpGet("/badgelibrary")]
@@ -34,6 +36,8 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         public IActionResult CreateAndAddBadge(BadgeInDTO newBadge)
         {
             _badgeService.AddBadge(newBadge);
+            string testMessage = _slackMessagingService.BuildMessage("A new badge has been added by ", User.Identity.Name);
+            _slackMessagingService.SendMessage(testMessage);
             return Redirect("/badgelibrary");
         }
     }
