@@ -35,11 +35,27 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Ok("Deleted");
         }
 
+        [HttpDelete]
+        [Route("/api/badges/{badgeId}/levels/{levelId}")]
+        public IActionResult DeleteBadge(long badgeId, long levelId)
+        {
+            var requestedBadge = _badgeService.FindBadgeById(badgeId);
+            var requestedLevel = _levelService.FindLevelById(levelId);
+
+            if (!requestedBadge.Levels.Contains(requestedLevel))
+            {
+                return BadRequest(new { error = "Requested Badge does not contain requested Level" });
+            }
+
+            _levelService.DeleteById(levelId);
+            return Ok("Deleted");
+        }
+
         [HttpPost]
         [Route("/api/badges/{badgeId}/levels")]
         public IActionResult PostLevelByBadgeId([FromBody] LevelInDTO newLevel, long badgeId)
         {
-            if (_badgeService.FindBadge(badgeId) == null)
+            if (_badgeService.FindBadgeById(badgeId) == null)
             {
                 return BadRequest(new { error = "Please provide an existing Badge Id" });
             }
@@ -49,7 +65,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
                 return BadRequest(new { error = "Please provide all fields" });
             }
 
-            bool isLevelNumberNew = _badgeService.FindBadge(badgeId).Levels.FirstOrDefault(l => l.LevelNumber == newLevel.LevelNumber) == null;
+            bool isLevelNumberNew = _badgeService.FindBadgeById(badgeId).Levels.FirstOrDefault(l => l.LevelNumber == newLevel.LevelNumber) == null;
 
             if (!isLevelNumberNew)
             {
@@ -59,6 +75,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Created("", new { message = "Created" });
         }
 
+        [HttpPost]
         [Route("/api/post/badges")]
         public IActionResult PostBadge([FromBody] BadgeInDTO IncomingBadge)
         {
@@ -75,7 +92,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/badges/{badgeId}/levels")]
         public IActionResult GetLevelsBadgeById(long badgeId)
         {
-            if (_badgeService.FindBadge(badgeId) == null)
+            if (_badgeService.FindBadgeById(badgeId) == null)
             {
                 return NotFound(new { error = "Please provide an existing Badge Id" });
             }
@@ -86,11 +103,11 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/badges/{badgeId}/levels/{levelId}")]
         public IActionResult UpdateBadgeLevel([FromBody] LevelInDTO levelInDTO, long badgeId, long levelId)
         {
-            if (!_badgeService.FindBadge(badgeId).Levels.Contains(_levelService.FindById(levelId)))
+            if (!_badgeService.FindBadgeById(badgeId).Levels.Contains(_levelService.FindLevelById(levelId)))
             {
                 return NotFound(new { error = "No such level found for the selected badge" });
             }
-            
+
             _levelService.UpdateLevel(levelId, levelInDTO);
 
             return Ok(new { message = "Updated" });
@@ -100,7 +117,7 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/badges/{badgeId}")]
         public IActionResult GetBadgeById(long badgeId)
         {
-            if (_badgeService.FindBadge(badgeId) == null)
+            if (_badgeService.FindBadgeById(badgeId) == null)
             {
                 return NotFound(new { error = "Please provide an existing Badge Id" });
             }
@@ -112,11 +129,10 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/badges/{badgeId}/levels/{levelId}")]
         public IActionResult GetLevelByIds(long badgeId, long levelId)
         {
-            if (_badgeService.FindBadge(badgeId).Levels.FirstOrDefault(l => l.LevelId == levelId) == null)
+            if (_badgeService.FindBadgeById(badgeId).Levels.FirstOrDefault(l => l.LevelId == levelId) == null)
             {
                 return BadRequest(new { error = "Please provide an existing Id pair!" });
             }
-
             return Ok(_levelService.GetLevelOutDTO(levelId));
         }
     }
