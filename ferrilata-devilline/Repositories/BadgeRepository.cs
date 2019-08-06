@@ -58,5 +58,11 @@ namespace ferrilata_devilline.Repositories
         {
             return _applicationContext.Levels.Include(level => level.Badge).ToList();
         }
+
+        public void UpdateBadge(Badge badge)
+        {
+            _applicationContext.Update(badge);
+            _applicationContext.SaveChanges();
+        }
     }
 }

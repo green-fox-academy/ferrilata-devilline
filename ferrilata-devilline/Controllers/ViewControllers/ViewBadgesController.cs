@@ -3,6 +3,7 @@ using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Google;
 using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
@@ -23,11 +24,12 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             return View(listsDTOs);
         }
 
-        //[HttpPost("/UpdateBadge")]
-        //public IActionResult UpdateBadge(long BadgeId)
-        //{
-        //    Badge badge = 
-        //    return View()
-        //}
+        [HttpPost("/UpdateBadge")]
+        public IActionResult UpdateBadge(BadgeDTO badge)
+        {
+            
+            _badgeService.UpdateBadge(badge);
+            return Redirect("/badgeLibrary");
+        }
     }
-}
+}//long BadgeId, double Version, string Name, string Tag
