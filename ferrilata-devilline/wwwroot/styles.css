@@ -26,6 +26,23 @@
     color: black;
 }
 
+.modal-body {
+    margin: 0px 16px;
+}
+
+.form-row {
+    padding-top: 8px;
+}
+
+.page-header {
+    overflow: hidden;
+}
+
+#add-badge {
+    width: 108px;
+    height: 48px;
+}
+
 /*a:hover, a:focus {
     outline: none;
     text-decoration: none;

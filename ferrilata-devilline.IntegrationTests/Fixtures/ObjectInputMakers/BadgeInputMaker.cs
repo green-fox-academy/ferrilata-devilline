@@ -33,7 +33,7 @@ namespace ferrilata_devilline.Services.Helpers.Extensions.ObjectTypeCheckers.Obj
             {
                 Version = 2.2,
                 Name = "such name",
-                Tag = "such tag",
+                Tag = null,
                 Levels = null
             };
         }

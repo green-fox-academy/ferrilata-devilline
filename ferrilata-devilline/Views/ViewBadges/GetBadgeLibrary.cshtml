@@ -5,9 +5,50 @@
 }
 
 <div class="page-header">
-    <h1 class="display-3">Badges</h1>
-</div>
+    <h1 class="display-3 float-left">Badges</h1>
+    <div class="float-right">
+        <button type="button" class="btn btn-info" id="add-badge" data-toggle="modal" data-target="#Badge">Add</button>
+        <div class="modal fade" id="Badge">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="needs-validation" novalidate asp-controller="ViewBadges" asp-action="CreateAndAddBadge" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-uppercase text-center">New Badge</h5>
+                        </div>
+                        <div class="modal-body">
 
+                            <div class="form-row">
+                                <label for="Name">Name</label>
+                                <input id="Name" name="Name" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
+                                <div class="invalid-feedback">
+                                    Please enter the badge name.
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="Version">Version</label>
+                                <input id="Version" name="Version" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
+                                <div class="invalid-feedback">
+                                    Please enter badge version.
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="Tag">Tag</label>
+                                <input id="Tag" name="Tag" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
+                                <div class="invalid-feedback">
+                                    Please add a tag.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success rounded-0">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -27,6 +68,10 @@
                     <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
                         <div class="panel-body">
                             <div class="row">
+                                @if (badge.Levels.Count < 1)
+                                    {
+                                    <p class ="col-sm-4">There are no levels yet.</p>
+                                    }
                                 @foreach (var level in badge.Levels)
                                 {
                                     <div class="col-sm-4">

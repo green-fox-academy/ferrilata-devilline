@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ferrilata_devilline.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -26,6 +27,13 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         public IActionResult DeleteBadgeFromLibrary(long badgeId)
         {
             _badgeService.DeleteById(badgeId);
+            return Redirect("/badgelibrary");
+        }
+
+        [HttpPost("/badgelibrary/add")]
+        public IActionResult CreateAndAddBadge(BadgeInDTO newBadge)
+        {
+            _badgeService.AddBadge(newBadge);
             return Redirect("/badgelibrary");
         }
     }
