@@ -1,4 +1,5 @@
-﻿using ferrilata_devilline.Models.DTOs;
+﻿using System.Linq;
+using ferrilata_devilline.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -47,9 +48,17 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpPost("/badgelibrary/{badgeId}/levels/add")]
         public IActionResult CreateAndAddLevel(long badgeId, LevelInDTO newLevel)
         {
-            _levelService.AddLevel(badgeId, newLevel);
-            string message = _slackMessagingService.BuildMessage("A new level has been added by ", User.Identity.Name);
-            _slackMessagingService.SendMessage(message);
+            bool isLevelNumberNew = _badgeService.FindBadgeById(badgeId).Levels
+                                        .FirstOrDefault(l => l.LevelNumber == newLevel.LevelNumber) == null;
+
+            if (isLevelNumberNew)
+            {
+                _levelService.AddLevel(badgeId, newLevel);
+                string message =
+                    _slackMessagingService.BuildMessage("A new level has been added by ", User.Identity.Name);
+                _slackMessagingService.SendMessage(message);
+            }
+
             return Redirect("/badgelibrary");
         }
     }
