@@ -133,7 +133,7 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerGen(options =>
-                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Level-Up", Version = "v1" })
+                options.SwaggerDoc("v1", new Info { Title = "Level-Up", Version = "v1" })
             );
             services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"));
         }
@@ -149,7 +149,7 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerGen(options =>
-                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Level-Up", Version = "v1" })
+                options.SwaggerDoc("v1", new Info { Title = "Level-Up", Version = "v1" })
             );
             services.SetUpAutoMapper();
 
