@@ -68,6 +68,10 @@
                     <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
                         <div class="panel-body">
                             <div class="row">
+                                @if (badge.Levels.Count < 1)
+                                    {
+                                    <p class ="col-sm-4">There are no levels yet.</p>
+                                    }
                                 @foreach (var level in badge.Levels)
                                 {
                                     <div class="col-sm-4">
