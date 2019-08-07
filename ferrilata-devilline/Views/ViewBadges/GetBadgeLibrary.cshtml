@@ -40,8 +40,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-success rounded-0">Add</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
                         </div>
                     </form>
                 </div>
@@ -61,9 +61,15 @@
                                 @badge.Name
                             </a>
                         </h4>
+
                         <form asp-controller="ViewBadges" asp-action="DeleteBadgeFromLibrary" asp-route-badgeId="@badge.BadgeId" method="post" class="float-right">
                             <button type="submit" class="btn btn-info">Delete</button>
                         </form>
+                        @*<form asp-controller="ViewBadges" asp-action="UpdateBadge" asp-route-badgeId="@badge.BadgeId" method="post">
+            <button type="submit" class="btn btn-primary update">Update</button>
+        </form>*@
+
+                        <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary update" data-toggle="modal" data-target="#@("update" + badge.BadgeId)">
                             Update
                         </button>
