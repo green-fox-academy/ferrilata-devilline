@@ -25,6 +25,11 @@ namespace ferrilata_devilline.Services
             return _levelRepository.RetrieveLevelsFromDB();
         }
 
+        public void DeleteLevel(long id)
+        {
+            _levelRepository.DeleteLevelById(id);
+        }
+
         public void AddLevel(long badgeId, LevelInDTO inputLevel)
         {
             Level newLevel = _mapper.Map<LevelInDTO, Level>(inputLevel);
@@ -39,8 +44,10 @@ namespace ferrilata_devilline.Services
             levelToUpdate.Weight = inputLevel.Weight ?? levelToUpdate.Weight;
             levelToUpdate.Description = inputLevel.Description ?? levelToUpdate.Description;
             levelToUpdate.LevelNumber = inputLevel.LevelNumber != 0
-                                            ? inputLevel.LevelNumber
-                                            : levelToUpdate.LevelNumber;
+                ? inputLevel.LevelNumber
+                : levelToUpdate.LevelNumber;
+
+
             _levelRepository.SaveOrUpdate(levelToUpdate);
         }
 

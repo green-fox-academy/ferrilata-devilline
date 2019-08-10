@@ -89,7 +89,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             Assert.Equal(numbeeOfNewLists + currentNumberOfLists, testContext.Context.Levels.ToList().Count());
         }
 
-        public BadgeInDTO GenerateBadge()
+        public static BadgeInDTO GenerateBadge()
         {
             List<LevelInDTO> fakelevels = new List<LevelInDTO>();
             fakelevels.Add(new LevelInDTO { LevelNumber = 1, Description = "ololo", Weight = "2" });
