@@ -37,13 +37,13 @@ namespace ferrilata_devilline.Services.Helpers
             var badge1 = new Badge
             {
                 Version = 1,
-                Name = "badge1 name",
+                Name = "Feedback receiver",
                 Tag = "badge1 tag"
             };
             var badge2 = new Badge
             {
                 Version = 2,
-                Name = "badge2 name",
+                Name = "English speaker",
                 Tag = "badge2 tag"
             };
 
