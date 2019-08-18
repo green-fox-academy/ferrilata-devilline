@@ -49,100 +49,103 @@
         </div>
     </div>
 </div>
-<div class="">
-    <div class="">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             @foreach (var badge in Model)
             {
-                <div class="panel panel-info row">
+                <div class="panel panel-info">
                     <div class="panel-heading" role="tab" id="@("heading" + badge.BadgeId)">
-                        <h4 class="panel-title col-10">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#@("a" + badge.BadgeId)" aria-expanded="true" aria-controls="@("a" + badge.BadgeId)">
-                                @badge.Name
-                            </a>
-                        </h4>
-                        <div class="col-2">
-                            <form asp-controller="ViewBadges" asp-action="DeleteBadgeFromLibrary" asp-route-badgeId="@badge.BadgeId" method="post">
-                                <button type="submit" class="btn btn-info">Delete</button>
-                            </form>
+                        <div class="row">
+                            <h4 class="panel-title col-3">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#@("a" + badge.BadgeId)" aria-expanded="true" aria-controls="@("a" + badge.BadgeId)">
+                                    @badge.Name
+                                </a>
+                            </h4>
 
-                            @*<form asp-controller="ViewBadges" asp-action="UpdateBadge" asp-route-badgeId="@badge.BadgeId" method="post">
-                            <button type="submit" class="btn btn-primary update">Update</button>
-                            </form>*@
+                            <div class="col-2">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary update" data-toggle="modal" data-target="#@("update" + badge.BadgeId)">
+                                    Update
+                                </button>
 
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary update" data-toggle="modal" data-target="#@("update" + badge.BadgeId)">
-                                Update
-                            </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="@("update" + badge.BadgeId)" tabindex="-1" role="dialog" aria-labelledby="@("updateModal" + badge.BadgeId)" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="@("updateModal" + badge.BadgeId)">Update Badge</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form asp-controller="ViewBadges" asp-route-badgeId="@badge.BadgeId" asp-action="UpdateBadge" method="post">
+                                                    <fieldset>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="@("update" + badge.BadgeId)" tabindex="-1" role="dialog" aria-labelledby="@("updateModal" + badge.BadgeId)" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="@("updateModal" + badge.BadgeId)">Update Badge</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                                        <div class="form-group">
+                                                            <label for="Version">Version</label>
+                                                            <input class="form-control" id="Version" name="Version" value="@badge.Version">
+
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="Name">Name</label>
+                                                            <input type="text" class="form-control" id="Name" name="Name" value="@badge.Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="Tag">Tag</label>
+                                                            <input type="text" class="form-control" id="Tag" name="Tag" value="@badge.Tag">
+                                                        </div>
+                                                    </fieldset>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
                                         </div>
-                                        <div class="modal-body">
-                                            <form asp-controller="ViewBadges" asp-route-badgeId="@badge.BadgeId" asp-action="UpdateBadge" method="post">
-                                                <fieldset>
-
-                                                    <div class="form-group">
-                                                        <label for="Version">Version</label>
-                                                        <input class="form-control" id="Version" name="Version" value="@badge.Version">
-
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="Name">Name</label>
-                                                        <input type="text" class="form-control" id="Name" name="Name" value="@badge.Name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="Tag">Tag</label>
-                                                        <input type="text" class="form-control" id="Tag" name="Tag" value="@badge.Tag">
-                                                    </div>
-                                                </fieldset>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </form>
-                                        </div>
-
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
+                            <div class="col-5"></div>
+                            <div class="col-2 text-right">
+                                <form asp-controller="ViewBadges" asp-action="DeleteBadgeFromLibrary" asp-route-badgeId="@badge.BadgeId" method="post">
+                                    <button type="submit" class="btn btn-outline-info ">Delete</button>
+                                </form>
+                            </div>
                         </div>
+                        
+
 
                         
 
-                    </div>
-                    <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
-                        <div class="panel-body">
-                            <div class="row">
-                                @if (badge.Levels.Count < 1)
-                                {
-                                    <p class="col-sm-4">There are no levels yet.</p>
-                                }
-                                @foreach (var level in badge.Levels)
-                                {
-                                    <div class="col-sm-4">
-                                        <div class="card border-info mb-3" style="max-width: 20rem;">
-                                            <div class="card-header">Level @level.LevelNumber</div>
-                                            <div class="card-body">
 
-                                                <p class="lead text-primary">@level.Description</p>
+                        
+
+
+                    </div>
+                        <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
+                            <div class="panel-body">
+                                <div class="row">
+                                    @if (badge.Levels.Count < 1)
+                                    {
+                                        <p class="col-sm-4">There are no levels yet.</p>
+                                    }
+                                    @foreach (var level in badge.Levels)
+                                    {
+                                        <div class="col-sm-4">
+                                            <div class="card border-info mb-3" style="max-width: 20rem;">
+                                                <div class="card-header">Level @level.LevelNumber</div>
+                                                <div class="card-body">
+
+                                                    <p class="lead text-primary">@level.Description</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             }
         </div>
-    </div>
-</div>
