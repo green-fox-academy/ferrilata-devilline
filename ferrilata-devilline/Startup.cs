@@ -12,10 +12,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Data.SqlClient;
+using System.Net;
 using System.Text;
 using ferrilata_devilline.Services.Helpers.AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -116,6 +120,25 @@ namespace ferrilata_devilline
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseExceptionHandler(appError =>
+            {
+                appError.Run(async context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.ContentType = "application/json";
+ 
+                    var contextFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+                    if (contextFeature?.Error is MySqlException)
+                    {
+                        await context.Response.WriteAsync(new
+                        {
+                            context.Response.StatusCode,
+                            Message = "Database is down"
+                        }.ToString());
+                    }
+                });
+            });
 
             app.UseStaticFiles();
             app.UseMvc();
