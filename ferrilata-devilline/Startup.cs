@@ -12,11 +12,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Data.SqlClient;
+using System.Net;
 using System.Text;
 using ferrilata_devilline.Services.Helpers.AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ferrilata_devilline
 {
@@ -75,6 +80,9 @@ namespace ferrilata_devilline
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new Info { Title = "Level-Up", Version = "v1" })
+            );
             services.AddDbContext<ApplicationContext>(builder => builder
                 .UseMySQL($"server={Environment.GetEnvironmentVariable("FDHOST")}; " +
                           $"database={Environment.GetEnvironmentVariable("FDDATABASE")}; " +
@@ -103,10 +111,34 @@ namespace ferrilata_devilline
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Level-Up v1")
+            );
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseExceptionHandler(appError =>
+            {
+                appError.Run(async context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.ContentType = "application/json";
+ 
+                    var contextFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+                    if (contextFeature?.Error is MySqlException)
+                    {
+                        await context.Response.WriteAsync(new
+                        {
+                            context.Response.StatusCode,
+                            Message = "Database is down"
+                        }.ToString());
+                    }
+                });
+            });
 
             app.UseStaticFiles();
             app.UseMvc();
@@ -123,7 +155,9 @@ namespace ferrilata_devilline
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new Info { Title = "Level-Up", Version = "v1" })
+            );
             services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"));
         }
 
@@ -137,7 +171,9 @@ namespace ferrilata_devilline
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new Info { Title = "Level-Up", Version = "v1" })
+            );
             services.SetUpAutoMapper();
 
             services.AddDbContext<ApplicationContext>(builder => builder.UseInMemoryDatabase("InMemory"),

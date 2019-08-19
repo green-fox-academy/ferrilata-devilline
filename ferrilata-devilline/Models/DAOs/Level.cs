@@ -32,5 +32,12 @@ namespace ferrilata_devilline.Models.DAOs
             if (obj.GetType() != GetType()) return false;
             return Equals((Level) obj);
         }
+
+        public bool EqualsIgnoringBadge(Level other)
+        {
+            return LevelId == other.LevelId && LevelNumber == other.LevelNumber &&
+                   string.Equals(Description, other.Description) && string.Equals(Weight, other.Weight) &&
+                   Equals(UserLevels, other.UserLevels) && Equals(Pitches, other.Pitches);
+        }
     }
 }

@@ -17,9 +17,9 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         private readonly TestContext _testContext;
         private string token;
 
-        public ApiPutBadgesLevelTest(TestContext testContext)
+        public ApiPutBadgesLevelTest()
         {
-            _testContext = testContext;
+            _testContext = new TestContext();
             token = "Bearer " + _testContext.TokenService.GenerateToken("useremail@ferillata.com", true);
         }
 
