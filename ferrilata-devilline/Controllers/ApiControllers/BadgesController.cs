@@ -31,8 +31,11 @@ namespace ferrilata_devilline.Controllers.ApiControllers
         [Route("/api/badges/{badgeId}")]
         public IActionResult DeleteBadge(long badgeId)
         {
+            if (_badgeService.FindBadgeById(badgeId) == null)
+                return BadRequest(new {error = "Requested Badge does not exist"});
             _badgeService.DeleteById(badgeId);
             return Ok("Deleted");
+
         }
 
         [HttpDelete]
