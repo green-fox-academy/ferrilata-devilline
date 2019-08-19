@@ -42,7 +42,6 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpPost("/UpdateBadge")]
         public IActionResult UpdateBadge(BadgeDTO badge)
         {
-
             _badgeService.UpdateBadgeFromForm(badge);
             return Redirect("/badgeLibrary");
         }
