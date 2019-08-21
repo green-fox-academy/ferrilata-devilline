@@ -16,5 +16,12 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         {
             return View();
         }
+
+        [HttpPost("/mypitches/newpitch")]
+        public IActionResult createPitch()
+        {
+            
+            return Redirect("/badgelibrary");
+        }
     }
 }
