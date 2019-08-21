@@ -8,6 +8,7 @@ using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
     public class ViewBadgesController : Controller
     {

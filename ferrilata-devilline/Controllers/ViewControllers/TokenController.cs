@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class TokenController : Controller
     {
         private readonly ITokenService _tokenService;
