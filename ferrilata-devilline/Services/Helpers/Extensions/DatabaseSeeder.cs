@@ -46,8 +46,14 @@ namespace ferrilata_devilline.Services.Helpers
                 Name = "English speaker",
                 Tag = "badge2 tag"
             };
+            var badge3 = new Badge
+            {
+                Version = 3,
+                Name = "English speaker",
+                Tag = "badge3 tag"
+            };
 
-            context.Badges.AddRange(badge1, badge2);
+            context.Badges.AddRange(badge1, badge2, badge3);
             context.SaveChanges();
             return context.Badges.OrderBy(b => b.BadgeId).ToList();
         }
@@ -89,8 +95,57 @@ namespace ferrilata_devilline.Services.Helpers
                 Weight = "level2 weight",
                 Badge = badges[1]
             };
+            var level21 = new Level
+            {
+                LevelNumber = 21,
+                Description = "level21 description",
+                Weight = "level21 weight",
+                Badge = badges[1]
+            };
+            var level22 = new Level
+            {
+                LevelNumber = 22,
+                Description = "level22 description",
+                Weight = "level22 weight",
+                Badge = badges[1]
+            };
+            var level23 = new Level
+            {
+                LevelNumber = 22,
+                Description = "level22 description",
+                Weight = "level22 weight",
+                Badge = badges[1]
+            };
+            var level3 = new Level
+            {
+                LevelNumber = 3,
+                Description = "level3 description",
+                Weight = "level3 weight",
+                Badge = badges[2]
+            };
+            var level31 = new Level
+            {
+                LevelNumber = 31,
+                Description = "level31 description",
+                Weight = "level31 weight",
+                Badge = badges[2]
+            };
+            var level32 = new Level
+            {
+                LevelNumber = 32,
+                Description = "level32 description",
+                Weight = "level32 weight",
+                Badge = badges[2]
+            };
+            var level33 = new Level
+            {
+                LevelNumber = 33,
+                Description = "level33 description",
+                Weight = "level33 weight",
+                Badge = badges[2]
+            };
 
-            context.Levels.AddRange(level1, level2, level11, level12, level13);
+            context.Levels.AddRange(level1, level2, level11, level12, level13, level21, level22, level23, level3, level31, level32, level33);
             context.SaveChanges();
             return context.Levels.ToList();
         }
@@ -98,7 +153,8 @@ namespace ferrilata_devilline.Services.Helpers
         private static List<Badge> UpdateBadgesWithLevels(ApplicationContext context, List<Badge> badges, List<Level> levels)
         {
             badges[0].Levels = new List<Level> { levels[0], levels[2], levels[3], levels[4] };
-            badges[1].Levels = new List<Level> { levels[1] };
+            badges[1].Levels = new List<Level> { levels[1], levels[5], levels[6], levels[7] };
+            badges[2].Levels = new List<Level> { levels[8], levels[9], levels[10], levels[11] };
 
             context.Badges.UpdateRange(badges);
             context.SaveChanges();
@@ -119,8 +175,14 @@ namespace ferrilata_devilline.Services.Helpers
                 Email = "user2 email",
                 Role = "user2 role"
             };
+            var user3 = new User
+            {
+                Name = "user3 name",
+                Email = "user3 email",
+                Role = "user3 role"
+            };
 
-            context.Users.AddRange(user1, user2);
+            context.Users.AddRange(user1, user2, user3);
             context.SaveChanges();
             return context.Users.ToList();
         }
@@ -132,8 +194,15 @@ namespace ferrilata_devilline.Services.Helpers
             var userLevel12 = new UserLevel(users[0], levels[3]);
             var userLevel13 = new UserLevel(users[0], levels[4]);
             var userLevel2 = new UserLevel(users[1], levels[1]);
+            var userLevel21 = new UserLevel(users[1], levels[5]);
+            var userLevel22 = new UserLevel(users[1], levels[6]);
+            var userLevel23 = new UserLevel(users[1], levels[7]);
+            var userLevel3 = new UserLevel(users[2], levels[8]);
+            var userLevel31 = new UserLevel(users[2], levels[9]);
+            var userLevel32 = new UserLevel(users[2], levels[10]);
+            var userLevel33 = new UserLevel(users[2], levels[11]);
 
-            context.UserLevels.AddRange(userLevel1, userLevel2, userLevel11, userLevel12, userLevel13);
+            context.UserLevels.AddRange(userLevel1, userLevel2, userLevel11, userLevel12, userLevel13, userLevel21, userLevel22, userLevel23, userLevel3, userLevel31, userLevel32, userLevel33);
             context.SaveChanges();
             return context.UserLevels.ToList();
         }
@@ -145,6 +214,13 @@ namespace ferrilata_devilline.Services.Helpers
             levels[3].UserLevels = new List<UserLevel> { userLevels[3] };
             levels[4].UserLevels = new List<UserLevel> { userLevels[4] };
             levels[1].UserLevels = new List<UserLevel> { userLevels[1] };
+            levels[5].UserLevels = new List<UserLevel> { userLevels[5] };
+            levels[6].UserLevels = new List<UserLevel> { userLevels[6] };
+            levels[7].UserLevels = new List<UserLevel> { userLevels[7] };
+            levels[8].UserLevels = new List<UserLevel> { userLevels[8] };
+            levels[9].UserLevels = new List<UserLevel> { userLevels[9] };
+            levels[10].UserLevels = new List<UserLevel> { userLevels[10] };
+            levels[11].UserLevels = new List<UserLevel> { userLevels[11] };
 
             context.Levels.UpdateRange(levels);
             context.SaveChanges();
@@ -154,7 +230,8 @@ namespace ferrilata_devilline.Services.Helpers
         private static List<User> UpdateUsersWithUserLevels(ApplicationContext context, List<User> users, List<UserLevel> userLevels)
         {
             users[0].UserLevels = new List<UserLevel> { userLevels[0], userLevels[2], userLevels[3], userLevels[4] };
-            users[1].UserLevels = new List<UserLevel> { userLevels[1] };
+            users[1].UserLevels = new List<UserLevel> { userLevels[1], userLevels[5], userLevels[6], userLevels[7] };
+            users[2].UserLevels = new List<UserLevel> { userLevels[8], userLevels[9], userLevels[10], userLevels[11] };
 
             context.Users.UpdateRange(users);
             context.SaveChanges();
