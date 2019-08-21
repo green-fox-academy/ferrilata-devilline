@@ -92,7 +92,7 @@ namespace ferrilata_devilline.Services.Helpers
 
             context.Levels.AddRange(level1, level2, level11, level12, level13);
             context.SaveChanges();
-            return context.Levels.OrderBy(b => b.LevelId).ToList();
+            return context.Levels.ToList();
         }
 
         private static List<Badge> UpdateBadgesWithLevels(ApplicationContext context, List<Badge> badges, List<Level> levels)
@@ -122,22 +122,28 @@ namespace ferrilata_devilline.Services.Helpers
 
             context.Users.AddRange(user1, user2);
             context.SaveChanges();
-            return context.Users.OrderBy(b => b.UserId).ToList();
+            return context.Users.ToList();
         }
 
         private static List<UserLevel> CreateUserLevels(ApplicationContext context, List<User> users, List<Level> levels)
         {
             var userLevel1 = new UserLevel(users[0], levels[0]);
+            var userLevel11 = new UserLevel(users[0], levels[2]);
+            var userLevel12 = new UserLevel(users[0], levels[3]);
+            var userLevel13 = new UserLevel(users[0], levels[4]);
             var userLevel2 = new UserLevel(users[1], levels[1]);
 
-            context.UserLevels.AddRange(userLevel1, userLevel2);
+            context.UserLevels.AddRange(userLevel1, userLevel2, userLevel11, userLevel12, userLevel13);
             context.SaveChanges();
-            return context.UserLevels.OrderBy(b => b.UserId).ToList();
+            return context.UserLevels.ToList();
         }
 
         private static List<Level> UpdateLevelsWithUserLevels(ApplicationContext context, List<Level> levels, List<UserLevel> userLevels)
         {
             levels[0].UserLevels = new List<UserLevel> { userLevels[0] };
+            levels[2].UserLevels = new List<UserLevel> { userLevels[2] };
+            levels[3].UserLevels = new List<UserLevel> { userLevels[3] };
+            levels[4].UserLevels = new List<UserLevel> { userLevels[4] };
             levels[1].UserLevels = new List<UserLevel> { userLevels[1] };
 
             context.Levels.UpdateRange(levels);
@@ -147,7 +153,7 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static List<User> UpdateUsersWithUserLevels(ApplicationContext context, List<User> users, List<UserLevel> userLevels)
         {
-            users[0].UserLevels = new List<UserLevel> { userLevels[0] };
+            users[0].UserLevels = new List<UserLevel> { userLevels[0], userLevels[2], userLevels[3], userLevels[4] };
             users[1].UserLevels = new List<UserLevel> { userLevels[1] };
 
             context.Users.UpdateRange(users);
