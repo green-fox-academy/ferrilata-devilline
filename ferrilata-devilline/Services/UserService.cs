@@ -3,6 +3,7 @@ using ferrilata_devilline.Repositories;
 using ferrilata_devilline.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ferrilata_devilline.Services
 {
@@ -37,6 +38,16 @@ namespace ferrilata_devilline.Services
         public void Update()
         {
             _userRepository.Update();
+        }
+
+        public User FindByEmail(string email)
+        {
+            return _userRepository.RetrieveUsersFromDB().SingleOrDefault(x => x.Email == email);
+        }
+
+        public bool IsNewUser(string email)
+        {
+            return FindByEmail(email) == null ? true : false;
         }
     }
 }

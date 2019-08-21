@@ -1,6 +1,49 @@
-﻿
-My Pitches
+﻿My Pitches
 
-<form asp-controller="MyPitches" asp-action="createPitch" method="post" class="">
-    <button type="submit" class="btn btn-info">Create new Pitch</button>
-</form>
+@*<button type="button" class="btn btn-info" data-toggle="modal" data-target="#NewPitch">Add</button>
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="needs-validation" novalidate asp-controller="MyPitcches" asp-action="createPitch" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title text-uppercase text-center">New Pitch</h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-row">
+                        <label for="pitchedMessage">Pitch Message</label>
+                        <input id="pitchedMessage" name="pitchedMessage" type="text" class="form-control" required />
+                        <div class="invalid-feedback">
+                            Please enter the pitch message.
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="pitchedMessage">Badge</label>
+                        <input id="pitchedMessage" name="pitchedMessage" type="text" class="form-control" required />
+                        <div class="invalid-feedback">
+                            Please enter the pitch message.
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="Version">Version</label>
+                        <input id="Version" name="Version" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
+                        <div class="invalid-feedback">
+                            Please enter badge version.
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="Tag">Tag</label>
+                        <input id="Tag" name="Tag" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
+                        <div class="invalid-feedback">
+                            Please add a tag.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>*@

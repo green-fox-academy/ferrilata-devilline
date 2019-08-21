@@ -16,7 +16,7 @@ namespace ferrilata_devilline.Models.DAOs
 
         [DefaultValue(false)]
         [Required]
-        public string Status { get; set; }
+        public string Status { get; set; } = "Pending";
 
         [Required]
         public string PitchedLevel { get; set; }

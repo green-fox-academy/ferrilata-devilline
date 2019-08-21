@@ -55,9 +55,9 @@
             @foreach (var badge in Model)
             {
                 <div class="panel panel-info">
-                    <div class="panel-heading" role="tab" id="@("heading" + badge.BadgeId)">
+                    <div class="panel-heading" role="tab" >
                         <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#@("a" + badge.BadgeId)" aria-expanded="true" aria-controls="@("a" + badge.BadgeId)">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#@("a" + badge.BadgeId)" aria-expanded="true" >
                                 @badge.Name
                             </a>
                         </h4>
@@ -65,7 +65,7 @@
                             <button type="submit" class="btn btn-info">Delete</button>
                         </form>
                     </div>
-                    <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@("heading" + badge.BadgeId)">
+                    <div id="@("a" + badge.BadgeId)" class="panel-collapse collapse in" role="tabpanel">
                         <div class="panel-body">
                             <div class="row">
                                 @if (badge.Levels.Count < 1)
@@ -76,7 +76,75 @@
                                 {
                                     <div class="col-sm-4">
                                         <div class="card border-info mb-3" style="max-width: 20rem;">
-                                            <div class="card-header">Level @level.LevelNumber</div>
+                                            <div class="card-header">
+                                                Level @level.LevelNumber
+                                                <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#@("pitch" + level.LevelId)">
+                                                    Pitch
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="@("pitch" + level.LevelId)" tabindex="-1" role="dialog" aria-labelledby="@("pitchModal" + level.LevelId)" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="@("pitchModal" + level.LevelId)">Create pitch</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form asp-controller="MyPitches" asp-route-badgeId="@badge.BadgeId" asp-action="UpdateBadge" method="post">
+                                                                    <fieldset>
+
+                                                                        <div class="form-group">
+                                                                            <label for="Version">Version</label>
+                                                                            <input class="form-control" id="Version" name="Version" value="@badge.Version">
+
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="Name">Name</label>
+                                                                            <input type="text" class="form-control" id="Name" name="Name" value="@badge.Name">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="Tag">Tag</label>
+                                                                            <input type="text" class="form-control" id="Tag" name="Tag" value="@badge.Tag">
+                                                                        </div>
+                                                                    </fieldset>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            @*
+        <div class="modal-body">
+            <form id="needs-validation" novalidate asp-controller="MyPitches" asp-action="createpitch" method="post">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="Version">Version</label>
+                        <input class="form-control" id="Version" name="Version" value="@badge.Version">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name" value="@badge.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Tag">Tag</label>
+                        <input type="text" class="form-control" id="Tag" name="Tag" value="@badge.Tag">
+                    </div>
+                </fieldset>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+                                                            *@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
                                             <div class="card-body">
 
                                                 <p class="lead text-primary">@level.Description</p>
