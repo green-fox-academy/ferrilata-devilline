@@ -49,7 +49,7 @@ namespace ferrilata_devilline.Services.Helpers
             var badge3 = new Badge
             {
                 Version = 3,
-                Name = "English speaker",
+                Name = "Process improver",
                 Tag = "badge3 tag"
             };
 
@@ -63,84 +63,84 @@ namespace ferrilata_devilline.Services.Helpers
             var level1 = new Level
             {
                 LevelNumber = 1,
-                Description = "level1 description",
+                Description = "Receive feedback",
                 Weight = "level1 weight",
                 Badge = badges[0]
             };
             var level11 = new Level
             {
                 LevelNumber = 11,
-                Description = "level11 description",
+                Description = "Receive feedback well",
                 Weight = "level11 weight",
                 Badge = badges[0]
             };
             var level12 = new Level
             {
                 LevelNumber = 12,
-                Description = "level12 description",
+                Description = "Receive feedback very well",
                 Weight = "level12 weight",
                 Badge = badges[0]
             };
             var level13 = new Level
             {
                 LevelNumber = 13,
-                Description = "level13 description",
+                Description = "Receive feedback exceptionally well",
                 Weight = "level13 weight",
                 Badge = badges[0]
             };
             var level2 = new Level
             {
                 LevelNumber = 2,
-                Description = "level2 description",
+                Description = "Speak English",
                 Weight = "level2 weight",
                 Badge = badges[1]
             };
             var level21 = new Level
             {
                 LevelNumber = 21,
-                Description = "level21 description",
+                Description = "Speak English well",
                 Weight = "level21 weight",
                 Badge = badges[1]
             };
             var level22 = new Level
             {
                 LevelNumber = 22,
-                Description = "level22 description",
+                Description = "Speak English very well",
                 Weight = "level22 weight",
                 Badge = badges[1]
             };
             var level23 = new Level
             {
                 LevelNumber = 22,
-                Description = "level22 description",
+                Description = "Speak English exceptionally well",
                 Weight = "level22 weight",
                 Badge = badges[1]
             };
             var level3 = new Level
             {
                 LevelNumber = 3,
-                Description = "level3 description",
+                Description = "Improve processes",
                 Weight = "level3 weight",
                 Badge = badges[2]
             };
             var level31 = new Level
             {
                 LevelNumber = 31,
-                Description = "level31 description",
+                Description = "Improve processes well",
                 Weight = "level31 weight",
                 Badge = badges[2]
             };
             var level32 = new Level
             {
                 LevelNumber = 32,
-                Description = "level32 description",
+                Description = "Improve processes very well",
                 Weight = "level32 weight",
                 Badge = badges[2]
             };
             var level33 = new Level
             {
                 LevelNumber = 33,
-                Description = "level33 description",
+                Description = "Improve processes exceptionally well",
                 Weight = "level33 weight",
                 Badge = badges[2]
             };
@@ -165,20 +165,20 @@ namespace ferrilata_devilline.Services.Helpers
         {
             var user1 = new User
             {
-                Name = "user1 name",
-                Email = "user1 email",
+                Name = "Iaroslav",
+                Email = "iaroslav@email.com",
                 Role = "user1 role"
             };
             var user2 = new User
             {
-                Name = "user2 name",
-                Email = "user2 email",
+                Name = "Anna",
+                Email = "anna@email.com",
                 Role = "user2 role"
             };
             var user3 = new User
             {
-                Name = "user3 name",
-                Email = "user3 email",
+                Name = "Ks",
+                Email = "ks@email.com",
                 Role = "user3 role"
             };
 
