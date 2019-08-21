@@ -61,6 +61,27 @@ namespace ferrilata_devilline.Services.Helpers
                 Weight = "level1 weight",
                 Badge = badges[0]
             };
+            var level11 = new Level
+            {
+                LevelNumber = 11,
+                Description = "level11 description",
+                Weight = "level11 weight",
+                Badge = badges[0]
+            };
+            var level12 = new Level
+            {
+                LevelNumber = 12,
+                Description = "level12 description",
+                Weight = "level12 weight",
+                Badge = badges[0]
+            };
+            var level13 = new Level
+            {
+                LevelNumber = 13,
+                Description = "level13 description",
+                Weight = "level13 weight",
+                Badge = badges[0]
+            };
             var level2 = new Level
             {
                 LevelNumber = 2,
@@ -69,14 +90,14 @@ namespace ferrilata_devilline.Services.Helpers
                 Badge = badges[1]
             };
 
-            context.Levels.AddRange(level1, level2);
+            context.Levels.AddRange(level1, level2, level11, level12, level13);
             context.SaveChanges();
             return context.Levels.OrderBy(b => b.LevelId).ToList();
         }
 
         private static List<Badge> UpdateBadgesWithLevels(ApplicationContext context, List<Badge> badges, List<Level> levels)
         {
-            badges[0].Levels = new List<Level> { levels[0] };
+            badges[0].Levels = new List<Level> { levels[0], levels[2], levels[3], levels[4] };
             badges[1].Levels = new List<Level> { levels[1] };
 
             context.Badges.UpdateRange(badges);
