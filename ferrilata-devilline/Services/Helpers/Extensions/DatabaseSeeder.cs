@@ -172,13 +172,13 @@ namespace ferrilata_devilline.Services.Helpers
             var user2 = new User
             {
                 Name = "Anna",
-                Email = "anna@email.com",
+                Email = "anna.sabransky@gmail.com",
                 Role = "user2 role"
             };
             var user3 = new User
             {
                 Name = "Ks",
-                Email = "ks@email.com",
+                Email = "kskulikovaa@gmail.com",
                 Role = "user3 role"
             };
 
