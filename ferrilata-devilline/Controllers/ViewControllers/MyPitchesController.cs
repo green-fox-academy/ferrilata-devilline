@@ -17,11 +17,13 @@ namespace ferrilata_devilline.Controllers.ViewControllers
     {
         private readonly IUserService _userService;
         private readonly IBadgeService _badgeService;
+        private readonly IPitchService _pitchService;
 
-        public MyPitchesController(IUserService userService, IBadgeService badgeService)
+        public MyPitchesController(IUserService userService, IBadgeService badgeService, IPitchService pitchService)
         {
             _userService = userService;
             _badgeService = badgeService;
+            _pitchService = pitchService;
         }
 
         [HttpGet("/mypitches")]
@@ -31,7 +33,7 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         }
 
         [HttpPost("/createpitch/{levelId}")]
-        public IActionResult createpitch(long levelId, PitchInDTO pitchInDTO)
+        public IActionResult createpitch(long levelId, PitchInDTO incomingPitch)
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
 
@@ -39,9 +41,9 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             {
                 _userService.Add(new User { Name = User.Identity.Name, Email = email });
             }
-            string myemail = User.FindFirstValue(ClaimTypes.Email);
-
-            User anna = _userService.FindByEmail(myemail);
+ 
+            var user = _userService.FindByEmail(email);
+            _pitchService.SavePitchFromPitchInDTO(levelId, user, incomingPitch);
 
             return Redirect("/badgelibrary");
         }

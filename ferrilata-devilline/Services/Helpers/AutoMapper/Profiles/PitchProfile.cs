@@ -9,6 +9,7 @@ namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
         public PitchProfile()
         {
             CreateMap<Pitch, Pitches>();
+            CreateMap<PitchInDTO, Pitch>();
         }
     }
 }
