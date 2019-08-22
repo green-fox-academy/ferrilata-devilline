@@ -14,7 +14,7 @@ namespace ferrilata_devilline.Models.DAOs
 
         public string Email { get; set; }
 
-        public string Role { get; set; }
+        public string Role { get; set; } = "User";
 
         public List<UserLevel> UserLevels { get; set; }
 
