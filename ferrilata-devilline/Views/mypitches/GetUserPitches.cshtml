@@ -1,0 +1,13 @@
+﻿@model User
+@{
+    ViewData["Title"] = "User Pitches";
+}
+
+<div class="jumbotron">
+    <h1 class="display-3">Token</h1>
+    <p class="lead">With your token, you can access our APIs for one hour.</p>
+    <hr class="my-4">
+    <p class="lead">
+        @Model.Email @Model.Name
+    </p>
+</div>

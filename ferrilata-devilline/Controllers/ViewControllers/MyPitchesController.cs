@@ -43,5 +43,15 @@ namespace ferrilata_devilline.Controllers.ViewControllers
 
             return Redirect("/badgelibrary");
         }
+
+        [HttpGet("/userpitches")]
+        public IActionResult GetUserPitches()
+        {
+            string email = User.FindFirstValue(ClaimTypes.Email);
+
+            var user = _userService.FindByEmail(email);
+
+            return View(new User { Name = "Helloooo", Email = (email == user.Email).ToString() });
+        }
     }
 }
