@@ -39,7 +39,9 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             {
                 _userService.Add(new User { Name = User.Identity.Name, Email = email });
             }
+            string myemail = User.FindFirstValue(ClaimTypes.Email);
 
+            User anna = _userService.FindByEmail(myemail);
 
             return Redirect("/badgelibrary");
         }

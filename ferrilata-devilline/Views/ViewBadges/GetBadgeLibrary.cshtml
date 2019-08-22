@@ -19,21 +19,21 @@
 
                             <div class="form-row">
                                 <label for="Name">Name</label>
-                                <input id="Name" name="Name" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
+                                <input id="Name" name="Name" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
                                 <div class="invalid-feedback">
                                     Please enter the badge name.
                                 </div>
                             </div>
                             <div class="form-row">
                                 <label for="Version">Version</label>
-                                <input id="Version" name="Version" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
+                                <input id="Version" name="Version" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
                                 <div class="invalid-feedback">
                                     Please enter badge version.
                                 </div>
                             </div>
                             <div class="form-row">
                                 <label for="Tag">Tag</label>
-                                <input id="Tag" name="Tag" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
+                                <input id="Tag" name="Tag" type="text" class="form-control" aria-describedby="inputGroupPrepend" required/>
                                 <div class="invalid-feedback">
                                     Please add a tag.
                                 </div>
@@ -49,6 +49,7 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -93,30 +94,14 @@
                                                             </div>
 
                                                             <div class="modal-body">
-                                                                <form id="needs-validation" novalidate asp-route-levelId="@level.LevelId" asp-controller="MyPitches" asp-action="createpitch" method="post">
-                                                                    
-                                                                        <div class="form-row">
-                                                                            <label for="PitchedMessage">PitchMessage</label>
-                                                                            <input id="PitchedMessage" name="PitchedMessage" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
-                                                                            <div class="invalid-feedback">
-                                                                                Please enter the pitch message.
-                                                                            </div>
+                                                                <form class="needs-validation" novalidate asp-route-levelId="@level.LevelId" asp-controller="MyPitches" asp-action="createpitch" method="post">
+                                                                    <div class="form-row">
+                                                                        <label for="PitchedMessage">PitchMessage</label>
+                                                                        <input id="PitchedMessage" name="PitchedMessage" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
+                                                                        <div class="invalid-feedback">
+                                                                            Please enter the pitch message.
                                                                         </div>
-                                                                        <div class="form-row">
-                                                                            <label for="Version">Version</label>
-                                                                            <input id="Version" name="Version" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
-                                                                            <div class="invalid-feedback">
-                                                                                Please enter badge version.
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-row">
-                                                                            <label for="Tag">Tag</label>
-                                                                            <input id="Tag" name="Tag" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
-                                                                            <div class="invalid-feedback">
-                                                                                Please add a tag.
-                                                                            </div>
-                                                                        </div>
-                                                                    
+                                                                    </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                         <button type="submit" class="btn btn-primary">Save</button>
