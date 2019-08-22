@@ -57,7 +57,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new {message = "Updated"}), responseString);
+            Assert.Equal(JsonConvert.SerializeObject(new { message = "Updated" }), responseString);
         }
 
         [Theory]
@@ -101,8 +101,8 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
         }
 
         [Theory]
-        [InlineData(3)]
-        [InlineData(4)]
+        [InlineData(5)]
+        [InlineData(6)]
         public async Task PutBadgeById_CorrectAuthentication_IncorrectBadgeId_ShouldReturnErrorMessage(
             long badgeId)
         {
@@ -115,13 +115,13 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             var response = await _testContext.Client.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal(JsonConvert.SerializeObject(new {error = "No badge with the provided id exists"}),
+            Assert.Equal(JsonConvert.SerializeObject(new { error = "No badge with the provided id exists" }),
                 responseString);
         }
 
         [Theory]
-        [InlineData(3)]
         [InlineData(4)]
+        [InlineData(5)]
         public async Task PutBadgeById_CorrectAuthentication_IncorrectBadgeId_ShouldReturnNotFound(long badgeId)
         {
             string input = JsonConvert.SerializeObject(badgeToUpdate);
