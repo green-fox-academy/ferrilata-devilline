@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ferrilata_devilline.Models.DTOs
 {
@@ -8,14 +9,15 @@ namespace ferrilata_devilline.Models.DTOs
         [JsonProperty(PropertyName = "status")]
         public string Status { get; set; } = "Pending";
 
-        [JsonProperty(PropertyName = "pitchedMessage", Required = Required.Always)]
+        [JsonProperty(PropertyName = "pitchedMessage")]
+        [Required]
         public string PitchedMessage { get; set; }
 
-        [JsonProperty(PropertyName = "pitchedLevel", Required = Required.Always)]
-        public string PitchedLevel { get; set; }
+        //[JsonProperty(PropertyName = "pitchedLevel")]
+        //public string PitchedLevel { get; set; }
 
-        [JsonProperty(PropertyName = "result")]
-        public string Result { get; set; }
+        //[JsonProperty(PropertyName = "result")]
+        //public string Result { get; set; }
 
         //[JsonProperty(PropertyName = "created", Required = Required.Always)]
         //public long Created { get; set; }
@@ -23,10 +25,10 @@ namespace ferrilata_devilline.Models.DTOs
         //[JsonProperty(PropertyName = "user", Required = Required.Always)]
         //public UserDTO User { get; set; }
 
-        [JsonProperty(PropertyName = "level", Required = Required.Always)]
-        public LevelMiniDTO Level { get; set; }
+        //[JsonProperty(PropertyName = "level")]
+        //public LevelMiniDTO Level { get; set; }
 
-        [JsonProperty(PropertyName = "reviews", Required = Required.Always)]
+        [JsonProperty(PropertyName = "reviews")]
         public List<ReviewDTO> Reviews { get; set; }
     }
 }

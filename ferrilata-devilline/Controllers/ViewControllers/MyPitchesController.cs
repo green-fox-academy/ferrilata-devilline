@@ -30,8 +30,8 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             return View();
         }
 
-        [HttpPost("/createpitch")]
-        public IActionResult createpitch()
+        [HttpPost("/createpitch/{levelId}")]
+        public IActionResult createpitch(long levelId, PitchInDTO pitchInDTO)
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
 
@@ -39,14 +39,9 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             {
                 _userService.Add(new User { Name = User.Identity.Name, Email = email });
             }
-            return Redirect("/badgelibrary");
-        }
 
-        [HttpPost("/UpdateBadge")]
-        public IActionResult UpdateBadge(BadgeDTO badge)
-        {
-            
-            return Redirect("/badgeLibrary");
+
+            return Redirect("/badgelibrary");
         }
     }
 }

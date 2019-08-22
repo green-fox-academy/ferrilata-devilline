@@ -14,9 +14,8 @@ namespace ferrilata_devilline.Models.DAOs
         [Required]
         public long PitchId { get; set; }
 
-        [DefaultValue(false)]
         [Required]
-        public string Status { get; set; } = "Pending";
+        public string Status { get; set; }
 
         [Required]
         public string PitchedLevel { get; set; }
@@ -24,7 +23,6 @@ namespace ferrilata_devilline.Models.DAOs
         [Required]
         public string PitchedMessage { get; set; }
 
-        [Required]
         public string Result { get; set; }
 
         public long Created { get; set; }
@@ -32,7 +30,6 @@ namespace ferrilata_devilline.Models.DAOs
         [Required]
         public User User { get; set; }
 
-        [Required]
         public Level Level { get; set; }
 
         [Required]
