@@ -247,7 +247,7 @@ namespace ferrilata_devilline.Services.Helpers
                 PitchedMessage = "pitch1 pitchedMessage",
                 Result = "pitch1 result",
                 User = users[0],
-                Level = levels[1]
+                Level = levels[0]
             };
             var pitch2 = new Pitch
             {
@@ -256,17 +256,44 @@ namespace ferrilata_devilline.Services.Helpers
                 PitchedMessage = "pitch2 pitchedMessage",
                 Result = "pitch2 result",
                 User = users[1],
-                Level = levels[0]
+                Level = levels[1]
+            };
+            var pitch11 = new Pitch
+            {
+                Status = "open",
+                PitchedLevel = "pitch11 pitchedLevel",
+                PitchedMessage = "pitch11 pitchedMessage",
+                Result = "pitch11 result",
+                User = users[0],
+                Level = levels[2]
+            };
+            var pitch12 = new Pitch
+            {
+                Status = "open",
+                PitchedLevel = "pitch12 pitchedLevel",
+                PitchedMessage = "pitch12 pitchedMessage",
+                Result = "pitch12 result",
+                User = users[0],
+                Level = levels[3]
+            };
+            var pitch13 = new Pitch
+            {
+                Status = "open",
+                PitchedLevel = "pitch12 pitchedLevel",
+                PitchedMessage = "pitch12 pitchedMessage",
+                Result = "pitch12 result",
+                User = users[0],
+                Level = levels[4]
             };
 
-            context.Pitches.AddRange(pitch1, pitch2);
+            context.Pitches.AddRange(pitch1, pitch2, pitch11, pitch12, pitch13);
             context.SaveChanges();
             return context.Pitches.OrderBy(b => b.PitchId).ToList();
         }
 
         private static List<User> UpdateUsersWithPitches(ApplicationContext context, List<User> users, List<Pitch> pitches)
         {
-            users[0].Pitches = new List<Pitch> { pitches[0] };
+            users[0].Pitches = new List<Pitch> { pitches[0], pitches[2], pitches[3], pitches[4] };
             users[1].Pitches = new List<Pitch> { pitches[1] };
 
             context.Users.UpdateRange(users);
@@ -278,6 +305,9 @@ namespace ferrilata_devilline.Services.Helpers
         {
             levels[0].Pitches = new List<Pitch> { pitches[1] };
             levels[1].Pitches = new List<Pitch> { pitches[0] };
+            levels[2].Pitches = new List<Pitch> { pitches[2] };
+            levels[3].Pitches = new List<Pitch> { pitches[3] };
+            levels[4].Pitches = new List<Pitch> { pitches[4] };
 
             context.Levels.UpdateRange(levels);
             context.SaveChanges();
@@ -290,24 +320,45 @@ namespace ferrilata_devilline.Services.Helpers
                 Message = "review1 message",
                 Result = "review1 result",
                 User = users[0],
-                Pitch = pitches[1]
+                Pitch = pitches[0]
             };
             var review2 = new Review
             {
                 Message = "review2 message",
                 Result = "review2 result",
                 User = users[1],
-                Pitch = pitches[0]
+                Pitch = pitches[1]
+            };
+            var review11 = new Review
+            {
+                Message = "review11 message",
+                Result = "review11 result",
+                User = users[0],
+                Pitch = pitches[2]
+            };
+            var review12 = new Review
+            {
+                Message = "review12 message",
+                Result = "review12 result",
+                User = users[0],
+                Pitch = pitches[3]
+            };
+            var review13 = new Review
+            {
+                Message = "review12 message",
+                Result = "review12 result",
+                User = users[0],
+                Pitch = pitches[4]
             };
 
-            context.Reviews.AddRange(review1, review2);
+            context.Reviews.AddRange(review1, review2, review11, review12, review13);
             context.SaveChanges();
             return context.Reviews.OrderBy(b => b.ReviewId).ToList();
         }
 
         private static void UpdateUsersWithReviews(ApplicationContext context, List<User> users, List<Review> reviews)
         {
-            users[0].Reviews = new List<Review> { reviews[0] };
+            users[0].Reviews = new List<Review> { reviews[0], reviews[2], reviews[3], reviews[4] };
             users[1].Reviews = new List<Review> { reviews[1] };
 
             context.Users.UpdateRange(users);
@@ -316,8 +367,11 @@ namespace ferrilata_devilline.Services.Helpers
 
         private static void UpdatePitchesWithReviews(ApplicationContext context, List<Pitch> pitches, List<Review> reviews)
         {
-            pitches[0].Reviews = new List<Review> { reviews[1] };
-            pitches[1].Reviews = new List<Review> { reviews[0] };
+            pitches[0].Reviews = new List<Review> { reviews[0] };
+            pitches[1].Reviews = new List<Review> { reviews[1] };
+            pitches[2].Reviews = new List<Review> { reviews[2] };
+            pitches[3].Reviews = new List<Review> { reviews[3] };
+            pitches[4].Reviews = new List<Review> { reviews[4] };
 
             context.Pitches.UpdateRange(pitches);
             context.SaveChanges();
