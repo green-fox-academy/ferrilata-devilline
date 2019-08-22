@@ -166,7 +166,7 @@ namespace ferrilata_devilline.Services.Helpers
             var user1 = new User
             {
                 Name = "Iaroslav",
-                Email = "iaroslav@email.com",
+                Email = "iaroslav.miller@gmail.com",
                 Role = "user1 role"
             };
             var user2 = new User

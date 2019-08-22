@@ -27,7 +27,10 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpGet("/mypitches")]
         public IActionResult getMyPitches()
         {
-            return View();
+            string email = User.FindFirstValue(ClaimTypes.Email);
+            var user = _userService.FindByEmail(email);
+
+            return View(user);
         }
 
         [HttpPost("/createpitch/{levelId}")]
@@ -39,19 +42,7 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             {
                 _userService.Add(new User { Name = User.Identity.Name, Email = email });
             }
-
-
             return Redirect("/badgelibrary");
-        }
-
-        [HttpGet("/userpitches")]
-        public IActionResult GetUserPitches()
-        {
-            string email = User.FindFirstValue(ClaimTypes.Email);
-
-            var user = _userService.FindByEmail(email);
-
-            return View(new User { Name = "Helloooo", Email = (email == user.Email).ToString() });
         }
     }
 }
