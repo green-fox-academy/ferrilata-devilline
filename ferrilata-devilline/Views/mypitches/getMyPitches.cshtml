@@ -1,0 +1,55 @@
+﻿@model User;
+
+@{
+    ViewData["Title"] = "My Pitches";
+}
+
+<div class="page-header">
+    <div> <h3 class="display-3 float-left">My pitches</h3></div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                @if (Model.Pitches.Count < 1)
+                {
+                    <p class="col-sm-4">You have no pitches yet.</p>
+                }
+                @foreach (var pitch in Model.Pitches)
+                {
+                    <div class="panel panel-info">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#@("a" + pitch.PitchId)" aria-expanded="true">
+                                    Badge @pitch.Level.Badge.Name with Level @pitch.Level.LevelNumber
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="@("a" + pitch.PitchId)" class="panel-collapse collapse in" role="tabpanel">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="card border-info mb-3" style="max-width: 40rem;">
+                                            <div class="card-header">
+                                                Pitch Message: @pitch.PitchedMessage
+                                            </div>
+
+                                            <div class="card-body">
+
+                                                <p class="lead text-primary">Pitch Result: @pitch.Result</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
