@@ -69,77 +69,77 @@ namespace ferrilata_devilline.Services.Helpers
             };
             var level11 = new Level
             {
-                LevelNumber = 11,
+                LevelNumber = 2,
                 Description = "Receive feedback well",
                 Weight = "level11 weight",
                 Badge = badges[0]
             };
             var level12 = new Level
             {
-                LevelNumber = 12,
+                LevelNumber = 3,
                 Description = "Receive feedback very well",
                 Weight = "level12 weight",
                 Badge = badges[0]
             };
             var level13 = new Level
             {
-                LevelNumber = 13,
+                LevelNumber = 4,
                 Description = "Receive feedback exceptionally well",
                 Weight = "level13 weight",
                 Badge = badges[0]
             };
             var level2 = new Level
             {
-                LevelNumber = 2,
+                LevelNumber = 1,
                 Description = "Speak English",
                 Weight = "level2 weight",
                 Badge = badges[1]
             };
             var level21 = new Level
             {
-                LevelNumber = 21,
+                LevelNumber = 2,
                 Description = "Speak English well",
                 Weight = "level21 weight",
                 Badge = badges[1]
             };
             var level22 = new Level
             {
-                LevelNumber = 22,
+                LevelNumber = 3,
                 Description = "Speak English very well",
                 Weight = "level22 weight",
                 Badge = badges[1]
             };
             var level23 = new Level
             {
-                LevelNumber = 22,
+                LevelNumber = 4,
                 Description = "Speak English exceptionally well",
                 Weight = "level22 weight",
                 Badge = badges[1]
             };
             var level3 = new Level
             {
-                LevelNumber = 3,
+                LevelNumber = 1,
                 Description = "Improve processes",
                 Weight = "level3 weight",
                 Badge = badges[2]
             };
             var level31 = new Level
             {
-                LevelNumber = 31,
+                LevelNumber = 2,
                 Description = "Improve processes well",
                 Weight = "level31 weight",
                 Badge = badges[2]
             };
             var level32 = new Level
             {
-                LevelNumber = 32,
+                LevelNumber = 3,
                 Description = "Improve processes very well",
                 Weight = "level32 weight",
                 Badge = badges[2]
             };
             var level33 = new Level
             {
-                LevelNumber = 33,
+                LevelNumber = 4,
                 Description = "Improve processes exceptionally well",
                 Weight = "level33 weight",
                 Badge = badges[2]
