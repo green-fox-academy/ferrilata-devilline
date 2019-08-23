@@ -33,7 +33,10 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpPost("/badgelibrary/add")]
         public IActionResult CreateAndAddBadge(BadgeInDTO newBadge)
         {
-            _badgeService.AddBadge(newBadge);
+            if (ModelState.IsValid)
+            {
+                _badgeService.AddBadge(newBadge);
+            }
             return Redirect("/badgelibrary");
         }
     }

@@ -16,12 +16,11 @@ namespace ferrilata_devilline.Controllers.ViewControllers
     public class MyPitchesController : Controller
     {
         private readonly IUserService _userService;
-        private readonly IBadgeService _badgeService;
 
-        public MyPitchesController(IUserService userService, IBadgeService badgeService)
+        public MyPitchesController(IUserService userService)
         {
             _userService = userService;
-            _badgeService = badgeService;
+            
         }
 
         [HttpGet("/mypitches")]

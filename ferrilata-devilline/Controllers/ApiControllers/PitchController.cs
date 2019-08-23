@@ -1,11 +1,11 @@
 ﻿using ferrilata_devilline.Models;
-using Microsoft.AspNetCore.Mvc;
-using ferrilata_devilline.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ferrilata_devilline.Controllers
+namespace ferrilata_devilline.Controllers.ApiControllers
 {
     [Authorize(AuthenticationSchemes =
     JwtBearerDefaults.AuthenticationScheme)]
