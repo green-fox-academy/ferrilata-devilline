@@ -104,10 +104,9 @@ namespace ferrilata_devilline
             services.AddScoped<ISlackMessagingService, SlackMessagingService>();
             services.AddScoped<ITokenService, TokenService>();
 
-            var currentlyUsedContext = services
-                .BuildServiceProvider()
-                .GetRequiredService<ApplicationContext>();
-            currentlyUsedContext.SeedWithData();
+            services.BuildServiceProvider()
+                .GetRequiredService<ApplicationContext>().SeedWithData();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
