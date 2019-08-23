@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ferrilata_devilline.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
         private readonly ISlackMessagingService _slackMessagingService;

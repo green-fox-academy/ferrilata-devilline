@@ -68,7 +68,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
                 return BadRequest(new {error = "Please provide all fields"});
             }
 
-
             var isLevelNumberNew = _badgeService.FindBadgeById(badgeId).Levels
                                        .FirstOrDefault(l => l.LevelNumber == newLevel.LevelNumber) == null;
 
@@ -151,7 +150,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
 
             return Ok(_badgeService.FindDTOById(badgeId));
         }
-
 
         [HttpGet]
         [Route("/api/badges/{badgeId}/levels/{levelId}")]

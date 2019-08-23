@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Google;
+using ferrilata_devilline.Models.DAOs;
+using ferrilata_devilline.Models.DTOs;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
     public class ViewBadgesController : Controller
     {
@@ -35,6 +38,13 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         {
             _badgeService.AddBadge(newBadge);
             return Redirect("/badgelibrary");
+        }
+
+        [HttpPost("/UpdateBadge")]
+        public IActionResult UpdateBadge(BadgeDTO badge)
+        {
+            _badgeService.UpdateBadgeFromForm(badge);
+            return Redirect("/badgeLibrary");
         }
     }
 }

@@ -58,6 +58,12 @@ namespace ferrilata_devilline.Services
             _badgeRepository.DeleteBadgeById(id);
         }
 
+        public void UpdateBadgeFromForm(BadgeDTO badge)
+        {
+            Badge badgeToSave = _mapper.Map<BadgeDTO, Badge>(badge);
+            _badgeRepository.UpdateBadge(badgeToSave);
+        }
+
         public void UpdateBadge(long badgeId, BadgeInDTO inputBadge)
         {
             var badgeToUpdate = FindBadgeById(badgeId);

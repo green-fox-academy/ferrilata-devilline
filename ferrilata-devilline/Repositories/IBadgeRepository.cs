@@ -9,6 +9,7 @@ namespace ferrilata_devilline.Repositories
         void Update();
         bool CheckBadge(long id);
         void SaveBadge(Badge badge);
+        void UpdateBadge(Badge badge);
         List<Badge> RetrieveBadgesFromDB();
         Badge FindBadgeById(long id);
         Level FindLevelById(long id);
