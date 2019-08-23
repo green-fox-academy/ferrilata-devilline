@@ -65,30 +65,6 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
             Assert.Equal(badgesBeforePosting + 1, testContext.Context.Badges.ToList().Count());
         }
 
-        [Theory]
-        [InlineData("api/post/badges")]
-        public async Task PostBadgesApi_CorrectAuthentication_NewBadgeHasLevels(string url)
-        {
-            var newBadge = GenerateBadge();
-            string PostingJson = JsonConvert.SerializeObject(newBadge);
-            int numbeeOfNewLists = testContext
-                .Context
-                .Badges
-                .Select(b => b.Levels).ToList().Count();
-
-            int currentNumberOfLists = testContext.Context.Levels.ToList().Count();
-
-            var client = testContext.Client;
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Content = new StringContent(PostingJson,
-                                    Encoding.UTF8,
-                                    "application/json");
-            request.Headers.Add("Authorization", "Bearer " + _tokenService.GenerateToken(email, true));
-            var response = await client.SendAsync(request);
-
-            Assert.Equal(numbeeOfNewLists + currentNumberOfLists, testContext.Context.Levels.ToList().Count());
-        }
-
         public static BadgeInDTO GenerateBadge()
         {
             List<LevelInDTO> fakelevels = new List<LevelInDTO>();
