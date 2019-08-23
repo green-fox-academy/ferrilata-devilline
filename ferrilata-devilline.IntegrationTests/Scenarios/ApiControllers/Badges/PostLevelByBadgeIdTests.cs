@@ -198,7 +198,7 @@ namespace ferrilata_devilline.IntegrationTests.Scenarios.ApiControllers.Badges
 
         public LevelInDTO createCorrectLevelInDTO()
         {
-            return new LevelInDTO() { Weight = "test", LevelNumber = 3, Description = "test" };
+            return new LevelInDTO() { Weight = "test", LevelNumber = 100, Description = "test" };
         }
 
         public LevelInDTO createExistingInCorrectLevelInDTO()

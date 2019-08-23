@@ -35,7 +35,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
                 return BadRequest(new {error = "Requested Badge does not exist"});
             _badgeService.DeleteById(badgeId);
             return Ok("Deleted");
-
         }
 
         [HttpDelete]
@@ -123,7 +122,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
 
             return Ok(new {message = "Updated"});
         }
-
 
         [HttpPut]
         [Route("/api/badges/{badgeId}/levels/{levelId}")]
