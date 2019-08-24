@@ -19,11 +19,18 @@
 .panel-body {
     background-color: #F0ECEF;
     padding: 10px;
+    margin-bottom: 5px;
 }
 
 .jumbotron {
     word-wrap: break-word;
     color: black;
+}
+
+.update {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 5px;
 }
 
 .modal-body {
@@ -42,149 +49,3 @@
     width: 108px;
     height: 48px;
 }
-
-/*a:hover, a:focus {
-    outline: none;
-    text-decoration: none;
-}
-
-#accordion .panel {
-    border: 0px none;
-    box-shadow: none;
-}
-
-#accordion .panel-heading {
-    padding: 0;
-    background: #fff;
-}
-
-#accordion .panel-title a {
-    display: block;
-    position: relative;
-    background: transparent;
-    color: #de4d4e;
-    font-size: 14px;
-    font-weight: bolder;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    padding: 15px 50px;
-    border-bottom: 1px solid #de4d4e;
-    border-radius: 0 15px 0 15px;
-    transition: all 0.10s linear 0s;
-}
-
-    #accordion .panel-title a.collapsed {
-        color: #808080;
-        border-bottom: 1px solid #d3d3d3;
-        margin: 0;
-    }
-
-    #accordion .panel-title a i {
-        color: #de4d4e;
-        position: absolute;
-        top: 14px;
-        left: 25px;
-    }
-
-    #accordion .panel-title a:before,
-    #accordion .panel-title a.collapsed:before {
-        content: "";
-        position: absolute;
-        bottom: -15px;
-        left: 36px;
-        border: 7px solid transparent;
-        border-top: 7px solid #de4d4e;
-    }
-
-    #accordion .panel-title a.collapsed:before {
-        content: "";
-        border: 0px none;
-    }
-
-    #accordion .panel-title a.collapsed:hover {
-        color: #6a6060;
-    }
-
-    #accordion .panel-title a:after,
-    #accordion .panel-title a.collapsed:after {
-        content: "\f106";
-        font-family: FontAwesome;
-        color: #de4d4e;
-        font-size: 20px;
-        line-height: 20px;
-        position: absolute;
-        top: 14px;
-        right: 25px;
-    }
-
-    #accordion .panel-title a.collapsed:after {
-        content: "\f107";
-        color: #808080;
-    }
-
-#accordion .panel-body {
-    border-top: 0 none;
-    color: #808080;
-}*/
-
-/*.table tr {
-    cursor: pointer;
-}
-
-.hiddenRow {
-    padding: 0 4px !important;
-    background-color: #eeeeee;
-    font-size: 13px;
-}
-
-.page-header {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-
-
-
-
-.arrow-down {
-    width: 50px;
-    height: 50px;
-    background: transparent;
-    position: relative;
-}
-
-.arrow-down.active {
-    background: transparent;
-}
-
-.arrow-down:before, .arrow-down:after {
-    content: "";
-    display: block;
-    width: 20px;
-    height: 5px;
-    background: #33b5e5;
-    position: absolute;
-    top: 20px;
-    transition: transform .5s;
-}
-
-.arrow-down:before {
-    right: 21px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    transform: rotate(45deg);
-}
-
-.arrow-down:after {
-    right: 10px;
-    transform: rotate(-45deg);
-}
-
-.arrow-down.active:before {
-    transform: rotate(-45deg);
-}
-
-.arrow-down.active:after {
-    transform: rotate(45deg);
-}*/
-

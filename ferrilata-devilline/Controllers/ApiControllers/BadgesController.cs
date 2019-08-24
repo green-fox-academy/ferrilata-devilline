@@ -35,7 +35,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
                 return BadRequest(new {error = "Requested Badge does not exist"});
             _badgeService.DeleteById(badgeId);
             return Ok("Deleted");
-
         }
 
         [HttpDelete]
@@ -67,7 +66,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             {
                 return BadRequest(new {error = "Please provide all fields"});
             }
-
 
             var isLevelNumberNew = _badgeService.FindBadgeById(badgeId).Levels
                                        .FirstOrDefault(l => l.LevelNumber == newLevel.LevelNumber) == null;
@@ -125,7 +123,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
             return Ok(new {message = "Updated"});
         }
 
-
         [HttpPut]
         [Route("/api/badges/{badgeId}/levels/{levelId}")]
         public IActionResult UpdateBadgeLevel([FromBody] LevelInDTO levelInDTO, long badgeId, long levelId)
@@ -151,7 +148,6 @@ namespace ferrilata_devilline.Controllers.ApiControllers
 
             return Ok(_badgeService.FindDTOById(badgeId));
         }
-
 
         [HttpGet]
         [Route("/api/badges/{badgeId}/levels/{levelId}")]

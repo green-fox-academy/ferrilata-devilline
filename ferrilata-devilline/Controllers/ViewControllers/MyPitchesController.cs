@@ -4,11 +4,9 @@ using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
@@ -29,12 +27,16 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpGet("/mypitches")]
         public IActionResult getMyPitches()
         {
-            return View();
+            string email = User.FindFirstValue(ClaimTypes.Email);
+            var user = _userService.FindByEmail(email);
+
+            return View(user);
         }
 
         [HttpPost("/createpitch/{levelId}")]
-        public IActionResult createpitch(long levelId, PitchInDTO incomingPitch)
+        public IActionResult createpitch(long levelId, long badgeId, long userId, PitchInDTO incomingPitch)
         {
+            //List<User> users = _userService.GetAll();
             string email = User.FindFirstValue(ClaimTypes.Email);
 
             if (_userService.IsNewUser(email))
@@ -43,6 +45,12 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             }
  
             var user = _userService.FindByEmail(email);
+            
+            if (_userService.IsThereLevelFromSameBadge(badgeId, user))
+            {
+                Level pitchLevel = _userService.GetLevelFromSameBadge(badgeId, user);
+                incomingPitch.Level = pitchLevel;
+            }
             _pitchService.SavePitchFromPitchInDTO(levelId, user, incomingPitch);
 
             return Redirect("/badgelibrary");

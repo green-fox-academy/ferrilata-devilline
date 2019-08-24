@@ -15,5 +15,7 @@ namespace ferrilata_devilline.Services.Interfaces
         void DeleteById(long id);
         void Update();
         bool IsNewUser(string email);
+        bool IsThereLevelFromSameBadge(long badgeId, User user);
+        Level GetLevelFromSameBadge(long badgeId, User user);
     }
 }

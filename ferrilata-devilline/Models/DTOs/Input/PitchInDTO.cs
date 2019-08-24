@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ferrilata_devilline.Models.DAOs;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,7 +8,7 @@ namespace ferrilata_devilline.Models.DTOs
     public class PitchInDTO
     {
         [JsonProperty(PropertyName = "status")]
-        public string Status { get; set; } = "Pending";
+        public string Status { get; set; } = "open";
 
         [JsonProperty(PropertyName = "pitchedMessage")]
         [Required]
@@ -25,8 +26,8 @@ namespace ferrilata_devilline.Models.DTOs
         //[JsonProperty(PropertyName = "user", Required = Required.Always)]
         //public UserDTO User { get; set; }
 
-        //[JsonProperty(PropertyName = "level")]
-        //public LevelMiniDTO Level { get; set; }
+        [JsonProperty(PropertyName = "level")]
+        public Level Level { get; set; }
 
         [JsonProperty(PropertyName = "reviews")]
         public List<ReviewDTO> Reviews { get; set; }

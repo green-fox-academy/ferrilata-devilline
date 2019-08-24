@@ -9,6 +9,7 @@ using ferrilata_devilline.ViewModels;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize(AuthenticationSchemes = GoogleDefaults.AuthenticationScheme)]
     public class ViewBadgesController : Controller
     {
@@ -41,8 +42,18 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpPost("/badgelibrary/add")]
         public IActionResult CreateAndAddBadge(BadgeInDTO newBadge)
         {
-            _badgeService.AddBadge(newBadge);
+            if (ModelState.IsValid)
+            {
+                _badgeService.AddBadge(newBadge);
+            }
             return Redirect("/badgelibrary");
+        }
+
+        [HttpPost("/UpdateBadge")]
+        public IActionResult UpdateBadge(BadgeDTO badge)
+        {
+            _badgeService.UpdateBadgeFromForm(badge);
+            return Redirect("/badgeLibrary");
         }
     }
 }

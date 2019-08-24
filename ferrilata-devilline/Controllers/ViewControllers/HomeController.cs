@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ferrilata_devilline.Controllers
+namespace ferrilata_devilline.Controllers.ViewControllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
         private readonly ISlackMessagingService _slackMessagingService;
@@ -23,7 +24,7 @@ namespace ferrilata_devilline.Controllers
         {
             string testMessage = _slackMessagingService.BuildMessage();
             _slackMessagingService.SendMessage(testMessage);
-            return View(User.Identity.IsAuthenticated ? "Index" : "Error");
+            return View();
         }
 
         [HttpPost("/signout")]

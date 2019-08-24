@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ferrilata_devilline.Models.DAOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace ferrilata_devilline.Repositories
 {
@@ -21,7 +22,15 @@ namespace ferrilata_devilline.Repositories
 
         public List<User> RetrieveUsersFromDB()
         {
-            return _applicationContext.Users.ToList();
+            return _applicationContext.Users
+                .Include(user => user.Pitches)
+                .ThenInclude(pitch => pitch.Level)
+                .ThenInclude(level => level.Badge)
+                .Include(user => user.UserLevels)
+                .ThenInclude(userLevel => userLevel.Level)
+                .ThenInclude(level => level.Badge)
+                .Include(user => user.Reviews)
+                .ToList();
         }
 
         public User FindUserById(long id)

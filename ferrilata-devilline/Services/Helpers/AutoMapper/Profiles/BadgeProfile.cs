@@ -17,6 +17,7 @@ namespace ferrilata_devilline.Services.Helpers.AutoMapper.Profiles
                 x => x.MapFrom(y => y.UserLevels.Select(z => z.User)));
 
             CreateMap<LevelInDTO, Level>();
+            CreateMap<BadgeDTO, Badge>();
         }
     }
 }

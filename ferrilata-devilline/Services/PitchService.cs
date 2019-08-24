@@ -14,11 +14,13 @@ namespace ferrilata_devilline.Services
     {
         private readonly IPitchRepository _pitchRepository;
         private readonly IMapper _mapper;
+        private readonly ILevelService _levelService;
 
-        public PitchService(IPitchRepository pitchRepository, IMapper mapper)
+        public PitchService(IPitchRepository pitchRepository, IMapper mapper, ILevelService levelService)
         {
             _pitchRepository = pitchRepository;
             _mapper = mapper;
+            _levelService = levelService;
         }
 
         public Pitch GetPitchFromPitchInDTO(PitchInDTO IncomingPicth)
@@ -51,7 +53,7 @@ namespace ferrilata_devilline.Services
         {
             Pitch pitchToSave = _mapper.Map<PitchInDTO, Pitch>(PitchDTO);
             pitchToSave.User = user;
-            pitchToSave.PitchedLevel = levelid.ToString();
+            pitchToSave.PitchedLevel = _levelService.FindLevelById(levelid).LevelNumber.ToString();
             _pitchRepository.SavePitch(pitchToSave);
         }
     }
