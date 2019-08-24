@@ -28,7 +28,7 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             List<User> users = _userService.GetAll();
             var ViewModel = new BadgeLibraryViewModel { Badges = badges, Users = users };
 
-            return View(badges);
+            return View(ViewModel);
         }
 
         [HttpPost("/badgelibrary/delete/{badgeId}")]
