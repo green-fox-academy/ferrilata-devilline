@@ -154,7 +154,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-row">
-                                                                    <select class="custom-select" asp-for="ReviewerId"
+                                                                    <label for="reviewer">Reviewer</label>
+                                                                    <select id="reviewer" class="custom-select" asp-for="ReviewerId"
                                                                             asp-items="@(new SelectList(Model.Users,"UserId","Name"))" required>
                                                                         <option value="" disabled selected>Select your reviewer</option>
                                                                     </select>
