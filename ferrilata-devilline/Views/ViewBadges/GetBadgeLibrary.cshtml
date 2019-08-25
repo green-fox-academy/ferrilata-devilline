@@ -12,7 +12,7 @@
         <div class="modal fade" id="Badge">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="needs-validation" novalidate asp-controller="ViewBadges" asp-action="CreateAndAddBadge" method="post">
+                    <form class="needs-validation" novalidate asp-controller="ViewBadges" asp-action="CreateAndAddBadge" method="post">
                         <div class="modal-header">
                             <h5 class="modal-title text-uppercase text-center">New Badge</h5>
                         </div>
@@ -155,9 +155,12 @@
                                                                 </div>
                                                                 <div class="form-row">
                                                                     <select class="custom-select" asp-for="ReviewerId"
-                                                                            asp-items="@(new SelectList(Model.Users,"UserId","Name"))">
-                                                                        <option>Please select a reviewer</option>
+                                                                            asp-items="@(new SelectList(Model.Users,"UserId","Name"))" required>
+                                                                        <option value="" disabled selected>Select your reviewer</option>
                                                                     </select>
+                                                                    <div class="invalid-feedback">
+                                                                        Please assign a reviewer.
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

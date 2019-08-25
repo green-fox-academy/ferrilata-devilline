@@ -18,7 +18,5 @@ namespace ferrilata_devilline.Services.Interfaces
         bool IsNewUser(string email);
         bool HasUserSameLevel(long levelId, User user);
         bool HasPitchForSameLevel(long levelId, User user);
-        //bool IsThereLevelFromSameBadge(long badgeId, User user);
-        //Level GetLevelFromSameBadge(long badgeId, User user);
     }
 }

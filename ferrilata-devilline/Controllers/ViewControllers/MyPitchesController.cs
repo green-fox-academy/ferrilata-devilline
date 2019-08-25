@@ -45,12 +45,6 @@ namespace ferrilata_devilline.Controllers.ViewControllers
  
             var user = _userService.FindByEmail(email);
             var reviewer = _userService.FindById(ReviewerId);
-            
-            //if (_userService.IsThereLevelFromSameBadge(badgeId, user))
-            //{
-            //    Level pitchLevel = _userService.GetLevelFromSameBadge(badgeId, user);
-            //    incomingPitch.Level = pitchLevel;
-            //}
             _pitchService.SavePitchFromPitchInDTO(levelId, user, reviewer, incomingPitch);
 
             return Redirect("/badgelibrary");

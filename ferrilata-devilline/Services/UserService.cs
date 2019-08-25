@@ -86,11 +86,5 @@ namespace ferrilata_devilline.Services
             bool istehere = user.Pitches.FirstOrDefault(pitch => pitch.Level.LevelId == levelId) == null ? false : true;
             return istehere;
         }
-
-        //public Level GetLevelFromSameBadge(long badgeId, User user)
-        //{
-        //    Level levelToReturn = user.UserLevels.FirstOrDefault(x => x.Level.Badge.BadgeId == badgeId).Level;
-        //    return levelToReturn;
-        //}
     }
 }
