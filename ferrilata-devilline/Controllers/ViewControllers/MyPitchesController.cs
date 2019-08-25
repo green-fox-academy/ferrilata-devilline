@@ -34,7 +34,7 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         }
 
         [HttpPost("/createpitch/{levelId}")]
-        public IActionResult createpitch(long levelId, long badgeId, long userId, PitchInDTO incomingPitch)
+        public IActionResult createpitch(long levelId, long badgeId, long ReviewerId, PitchInDTO incomingPitch)
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
 
@@ -44,7 +44,7 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             }
  
             var user = _userService.FindByEmail(email);
-            var reviewer = _userService.FindById(userId);
+            var reviewer = _userService.FindById(ReviewerId);
             
             //if (_userService.IsThereLevelFromSameBadge(badgeId, user))
             //{

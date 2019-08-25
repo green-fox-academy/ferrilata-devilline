@@ -9,7 +9,8 @@ namespace ferrilata_devilline.ViewModels
 {
     public class BadgeLibraryViewModel
     {
-        public long UserId { get; set; }
+        public User User { get; set; }
+        public long ReviewerId { get; set; }
         public List<BadgeDTO> Badges { get; set; }
         public List<User> Users { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿@model BadgeLibraryViewModel
+@inject ferrilata_devilline.Services.Interfaces.IUserService userservice
 
 @{
     ViewData["Title"] = "Badge Library";
@@ -128,68 +129,48 @@
                                 <div class="card border-info mb-3" style="max-width: 20rem;">
                                     <div class="card-header">
                                         Level @level.LevelNumber
-                                        <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#@("pitch" + level.LevelId)">
-                                            Pitch
-                                        </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="@("pitch" + level.LevelId)" tabindex="-1" role="dialog" aria-labelledby="@("pitchModal" + level.LevelId)" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="@("pitchModal" + level.LevelId)">Create pitch</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
+                                        @if (!userservice.HasUserSameLevel(level.LevelId, Model.User) && !userservice.HasPitchForSameLevel(level.LevelId, Model.User)) { 
+                                            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#@("pitch" + level.LevelId)">
+                                                Pitch
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="@("pitch" + level.LevelId)" tabindex="-1" role="dialog" aria-labelledby="@("pitchModal" + level.LevelId)" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="@("pitchModal" + level.LevelId)">Create pitch</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
 
-                                                    <div class="modal-body">
-                                                        <form class="needs-validation" novalidate asp-route-badgeId="@badge.BadgeId" asp-route-levelId="@level.LevelId" asp-controller="MyPitches" asp-action="createpitch" method="post">
-                                                            <div class="form-row">
-                                                                <label for="PitchedMessage">PitchMessage</label>
-                                                                <input id="PitchedMessage" name="PitchedMessage" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
-                                                                <div class="invalid-feedback">
-                                                                    Please enter the pitch message.
+                                                        <div class="modal-body">
+                                                            <form class="needs-validation" novalidate asp-route-badgeId="@badge.BadgeId" asp-route-levelId="@level.LevelId" asp-controller="MyPitches" asp-action="createpitch" method="post">
+                                                                <div class="form-row">
+                                                                    <label for="PitchedMessage">PitchMessage</label>
+                                                                    <input id="PitchedMessage" name="PitchedMessage" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
+                                                                    <div class="invalid-feedback">
+                                                                        Please enter the pitch message.
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="form-row">
-                                                                <select class="custom-select" asp-for="UserId"
-                                                                        asp-items="@(new SelectList(Model.Users,"UserId","Name"))">
-                                                                    <option>Please select a reviewer</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save</button>
-                                                            </div>
-                                                        </form>
-                                                        @*<form id="needs-validation" novalidate asp-route-levelId="@level.LevelId" asp-controller="MyPitches" asp-action="createpitch" method="post">
-                            <fieldset>
-                                <div class="form-group">
-                                    <label for="PitchedMessage">Pitch message</label>
-                                    <input class="form-control" id="PitchedMessage" name="PitchedMessage" type="text" ria-describedby="inputGroupPrepend" required>
-                                    <div class="invalid-feedback">
-                                        Please enter a pitch message.
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Name">Name</label>
-                                    <input type="text" class="form-control" id="Name" name="Name" value="@badge.Name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Tag">Tag</label>
-                                    <input type="text" class="form-control" id="Tag" name="Tag" value="@badge.Tag">
-                                </div>
-                            </fieldset>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>*@
-                                                    </div>
+                                                                <div class="form-row">
+                                                                    <select class="custom-select" asp-for="ReviewerId"
+                                                                            asp-items="@(new SelectList(Model.Users,"UserId","Name"))">
+                                                                        <option>Please select a reviewer</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                </div>
+                                                            </form>
+                                                            
+                                                        </div>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     </div>
                                     <div class="card-body">
 

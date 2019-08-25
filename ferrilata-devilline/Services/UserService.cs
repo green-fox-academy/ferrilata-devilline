@@ -35,6 +35,19 @@ namespace ferrilata_devilline.Services
             return _userRepository.RetrieveUsersFromDB();
         }
 
+        public List<User> GetAllExceptFor(User currentUser)
+        {
+            List<User> usersToReturn = new List<User>();
+            foreach (User user in _userRepository.RetrieveUsersFromDB())
+            {
+                if(user.UserId != currentUser.UserId)
+                {
+                    usersToReturn.Add(user);
+                }
+            }
+            return usersToReturn;
+        }
+
         public void Update()
         {
             _userRepository.Update();
@@ -50,16 +63,29 @@ namespace ferrilata_devilline.Services
             return FindByEmail(email) == null ? true : false;
         }
 
-        //public bool IsThereLevelFromSameBadge(long badgeId, User user)
-        //{
-        //    if (user.UserLevels == null)
-        //    {
-        //        return false;
-        //    }
 
-        //    bool istehere = user.UserLevels.FirstOrDefault(x => x.Level.Badge.BadgeId == badgeId) == null ? false : true;
-        //    return istehere;
-        //}
+
+        public bool HasUserSameLevel(long levelId, User user)
+        {
+            if (user.UserLevels == null)
+            {
+                return false;
+            }
+
+            bool istehere = user.UserLevels.FirstOrDefault(x => x.Level.LevelId == levelId) == null ? false : true;
+            return istehere;
+        }
+
+        public bool HasPitchForSameLevel(long levelId, User user)
+        {
+            if (user.Pitches.Count == 0)
+            {
+                return false;
+            }
+
+            bool istehere = user.Pitches.FirstOrDefault(pitch => pitch.Level.LevelId == levelId) == null ? false : true;
+            return istehere;
+        }
 
         //public Level GetLevelFromSameBadge(long badgeId, User user)
         //{
