@@ -95,6 +95,8 @@ namespace ferrilata_devilline
 
             services.AddScoped<IBadgeRepository, BadgeRepository>();
             services.AddScoped<IBadgeService, BadgeService>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<ILevelRepository, LevelRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ILevelService, LevelService>();

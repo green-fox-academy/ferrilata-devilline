@@ -12,7 +12,7 @@ namespace ferrilata_devilline.Services.Interfaces
         Pitch FindPitchById(long id);
         List<Pitch> GetAll();
         Pitch GetPitchFromPitchInDTO(PitchInDTO IncomingPicth);
-        void SavePitchFromPitchInDTO(long levelid, User user, PitchInDTO pitchDTO);
+        void SavePitchFromPitchInDTO(long levelid, User user, User reviewer, PitchInDTO pitchDTO);
         void Delete(Pitch pitch);
         void Update();
     }

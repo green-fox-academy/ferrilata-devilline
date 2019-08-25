@@ -15,12 +15,14 @@ namespace ferrilata_devilline.Services
         private readonly IPitchRepository _pitchRepository;
         private readonly IMapper _mapper;
         private readonly ILevelService _levelService;
+        private readonly IReviewService _reviewService;
 
-        public PitchService(IPitchRepository pitchRepository, IMapper mapper, ILevelService levelService)
+        public PitchService(IPitchRepository pitchRepository, IMapper mapper, ILevelService levelService, IReviewService reviewService)
         {
             _pitchRepository = pitchRepository;
             _mapper = mapper;
             _levelService = levelService;
+            _reviewService = reviewService;
         }
 
         public Pitch GetPitchFromPitchInDTO(PitchInDTO IncomingPicth)
@@ -49,11 +51,14 @@ namespace ferrilata_devilline.Services
             _pitchRepository.Update();
         }
 
-        public void SavePitchFromPitchInDTO(long levelid, User user, PitchInDTO PitchDTO)
+        public void SavePitchFromPitchInDTO(long levelid, User user, User reviewer, PitchInDTO PitchDTO)
         {
             Pitch pitchToSave = _mapper.Map<PitchInDTO, Pitch>(PitchDTO);
             pitchToSave.User = user;
-            pitchToSave.PitchedLevel = _levelService.FindLevelById(levelid).LevelNumber.ToString();
+            pitchToSave.Level = _levelService.FindLevelById(levelid);
+            Review review = new Review { User = reviewer};
+            pitchToSave.Reviews.Add(review);
+            
             _pitchRepository.SavePitch(pitchToSave);
         }
     }

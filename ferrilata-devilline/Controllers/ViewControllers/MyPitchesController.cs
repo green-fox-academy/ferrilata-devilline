@@ -36,7 +36,6 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         [HttpPost("/createpitch/{levelId}")]
         public IActionResult createpitch(long levelId, long badgeId, long userId, PitchInDTO incomingPitch)
         {
-            //List<User> users = _userService.GetAll();
             string email = User.FindFirstValue(ClaimTypes.Email);
 
             if (_userService.IsNewUser(email))
@@ -45,13 +44,14 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             }
  
             var user = _userService.FindByEmail(email);
+            var reviewer = _userService.FindById(userId);
             
-            if (_userService.IsThereLevelFromSameBadge(badgeId, user))
-            {
-                Level pitchLevel = _userService.GetLevelFromSameBadge(badgeId, user);
-                incomingPitch.Level = pitchLevel;
-            }
-            _pitchService.SavePitchFromPitchInDTO(levelId, user, incomingPitch);
+            //if (_userService.IsThereLevelFromSameBadge(badgeId, user))
+            //{
+            //    Level pitchLevel = _userService.GetLevelFromSameBadge(badgeId, user);
+            //    incomingPitch.Level = pitchLevel;
+            //}
+            _pitchService.SavePitchFromPitchInDTO(levelId, user, reviewer, incomingPitch);
 
             return Redirect("/badgelibrary");
         }

@@ -17,8 +17,8 @@ namespace ferrilata_devilline.Models.DAOs
         [Required]
         public string Status { get; set; }
 
-        [Required]
-        public string PitchedLevel { get; set; }
+        //[Required]
+        //public string PitchedLevel { get; set; }
 
         [Required]
         public string PitchedMessage { get; set; }

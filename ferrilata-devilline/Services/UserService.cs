@@ -50,21 +50,21 @@ namespace ferrilata_devilline.Services
             return FindByEmail(email) == null ? true : false;
         }
 
-        public bool IsThereLevelFromSameBadge(long badgeId, User user)
-        {
-            if (user.UserLevels == null)
-            {
-                return false;
-            }
+        //public bool IsThereLevelFromSameBadge(long badgeId, User user)
+        //{
+        //    if (user.UserLevels == null)
+        //    {
+        //        return false;
+        //    }
 
-            bool istehere = user.UserLevels.FirstOrDefault(x => x.Level.Badge.BadgeId == badgeId) == null ? false : true;
-            return istehere;
-        }
+        //    bool istehere = user.UserLevels.FirstOrDefault(x => x.Level.Badge.BadgeId == badgeId) == null ? false : true;
+        //    return istehere;
+        //}
 
-        public Level GetLevelFromSameBadge(long badgeId, User user)
-        {
-            Level levelToReturn = user.UserLevels.FirstOrDefault(x => x.Level.Badge.BadgeId == badgeId).Level;
-            return levelToReturn;
-        }
+        //public Level GetLevelFromSameBadge(long badgeId, User user)
+        //{
+        //    Level levelToReturn = user.UserLevels.FirstOrDefault(x => x.Level.Badge.BadgeId == badgeId).Level;
+        //    return levelToReturn;
+        //}
     }
 }

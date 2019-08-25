@@ -152,9 +152,9 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-row">
-                                                                <select asp-for="UserId"
+                                                                <select class="custom-select" asp-for="UserId"
                                                                         asp-items="@(new SelectList(Model.Users,"UserId","Name"))">
-                                                                    <option>Please select one</option>
+                                                                    <option>Please select a reviewer</option>
                                                                 </select>
                                                             </div>
                                                             <div class="modal-footer">
