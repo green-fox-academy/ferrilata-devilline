@@ -63,8 +63,6 @@ namespace ferrilata_devilline.Services
             return FindByEmail(email) == null ? true : false;
         }
 
-
-
         public bool HasUserSameLevel(long levelId, User user)
         {
             if (user.UserLevels == null)

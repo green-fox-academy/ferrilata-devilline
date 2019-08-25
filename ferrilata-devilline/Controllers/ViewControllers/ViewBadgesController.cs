@@ -30,9 +30,7 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             User user = _userService.FindByEmail(email);
             List<BadgeDTO> badges = _badgeService.GetAllDTO();
             List<User> users = _userService.GetAllExceptFor(user);
-
             long userId = _userService.FindByEmail(email).UserId;
-
             var ViewModel = new BadgeLibraryViewModel { Badges = badges, Users = users, User = user};
 
             return View(ViewModel);

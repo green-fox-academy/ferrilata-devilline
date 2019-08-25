@@ -232,7 +232,6 @@ namespace ferrilata_devilline.Services.Helpers
             users[0].UserLevels = new List<UserLevel> { userLevels[0], userLevels[2], userLevels[3], userLevels[4] };
             users[1].UserLevels = new List<UserLevel> { userLevels[1], userLevels[5], userLevels[6], userLevels[7] };
             users[2].UserLevels = new List<UserLevel> { userLevels[8], userLevels[9], userLevels[10], userLevels[11] };
-            User user = users[1];
 
             context.Users.UpdateRange(users);
             context.SaveChanges();
@@ -244,7 +243,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch1 = new Pitch
             {
                 Status = "open",
-                //PitchedLevel = "pitch1 pitchedLevel",
                 PitchedMessage = "pitch1 pitchedMessage",
                 Result = "pitch1 result",
                 User = users[0],
@@ -253,7 +251,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch2 = new Pitch
             {
                 Status = "open",
-                //PitchedLevel = "pitch2 pitchedLevel",
                 PitchedMessage = "pitch2 pitchedMessage",
                 Result = "pitch2 result",
                 User = users[1],
@@ -262,7 +259,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch11 = new Pitch
             {
                 Status = "open",
-                //PitchedLevel = "pitch11 pitchedLevel",
                 PitchedMessage = "pitch11 pitchedMessage",
                 Result = "pitch11 result",
                 User = users[0],
@@ -271,7 +267,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch12 = new Pitch
             {
                 Status = "open",
-                //PitchedLevel = "pitch12 pitchedLevel",
                 PitchedMessage = "pitch12 pitchedMessage",
                 Result = "pitch12 result",
                 User = users[0],
@@ -280,7 +275,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch13 = new Pitch
             {
                 Status = "open",
-                //PitchedLevel = "pitch12 pitchedLevel",
                 PitchedMessage = "pitch12 pitchedMessage",
                 Result = "pitch12 result",
                 User = users[0],

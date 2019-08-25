@@ -4,14 +4,17 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ferrilata_devilline.Controllers.ApiControllers
 {
-    [Authorize(AuthenticationSchemes =
-        JwtBearerDefaults.AuthenticationScheme)]
     public class ApiHeartbeat : Controller
     {
         [HttpGet("/Heartbeat")]
         public IActionResult Heartbeat()
         {
-            return Ok(new {status = "OK"});
+            if (Request.Headers.ContainsKey("Authorization") && Request.Headers["Authorization"].ToString().Length != 0)
+            {
+                return Ok(new { status = "OK" });
+            }
+
+            return Unauthorized(new { error = "Unauthorized" });
         }
     }
 }

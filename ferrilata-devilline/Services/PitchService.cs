@@ -58,7 +58,6 @@ namespace ferrilata_devilline.Services
             pitchToSave.Level = _levelService.FindLevelById(levelid);
             Review review = new Review { User = reviewer};
             pitchToSave.Reviews.Add(review);
-            
             _pitchRepository.SavePitch(pitchToSave);
         }
     }
