@@ -11,9 +11,12 @@ namespace ferrilata_devilline.Services.Interfaces
         User FindById(long id);
         User FindByEmail(String email);
         List<User> GetAll();
+        List<User> GetAllExceptFor(User currentUser);
         void Add(User user);
         void DeleteById(long id);
         void Update();
         bool IsNewUser(string email);
+        bool HasUserSameLevel(long levelId, User user);
+        bool HasPitchForSameLevel(long levelId, User user);
     }
 }

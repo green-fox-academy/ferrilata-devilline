@@ -1,4 +1,5 @@
-﻿@model List<BadgeDTO>;
+﻿@model BadgeLibraryViewModel
+@inject ferrilata_devilline.Services.Interfaces.IUserService userservice
 
 @{
     ViewData["Title"] = "Badge Library";
@@ -11,7 +12,7 @@
         <div class="modal fade" id="Badge">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="needs-validation" novalidate asp-controller="ViewBadges" asp-action="CreateAndAddBadge" method="post">
+                    <form class="needs-validation" novalidate asp-controller="ViewBadges" asp-action="CreateAndAddBadge" method="post">
                         <div class="modal-header">
                             <h5 class="modal-title text-uppercase text-center">New Badge</h5>
                         </div>
@@ -50,7 +51,7 @@
     </div>
 </div>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    @foreach (var badge in Model)
+    @foreach (var badge in Model.Badges)
     {
         <div class="panel panel-info">
             <div class="panel-heading" role="tab" id="@("heading" + badge.BadgeId)">
@@ -126,7 +127,55 @@
                         {
                             <div class="col-sm-4">
                                 <div class="card border-info mb-3" style="max-width: 20rem;">
-                                    <div class="card-header">Level @level.LevelNumber</div>
+                                    <div class="card-header">
+                                        Level @level.LevelNumber
+                                        @if (!userservice.HasUserSameLevel(level.LevelId, Model.User) && !userservice.HasPitchForSameLevel(level.LevelId, Model.User)) { 
+                                            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#@("pitch" + level.LevelId)">
+                                                Pitch
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="@("pitch" + level.LevelId)" tabindex="-1" role="dialog" aria-labelledby="@("pitchModal" + level.LevelId)" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="@("pitchModal" + level.LevelId)">Create pitch</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <form class="needs-validation" novalidate asp-route-badgeId="@badge.BadgeId" asp-route-levelId="@level.LevelId" asp-controller="MyPitches" asp-action="createpitch" method="post">
+                                                                <div class="form-row">
+                                                                    <label for="PitchedMessage">PitchMessage</label>
+                                                                    <input id="PitchedMessage" name="PitchedMessage" type="text" class="form-control" aria-describedby="inputGroupPrepend" required />
+                                                                    <div class="invalid-feedback">
+                                                                        Please enter the pitch message.
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-row">
+                                                                    <label for="reviewer">Reviewer</label>
+                                                                    <select id="reviewer" class="custom-select" asp-for="ReviewerId"
+                                                                            asp-items="@(new SelectList(Model.Users,"UserId","Name"))" required>
+                                                                        <option value="" disabled selected>Select your reviewer</option>
+                                                                    </select>
+                                                                    <div class="invalid-feedback">
+                                                                        Please assign a reviewer.
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                </div>
+                                                            </form>
+                                                            
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
                                     <div class="card-body">
 
                                         <p class="lead text-primary">@level.Description</p>

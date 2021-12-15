@@ -4,11 +4,9 @@ using ferrilata_devilline.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ferrilata_devilline.Controllers.ViewControllers
 {
@@ -16,11 +14,14 @@ namespace ferrilata_devilline.Controllers.ViewControllers
     public class MyPitchesController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IBadgeService _badgeService;
+        private readonly IPitchService _pitchService;
 
-        public MyPitchesController(IUserService userService)
+        public MyPitchesController(IUserService userService, IBadgeService badgeService, IPitchService pitchService)
         {
             _userService = userService;
-            
+            _badgeService = badgeService;
+            _pitchService = pitchService;
         }
 
         [HttpGet("/mypitches")]
@@ -33,7 +34,7 @@ namespace ferrilata_devilline.Controllers.ViewControllers
         }
 
         [HttpPost("/createpitch/{levelId}")]
-        public IActionResult createpitch(long levelId, PitchInDTO pitchInDTO)
+        public IActionResult createpitch(long levelId, long badgeId, long ReviewerId, PitchInDTO incomingPitch)
         {
             string email = User.FindFirstValue(ClaimTypes.Email);
 
@@ -41,6 +42,11 @@ namespace ferrilata_devilline.Controllers.ViewControllers
             {
                 _userService.Add(new User { Name = User.Identity.Name, Email = email });
             }
+ 
+            var user = _userService.FindByEmail(email);
+            var reviewer = _userService.FindById(ReviewerId);
+            _pitchService.SavePitchFromPitchInDTO(levelId, user, reviewer, incomingPitch);
+
             return Redirect("/badgelibrary");
         }
     }

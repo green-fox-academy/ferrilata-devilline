@@ -243,7 +243,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch1 = new Pitch
             {
                 Status = "open",
-                PitchedLevel = "pitch1 pitchedLevel",
                 PitchedMessage = "pitch1 pitchedMessage",
                 Result = "pitch1 result",
                 User = users[0],
@@ -252,7 +251,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch2 = new Pitch
             {
                 Status = "open",
-                PitchedLevel = "pitch2 pitchedLevel",
                 PitchedMessage = "pitch2 pitchedMessage",
                 Result = "pitch2 result",
                 User = users[1],
@@ -261,7 +259,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch11 = new Pitch
             {
                 Status = "open",
-                PitchedLevel = "pitch11 pitchedLevel",
                 PitchedMessage = "pitch11 pitchedMessage",
                 Result = "pitch11 result",
                 User = users[0],
@@ -270,7 +267,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch12 = new Pitch
             {
                 Status = "open",
-                PitchedLevel = "pitch12 pitchedLevel",
                 PitchedMessage = "pitch12 pitchedMessage",
                 Result = "pitch12 result",
                 User = users[0],
@@ -279,7 +275,6 @@ namespace ferrilata_devilline.Services.Helpers
             var pitch13 = new Pitch
             {
                 Status = "open",
-                PitchedLevel = "pitch12 pitchedLevel",
                 PitchedMessage = "pitch12 pitchedMessage",
                 Result = "pitch12 result",
                 User = users[0],

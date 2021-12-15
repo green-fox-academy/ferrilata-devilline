@@ -13,8 +13,10 @@ namespace ferrilata_devilline.Models.DAOs
 
         public string Result { get; set; }
 
+        [Required]
         public User User { get; set; }
 
+        [Required]
         public Pitch Pitch { get; set; }
     }
 }

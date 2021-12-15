@@ -26,6 +26,10 @@ namespace ferrilata_devilline.Repositories
                 .Include(user => user.Pitches)
                 .ThenInclude(pitch => pitch.Level)
                 .ThenInclude(level => level.Badge)
+                .Include(user => user.UserLevels)
+                .ThenInclude(userLevel => userLevel.Level)
+                .ThenInclude(level => level.Badge)
+                .Include(user => user.Reviews)
                 .ToList();
         }
 
